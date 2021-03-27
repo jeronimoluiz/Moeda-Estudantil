@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <img id  = "logo" alt="Vue logo" src="./assets/logo_temp.png" width = 200px height = 200px>
-    <br/>
     <a-button id = "botão" type="primary">Login</a-button>
      <br/>
     <a-button id = "botão" type="primary">Sign Up</a-button>
   </div>
 </template>
 
-
 <script>
 
 export default {
-  name: 'App',
+  name: 'Register',
   components: {
   }
 }
