@@ -1,13 +1,18 @@
 <template>
-  <div id="app">
-    <a-button id = "botão" type="primary">Login</a-button>
-     <br/>
-    <a-button id = "botão" type="primary">Sign Up</a-button>
+  <div class="login">
+    <h1>Registro</h1>
+    <form action="auth" method="POST">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="text" name="user" placeholder="Usuário" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <a-button id = "botão" type="primary">Cadastrar</a-button><br>
+      <a href="" id="esquerda">Esqueci minha senha</a>
+      <router-link to="/register">Cadastrar</router-link>
+    </form>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Register',
   components: {
@@ -16,19 +21,38 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-#logo{
-  margin-top: 15px;
-  margin-bottom: 20px;
-}
-#botão{
-  margin-top: 30px;
-}
+
+  .login {
+    width: 300px;
+    margin: 0 auto;
+    font-family: Tahoma, Geneva, sans-serif;
+  }
+  .login h1{
+    text-align: center;
+    color: #2c3e50;
+    font-size: 24px;
+    padding: 20px 0 20px 0;
+  }
+  .login input[type="password"],
+  .login input[type= "text"]{
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  #botão{
+    width: 100%;
+    font-weight: bold;
+  }
+  #esquerda{
+    color: #2c3e50;
+    padding: 0 110px 0 0;
+    font-family: Tahoma, Geneva, sans-serif;
+  }
+  #direita{
+    color: #2c3e50;
+    font-family: Tahoma, Geneva, sans-serif;
+  
+  }
 </style>
