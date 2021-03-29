@@ -4,8 +4,7 @@
     <form action="auth" method="POST">
       <input type="text" name="user" placeholder="Usuário" required>
       <input type="password" name="password" placeholder="Senha" required>
-      <a-button id = "botão" type="primary">Sign Up</a-button><br>
-      <br>
+      <br><br><button id = "botão" type="primary">Sign Up</button><br><br><br>
       <a href="" id="esquerda">Esqueci minha senha</a>
       <router-link to="/register" id="direita">Cadastrar</router-link>
     </form>
@@ -40,8 +39,14 @@
   #botão{
     width: 100%;
     font-weight: bold;
-    
-    
+    background: #008080;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    margin-top: 10px;
   }
   #esquerda{
     color: #2c3e50;

@@ -5,7 +5,7 @@
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="text" name="user" placeholder="Usuário" required>
       <input type="password" name="password" placeholder="Senha" required>
-      <a-button id = "botão" type="primary">Cadastrar</a-button><br>
+      <button id = "botão" type="primary">Cadastrar</button><br>
       <br>
       <a href="" id="esquerda">Esqueci minha senha</a>
       <router-link to="/login" id="direita">Login</router-link>
@@ -41,6 +41,13 @@
   #botão{
     width: 100%;
     font-weight: bold;
+    background: #008080;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    font-size: 16px;
   }
   #esquerda{
     color: #2c3e50;
