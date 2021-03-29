@@ -1,12 +1,17 @@
-import Vue from 'vue';
-import Button from 'ant-design-vue/lib/button';
-import 'ant-design-vue/dist/antd.css';
-import App from './App';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
 
-Vue.component(Button.name, Button);
+//import Button from 'ant-design-vue/lib/button';
+
+
+
+//Vue.component(Button.name, Button);
+
 
 Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app');
+  router,
+  render: (h) => h(App),
+}).$mount("#app");

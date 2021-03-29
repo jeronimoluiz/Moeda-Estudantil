@@ -5,18 +5,15 @@
       <input type="text" name="user" placeholder="Usuário" required>
       <input type="password" name="password" placeholder="Senha" required>
       <a-button id = "botão" type="primary">Sign Up</a-button><br>
+      <br>
       <a href="" id="esquerda">Esqueci minha senha</a>
-      <a href="./components/Register.vue" id="direita">Cadastrar</a>
+      <router-link to="/register" id="direita">Cadastrar</router-link>
     </form>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Login',
-  components: {
-  }
-}
+
 </script>
 
 <style>
@@ -43,15 +40,18 @@ export default {
   #botão{
     width: 100%;
     font-weight: bold;
+    
+    
   }
   #esquerda{
     color: #2c3e50;
     padding: 0 110px 0 0;
     font-family: Tahoma, Geneva, sans-serif;
+    margin-left: -5px;
   }
   #direita{
     color: #2c3e50;
     font-family: Tahoma, Geneva, sans-serif;
-  
+    margin-left: -25px;
   }
 </style>

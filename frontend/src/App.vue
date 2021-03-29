@@ -1,20 +1,10 @@
 <template>
   <div id="app">
-    <Login/>
+    
+    <router-view />
   </div>
 </template>
 
-
-<script>
-import Login from './components/Login.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Login
-  }
-}
-</script>
 
 <style>
 #app {
@@ -23,13 +13,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-#logo{
-  margin-top: 15px;
-  margin-bottom: 20px;
+
+#nav {
+  padding: 30px;
 }
-#botão{
-  margin-top: 30px;
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
+

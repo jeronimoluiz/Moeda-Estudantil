@@ -1,23 +1,20 @@
 <template>
   <div class="login">
-    <h1>Registro</h1>
+    <h1>Cadastro</h1>
     <form action="auth" method="POST">
       <input type="text" name="nome" placeholder="Nome" required>
       <input type="text" name="user" placeholder="Usuário" required>
       <input type="password" name="password" placeholder="Senha" required>
       <a-button id = "botão" type="primary">Cadastrar</a-button><br>
+      <br>
       <a href="" id="esquerda">Esqueci minha senha</a>
-      <router-link to="/register">Cadastrar</router-link>
+      <router-link to="/login" id="direita">Login</router-link>
     </form>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Register',
-  components: {
-  }
-}
+
 </script>
 
 <style>
