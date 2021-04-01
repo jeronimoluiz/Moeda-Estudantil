@@ -4,8 +4,7 @@
     <form action="auth" method="POST">
       <input type="text" name="user" placeholder="Usuário" required>
       <input type="password" name="password" placeholder="Senha" required>
-      <br><br><button id = "botão" type="primary">Sign Up</button><br><br><br>
-      <a href="" id="esquerda">Esqueci minha senha</a>
+      <br><br><button id = "botão" type="primary">Login</button><br><br><br>
       <router-link to="/register" id="direita">Cadastrar</router-link>
     </form>
   </div>
