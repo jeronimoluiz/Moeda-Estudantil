@@ -1,31 +1,33 @@
 <template>
-  <div class="cadastro">
-    <div class="card">
-      <h1>ENTRE AGORA</h1>
-      <form action="auth" method="POST">
-        <input type="text" name="nome" placeholder="Nome" required>
-        <input type="text" name="cpf" placeholder="CPF" required>
-        <input type="password" name="senha" placeholder="Senha" required>
-        <input type="password" name="senhaconfirm" placeholder="Confirmar Senha" required>
-        <br>
-        <b-form-select
-          nome = "universidade"
-          v-model="selected"
-          :options="options_cmb"
-          class="mb-3"
-          value-field="item"
-          text-field="name"
-          disabled-field="notEnabled"
-        ></b-form-select>
-        <!-- <div name = "radio_button">
-          Eu sou um:
-          <b-form-radio name="radio-size-aluno">Aluno</b-form-radio>
-          <b-form-radio name="radio-size-professor"> Professor</b-form-radio>
-        </div> -->
-        <button id = "button_signup" type="primary">Cadastrar</button><br>
-        <br>
-        <!--<router-link to="/login" id="direita">Login</router-link>-->
-      </form>
+  <div class = "main">
+    <b-img :src="require('../assets/logo.png')" class="image-fluid" height="80%"></b-img>
+    <div class="cadastro">
+      <div class="card">
+        <h1>ENTRE AGORA</h1>
+        <form action="auth" method="POST">
+          <input type="text" name="nome" placeholder="Nome" required>
+          <input type="text" name="cpf" placeholder="CPF" required>
+          <input type="password" name="senha" placeholder="Senha" required>
+          <input type="password" name="senhaconfirm" placeholder="Confirmar Senha" required>
+          <br>
+          <b-form-select
+            nome = "universidade"
+            v-model="selected"
+            :options="options_cmb"
+            class="mb-3"
+            value-field="item"
+            text-field="name"
+            disabled-field="notEnabled"
+          ></b-form-select>
+          <!-- <div name = "radio_button">
+            Eu sou um:
+            <b-form-radio name="radio-size-aluno">Aluno</b-form-radio>
+            <b-form-radio name="radio-size-professor"> Professor</b-form-radio>
+          </div> -->
+          <button id = "button_signup" type="primary">Cadastrar</button><br>
+          <br>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +54,12 @@
     transform: translate(0%, 40%);
     background: #F2F2F2;
     border-radius: 20px;
+  }
+
+  .image-fluid{
+    position: absolute;
+    transform: translate(-304%, 13%);
+    
   }
 
   .cadastro {
