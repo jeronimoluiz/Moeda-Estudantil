@@ -1,6 +1,6 @@
 <template>
   <div class = "main">
-    <b-img :src="require('../assets/logo.png')" class="image-fluid" height="80%"></b-img>
+    <b-img :src="require('../assets/logo.png')" class="image-fluid" alt = "Responsive image" height="80%"></b-img>
     <div class="cadastro">
       <div class="card">
         <h1>ENTRE AGORA</h1>
@@ -58,7 +58,7 @@
 
   .image-fluid{
     position: absolute;
-    transform: translate(-304%, 13%);
+    transform: translate(-49vw, 2vh);
     
   }
 
