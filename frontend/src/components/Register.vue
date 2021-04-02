@@ -37,6 +37,10 @@
           <br>
         </form>
       </div>
+      <div class="link-login">
+        Já tem cadastro? 
+        <router-link to="/login" id="_link-login">Login</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -159,6 +163,23 @@
     color: #ffbf03
   }
 
+  .link-login{
+    position: relative;
+    transform: translate(0%, 450%);
+    
+    font-family: Bebas Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #FFFFFF;
+  }
+
+  #_link-login{
+    color: #ffbf03
+  }
+
   #button_signup{
     width: 45%;
     white-space: normal;
@@ -176,17 +197,7 @@
     border: none;
     font-size: 26px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  #esquerda{
-    color: #2c3e50;
-    padding: 0 110px 0 0;
-    font-family: Tahoma, Geneva, sans-serif;
-  }
-  #direita{
-    color: #2c3e50;
-    font-family: Tahoma, Geneva, sans-serif;
-  
-  }
+  }  
 
 @font-face {
     font-family: 'Bebas Neue';
