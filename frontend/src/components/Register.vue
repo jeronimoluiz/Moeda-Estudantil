@@ -11,19 +11,28 @@
           <input type="password" name="senhaconfirm" placeholder="Confirmar Senha" required>
           <br>
           <b-form-select
+           class="mb-3"
+            name = "cmb_univ"
             nome = "universidade"
-            v-model="selected"
+            v-model="selected_cmb"
             :options="options_cmb"
-            class="mb-3"
             value-field="item"
             text-field="name"
             disabled-field="notEnabled"
           ></b-form-select>
-          <!-- <div name = "radio_button">
-            Eu sou um:
-            <b-form-radio name="radio-size-aluno">Aluno</b-form-radio>
-            <b-form-radio name="radio-size-professor"> Professor</b-form-radio>
-          </div> -->
+          <div class = "titulo-radio">
+              Eu sou um:
+          </div>
+          <b-form-group v-slot="{ ariaDescribedby }">
+            <b-form-radio-group
+              class = "mb-4"
+              :options=" options_radio"
+              v-model="selected_radio"
+              :aria-describedby="ariaDescribedby"
+              name="plain-inline"
+              plain
+            ></b-form-radio-group>
+          </b-form-group>
           <button id = "button_signup" type="primary">Cadastrar</button><br>
           <br>
         </form>
@@ -36,12 +45,17 @@
   export default {
     data() {
       return {
-        selected: null,
+        selected_cmb: null,
+        selected_radio: 'first',
         options_cmb: [
           { value: null, name: 'Selecione sua Universidade' },
           { item: 'A', name: 'Potifícia Universidade Católica de Minas Gerais' },
           { item: 'B', name: 'Universidade Federal de Minas Gerais' },
           { item: 'D', name: 'Centro Universitário UNA' },
+        ],
+        options_radio:[
+          { text: 'Aluno', value: 'first' },
+          { text: 'Professor', value: 'second' }
         ]
       }
     }
@@ -51,7 +65,7 @@
 <style>
   .card{
     position: relative;
-    transform: translate(0%, 40%);
+    transform: translate(0%, 25%);
     background: #F2F2F2;
     border-radius: 20px;
   }
@@ -75,6 +89,7 @@
     padding: 20px 0 20px 0;
     font-family: 'Bebas Neue';
   }
+
   .cadastro input[type="password"],
   .cadastro input[type= "text"]{
     width: 100%;
@@ -90,6 +105,7 @@
     border-radius: 50px;
     font-family: 'Bebas Neue';
     font-size : 20px;
+    outline: 0;    
   }
 
   .cadastro input[name = "nome"]{
@@ -98,7 +114,7 @@
     border-radius: 50px;
     font-family: 'Bebas Neue';
     font-size : 20px;
-
+    outline: 0;    
   }
 
   .cadastro input[name = "senha"]{
@@ -107,6 +123,7 @@
     border-radius: 50px;
     font-family: 'Bebas Neue';
     font-size : 20px;
+    outline: 0;
   }
 
   .cadastro input[name = "senhaconfirm"]{
@@ -115,6 +132,7 @@
     border-radius: 50px;
     font-family: 'Bebas Neue';
     font-size : 20px;
+    outline: 0;    
   }
 
   .mb-3{
@@ -127,6 +145,18 @@
     border-color: #ffbf03;
     color: #fff;
     outline: 0;    
+  }
+
+  .mb-4{
+    font-family: 'Bebas Neue';
+    font-size: 2.5vh;
+    color: #757575;
+  }
+
+  .titulo-radio{
+    font-family: 'Bebas Neue';
+    font-size: 3vh;
+    color: #ffbf03
   }
 
   #button_signup{
