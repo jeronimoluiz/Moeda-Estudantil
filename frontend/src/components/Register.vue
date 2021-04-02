@@ -165,7 +165,7 @@
 
   .link-login{
     position: relative;
-    transform: translate(0%, 450%);
+    transform: translate(0rem, 9rem);
     
     font-family: Bebas Neue;
     font-style: normal;
