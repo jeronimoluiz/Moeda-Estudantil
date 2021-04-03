@@ -42,111 +42,124 @@
 
   .logo{
     position: absolute;
-    transform: translate(15%, 30%);
-    width: 346px;
-    height: 125px;
-    
+    left: 3%;
+    margin-top:3vw;
+      
   }
 
   .caixa {
     position: absolute;
-    transform: translate(350%, 25%);
+    margin-top:6vw;
+    left: 73%;
+
     background: #F2F2F2;
-    border-radius: 20px;
-    width: 420px;
-    height: 650px;   
+    border-radius: 2vw;
+
+    width: 20vw;
+    height: 65vh;   
   }
 
 .texto{
-    position: absolute;
-    transform: translate(30%, 150%);
-    width: 748px;
-    height: 243px;
-    
+    position: absolute;       
+    margin-top:16vw;    
+    margin-left:0vw;
+    left: 15%;
+    width: 40vw;    
 
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
-    font-size: 64px;
-    line-height: 77px;
+    font-size: 3vw;
+    line-height: 7vh;
 
     color: #FFFFFF;
   }
 
   .link{
     position: absolute;
-    transform: translate(530%, 2900%);
-    width: 288px;
-    height: 29px;
+    margin-top:40vw;
+    margin-left:3vw;
+    left: 72.5%;
+    width: 15vw;
     
     font-family: Bebas Neue;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 1vw;
+    line-height: 2vh;
 
     color: #FFFFFF;
   }
   
   #img{
-    max-width: 350px;
-    max-height: 125px;
-    width: auto;
-    height: auto;
+    position: absolute;
+    max-width: 35vw;
+    max-height: 10vh;   
   }
-  .login h1{
-    text-align: center;
+
+  .login h1{    
     color: #ffbf03;
-    font-size: 60px;
-    padding: 50px 0 70px 0;
-    font-family: 'Bebas Neue';
+    position: absolute;
+    left: 33%;   
+    margin-top:3vw;
+    width: 1vw;
+    margin-right: 1vw;
+    border-radius: 3vw;
+    font-family: 'Bebas Neue';  
+    font-size : 4vw;
   }
   .login input[type="password"],
-  .login input[type= "text"]{
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #dddddd;
-    margin-bottom: 55px;        
+  .login input[type= "text"]{     
+    position: absolute;
+    padding: 1vw;
+    border: 0.1vw solid #dddddd;
+    margin-bottom: 2vw;        
     box-sizing: border-box;
   }
   .login input[name = "cpf"]{
-    width: 80%;
-    margin-right: 5%;
-    border-radius: 50px;
+    position: absolute;
+    left: 9%;   
+    margin-top:10vw;
+    width: 17vw;
+    margin-right: 1vw;
+    border-radius: 3vw;
     font-family: 'Bebas Neue';  
-    font-size : 20px;
+    font-size : 1.2vw;
   }
-  .login input[name = "senha"]{
-    width: 80%;
-    margin-right: 5%;
-    border-radius: 50px;
+  .login input[name = "senha"]{    
+    position: absolute;
+    left: 9%;
+    margin-top:17vw;
+    width: 17vw;
+    margin-right: 1vw;
+    border-radius: 3vw;
     font-family: 'Bebas Neue';
-    font-size : 20px;
+    font-size : 1.2vw;
   }
   #botão{
-    width: 50%;
+    position: absolute;
+    left: 2%;    
+    width: 9vw;
     white-space: normal;
     height: 6vh;
     font-family: 'Bebas Neue';
-    letter-spacing: 2px;
+    letter-spacing: 0vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 27%;
+    margin-left: 5.5vw;
     background:#ffbf03;
-    border-radius: 6px;
+    border-radius: 6vw;
     cursor: pointer;
     color: #fff;
     border: none;
-    font-size: 26px;
-    margin-top: 55px;    
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 1.5vw;
+    margin-top: 24vw;    
+    box-shadow: 0vw 0.1vw 0vw 0.01vw rgba(0, 0, 0, 0.25);
   }
   
   #amarelo{
-    font-size: 72px;
-    line-height: 86px;
-
+    font-size: 3vw;
     color: #ffbf03;
   }
 
