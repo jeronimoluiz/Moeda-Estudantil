@@ -1,17 +1,30 @@
-const database = require('../configs/database')
+//const database = require('../configs/database')
+const { json } = require('body-parser');
+const mysql = require('mysql');
+const { query } = require('../configs/database');
+const connection = mysql.createConnection({
+  host: process.env.LOCALHOST,
+  port: process.env.PORTDB,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
+});
 
-exports.execSQLQuery = (sqlQry, res) => {
+exports.execSQLQuery = (sqlQry, callback) => {
     
-  database.connection.connect();
+  //connection.connect();
   // console.log(sqlQry);
-  database.connection.query(sqlQry, function(error, results, fields){
-      if(error) {
-        res.json(error);
+  connection.query(sqlQry, function(error, results, fields){
+    let dataset='';  
+    if(error) {
         console.log(error);
       } else {
-        res.json(results[0]);
-      //   console.log('executou certo! ' + JSON.stringify(results[0]));
-      }
+        console.log(results[0]);
+        dataset = results[0];
+        // console.log('Conseguiu conectar ao banco! ' + JSON.stringify(results))
+        console.log('Conectou com sucesso ao BD');
+        return callback(dataset);
+        }
   });
-  database.connection.end();
+  //connection.end();
 };

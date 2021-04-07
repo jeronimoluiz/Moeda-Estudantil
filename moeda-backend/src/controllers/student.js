@@ -25,3 +25,4 @@ exports.update = (req, res) => {
   const cpf = req.body.cpf.substring(0,11);
   execSQLQuery(`UPDATE ALUNOS SET Nome='${nome}', CPF='${cpf}' WHERE ID=${id}`, res);
 }
+
