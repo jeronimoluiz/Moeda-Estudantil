@@ -24,6 +24,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/Register.vue"),
   },
+  {
+    path: "/home",
+    name: "Home",
+    component: () =>
+      import( "../components/Home.vue"),
+  },
+
+
 ];
 
 const router = new VueRouter({
