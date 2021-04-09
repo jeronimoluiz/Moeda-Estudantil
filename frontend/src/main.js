@@ -9,15 +9,11 @@ import CardPlugin from 'bootstrap-vue'
 //import Button from 'ant-design-vue/lib/button';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
-
-
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-
 //Vue.component(Button.name, Button);
-
 
 Vue.config.productionTip = false;
 Vue.use(CardPlugin);
