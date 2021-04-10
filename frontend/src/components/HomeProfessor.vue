@@ -9,12 +9,11 @@
                 <b-dropdown size="lg"  variant="link" right toggle-class="text-decoration-none" caret>
                     <template #button-content>
                     </template>
-                    <b-dropdown-item href="#">Perfil</b-dropdown-item>
                     <b-dropdown-item href="#">Sair</b-dropdown-item>
                 </b-dropdown>
             </div>
 
-            <b-avatar  id="avatar" src="https://placekitten.com/300/300" size="3.5rem"></b-avatar>
+            <b-avatar id="avatar" variant="warning" size="6vh"></b-avatar>
 
             <div class="info">
             </div>
@@ -59,7 +58,8 @@
     }
 
     #avatar{
+        background-color: #ffbf03;
         position: absolute;
-        right: 2%;
+        right: 3%;
     }
 </style>

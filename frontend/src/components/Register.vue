@@ -47,7 +47,7 @@
 
       <div class="link-login">
         Já tem cadastro?
-        <router-link to="/login" id="_link-login">Login</router-link>
+        <router-link to="/" id="_link-login">Login</router-link>
       </div>
 
     </div>
@@ -63,33 +63,30 @@ export default {
         nome: '',
         cpf: '',
         senha: '',
-        confirmSenha: ''
+        confirmSenha: '',
       },
       
       selected_university: null,
       selected_radio: "first",
       options_university: [
         { value: null, name: "Selecione sua Universidade" },
-        { item: "A", name: "Potifícia Universidade Católica de Minas Gerais" },
-        { item: "B", name: "Universidade Federal de Minas Gerais" },
-        { item: "D", name: "Centro Universitário UNA" },
+        { item: "00000000000001", name: "Potifícia Universidade Católica de Minas Gerais" },
+        { item: "00000000000002", name: "Universidade Federal de Minas Gerais" },
+        { item: "00000000000003", name: "Centro Universitário UNA" },
       ],
       options_radio: [
         { text: "Aluno", value: "first" },
         { text: "Professor", value: "second" },
       ],
-    };
+
+    }
   },
 
   methods:{
     // POST para realizar o cadastro de alunos e professores.
     enviar:function(){
       console.log("Enviando... to the heeeell");
-      console.log(this.selected_university);
-      console.log(this.selected_radio);
       
-      
-
       if (this.form.confirmSenha != this.form.senha){
         alert("As senhas digitadas são diferentes.");
       }else{
@@ -98,12 +95,10 @@ export default {
         if (this.selected_radio == 'first'){
 
           axios
-          .post("/users/login-aluno")({  // ESTA URL DO POST PRECISA SER ALTERADA. 
-            nome: this.form.nome,
-            cpf: this.form.cpf,
+          .post('/users/cadastro-aluno', {
+            cpfAluno: this.form.cpf,
             senha: this.form.senha,
-            universidade: this.selected_university,
-            tipoPessoa: this.selected_radio
+            cnpjUniversidade: this.selected_university            
           })
           .then(function (response) {
             console.log(response);
@@ -114,12 +109,10 @@ export default {
         }else{
 
           axios
-          .post("/users/register-aluno")({  // ESTA URL DO POST PRECISA SER ALTERADA. 
-            nome: this.form.nome,
-            cpf: this.form.cpf,
+          .post('/users/cadastro-professor', {  // ESTA URL DO POST PRECISA SER ALTERADA. 
+            cpfProfessor: this.form.cpf,
             senha: this.form.senha,
-            universidade: this.selected_university,
-            tipoPessoa: this.selected_radio
+            cnpjUniversidade: this.selected_university
           })
           .then(function (response) {
             console.log(response);
