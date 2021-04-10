@@ -1,19 +1,21 @@
 <template>
   <div class="main">
+
     <b-img
       :src="require('../assets/logo.png')"
       class="image-fluid"
       alt="Responsive image"
       height="80%"
     ></b-img>
+
     <div class="cadastro">
       <div class="card">
         <h1>ENTRE AGORA</h1>
-        <form action="auth" method="POST">
-          <input v-model="nome" type="text" placeholder="Nome" required />
-          <input v-model="cpf" type="text" placeholder="CPF" required />
-          <input v-model="senha" type="password" placeholder="Senha" required />
-          <input v-model="confirmSenha" type="password" placeholder="Confirmar Senha" required
+        <form v-on:submit.prevent = "enviar">
+          <input v-model="form.nome" name="nome" type="text" placeholder="Nome" required />
+          <input v-model="form.cpf" name="cpf" type="text" placeholder="CPF" required />
+          <input v-model="form.senha" name="senha" type="password" placeholder="Senha" required />
+          <input v-model="form.confirmSenha" name="senhaconfirm" type="password" placeholder="Confirmar Senha" required
           />
           <br />
           <b-form-select
@@ -37,14 +39,17 @@
               plain
             ></b-form-radio-group>
           </b-form-group>
-          <button @click="submit" id="button_signup" type="primary">Cadastrar</button><br />
-          <br />
+          <button id="button_signup" type="primary">Cadastrar</button><br />
+        <br/>
         </form>
+        
       </div>
+
       <div class="link-login">
         Já tem cadastro?
         <router-link to="/login" id="_link-login">Login</router-link>
       </div>
+
     </div>
   </div>
 </template>
@@ -54,10 +59,13 @@ import axios from "../service/config.js";
 export default {
   data() {
     return {
-      nome,
-      cpf,
-      senha,
-      confirmSenha,
+      form:{
+        nome: '',
+        cpf: '',
+        senha: '',
+        confirmSenha: ''
+      },
+      
       selected_university: null,
       selected_radio: "first",
       options_university: [
@@ -72,26 +80,62 @@ export default {
       ],
     };
   },
-  methods: {
-    submit() {
-      console.log("Enviando...");
-      axios
-      .post({
-          universidade: this.selected_university,
-          tipoPessoa: this.selected_radio,
-          nome: this.nome,
-          cpf: this.cpf,
-          senha: this.senha
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-  },
+
+  methods:{
+    // POST para realizar o cadastro de alunos e professores.
+    enviar:function(){
+      console.log("Enviando... to the heeeell");
+      console.log(this.selected_university);
+      console.log(this.selected_radio);
+      
+      
+
+      if (this.form.confirmSenha != this.form.senha){
+        alert("As senhas digitadas são diferentes.");
+      }else{
+        // var new_name = document.getElementsByName("nome").value;
+        // console.log(new_name);
+        if (this.selected_radio == 'first'){
+
+          axios
+          .post("/users/login-aluno")({  // ESTA URL DO POST PRECISA SER ALTERADA. 
+            nome: this.form.nome,
+            cpf: this.form.cpf,
+            senha: this.form.senha,
+            universidade: this.selected_university,
+            tipoPessoa: this.selected_radio
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }else{
+
+          axios
+          .post("/users/register-aluno")({  // ESTA URL DO POST PRECISA SER ALTERADA. 
+            nome: this.form.nome,
+            cpf: this.form.cpf,
+            senha: this.form.senha,
+            universidade: this.selected_university,
+            tipoPessoa: this.selected_radio
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        }
+        
+      }
+      
+    }
+  }
+  
 };
+
 </script>
 
 <style>
@@ -232,4 +276,6 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+
 </style>
+
