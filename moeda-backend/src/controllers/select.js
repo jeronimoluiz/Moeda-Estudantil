@@ -4,7 +4,7 @@ exports.filterAluno = (req, res) => {
   // console.log(req.body)
   // console.log('post');
   const nomeAluno = req.body.nome.substring(0,100);
-  //SELECIONA NO BANCO O NOME DO ALUNO, CASO NÃO ENCONTRAR MANDA A MENSAGEM NOME NÃO ENCONTRADO
+  //SELECIONA NO BANCO O NOME DO ALUNO, CASO NÃO ENCONTRAR, MANDA A MENSAGEM NOME NÃO ENCONTRADO
   sqlQry.execSQLQuery(`SELECT * FROM aluno WHERE NOME = '${nomeAluno}';`,dataset=>{
     if(dataset === undefined){
     res.send({success: false, message: 'Nome não encontrado', error: 404});
