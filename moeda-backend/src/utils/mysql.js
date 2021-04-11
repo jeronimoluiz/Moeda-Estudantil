@@ -19,12 +19,12 @@ exports.execSQLQuery = (sqlQry, callback) => {
     if(error) {
         console.log(error);
       } else {
-        console.log(results[0]);
+        // console.log(results[0]);
         dataset = results[0];
         // console.log('Conseguiu conectar ao banco! ' + JSON.stringify(results))
-        console.log('Conectou com sucesso ao BD');
+        // console.log('Conectou com sucesso ao BD');
         return callback(dataset);
-        }
+      }
   });
   //connection.end();
 };

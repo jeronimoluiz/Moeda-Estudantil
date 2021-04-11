@@ -1,5 +1,6 @@
 const { json } = require('body-parser');
 const sqlQry = require('../utils/mysql')
+
 exports.filterAluno = (req, res) => {
   // console.log(req.body)
   // console.log('post');
@@ -7,7 +8,7 @@ exports.filterAluno = (req, res) => {
   //SELECIONA NO BANCO O NOME DO ALUNO, CASO NÃO ENCONTRAR, MANDA A MENSAGEM NOME NÃO ENCONTRADO
   sqlQry.execSQLQuery(`SELECT * FROM aluno WHERE cpfaluno = '${cpfAluno}';`,dataset=>{
     if(dataset === undefined){
-    res.send({success: false, message: 'Nome não encontrado', error: 404});
+      res.send({success: false, message: 'Nome não encontrado', error: 404});
     } else
       res.status(200).send(dataset);
   });
@@ -53,5 +54,4 @@ exports.filterBuscaAlunos = (req, res) =>{
     res.status(200).send(dataset);
     }
   });
-
 }

@@ -5,6 +5,7 @@ const studentController = require('./controllers/student');
 const teacherController = require('./controllers/teacher');
 const loginControllerAluno = require('./controllers/loginAluno');
 const loginControllerProfessor = require('./controllers/loginProfessor');
+const transferController = require('./controllers/transfers');
 const searchs = require('./controllers/select');
 
 router.get('/', (req, res) => res.json({ message: 'API working'}));
@@ -29,9 +30,12 @@ router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
 // ROTA DE RETORNO DE MOEDAS DO PROFESSOR
 router.post('/users/moeda-professor', searchs.filterMoedaProfessor);
 
+// ROTA TRANSFERENCIA DE ALUNO PRA ALUNO
+router.post('/tranfer/aluno-aluno', transferController.studentToStudent);
+// ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO
+router.post('/tranfer/professor-aluno', transferController.teacherToStudent);
+
 router.delete('/student/:id', studentController.remove);
 router.patch('/student/:id', studentController.update);
-
-
 
 module.exports = router;

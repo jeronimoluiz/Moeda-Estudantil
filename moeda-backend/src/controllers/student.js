@@ -31,16 +31,15 @@ exports.registroAluno = (req, res, dataset) => {
           res.status(200).send('Aluno já cadastrado');
         } else {
           //sqlQry.execSQLQuery(`INSERT INTO aluno(matriculaaluno, nome, cnpjuniversidade, senha) VALUES('${matricula}', '${nome}', '${cnpjuniversidade}', '${senha}');`,dataset=>{
-          sqlQry.execSQLQuery(`UPDATE ALUNO SET SENHA = '${senha}' WHERE CPFALUNO = '${cpfAluno}' AND CNPJUNIVERSIDADE = '${cnpjUniversidade}';`, dataset => {
+          sqlQry.execSQLQuery(`UPDATE ALUNO SET SENHA = '${senha}' WHERE CPFALUNO = '${cpfAluno}' AND CNPJUNIVERSIDADE = '${cnpjUniversidade}'
+          AND MOEDAS = 0;`, dataset => {
             res.status(200).send('Aluno cadastrado com sucesso');
           });
         }
       });
     }
-
   });
 }
-
 
 // ISSO TEM QUE ALTERAR!!!!!!!!!!
 exports.update = (req, res) => {
