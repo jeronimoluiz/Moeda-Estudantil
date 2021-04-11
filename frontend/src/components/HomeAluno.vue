@@ -23,8 +23,20 @@
     </div>
 </template>
 
-<script>
+<script>   
 
+    var cpfAluno = localStorage.getItem('cpfAluno')
+    var cnpj = localStorage.getItem('cnpj')
+
+    localStorage.removeItem('cpfAluno')
+    localStorage.removeItem('cnpj')
+
+    console.log(cnpj)  
+    console.log(cpfAluno)
+
+    let testeVazio = localStorage.getItem('cnpj')
+    console.log(testeVazio)         
+    
 </script>
 
 <style>
