@@ -21,11 +21,10 @@ exports.registroAluno = (req, res, dataset) => {
   //const matricula = parseInt(req.body.matriculaaluno);
   const cnpjUniversidade = req.body.cnpjUniversidade.substring(0, 14);
   const senha = req.body.senha.substring(0, 64);
-
   //SELECIONA NO BANCO O CPF DO ALUNO,VERIFICA SE JA EXISTE UMA SENHA CADASTRADA, CASO EXISTA, MANDA A MENSAGEM ALUNO JA CADASTRADO, CASO NÃO, CADASTRA O ALUNO.
   sqlQry.execSQLQuery(`SELECT * FROM ALUNO WHERE CPFALUNO = '${cpfAluno}' AND CNPJUNIVERSIDADE = '${cnpjUniversidade}';`, dataset => {
     if (dataset === undefined) {
-      res.send({ success: false, message: 'Aluno não existe', error: 404 });
+      res.status(200).send('Aluno não existe');
     } else {
       sqlQry.execSQLQuery(`SELECT * FROM ALUNO WHERE CPFALUNO = '${cpfAluno}' AND SENHA!='';`, dataset => {
         if (dataset !== undefined) {
@@ -50,4 +49,3 @@ exports.update = (req, res) => {
   const cpf = req.body.cpf.substring(0, 11);
   sqlQry.execSQLQuery(`UPDATE PROFESSORS SET Nome='${nome}', CPF='${cpf}' WHERE ID='${id}'`, res);
 }
-
