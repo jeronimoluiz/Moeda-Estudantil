@@ -56,37 +56,66 @@
 <script>
 import axios from "../service/config.js";
 // import router from "../router"
+
+
+
+
+
 export default {
-  data() {
-    return {
-      quant_moedas_prof:"<p>0</p>"
-
-    }
-  },
-
+    
+    data() {
+        return {
+            quant_moedas_prof:"<p>0</p>",
+            cpf_Professor : localStorage.getItem('cpfProfessor'),
+            cnpj : localStorage.getItem('cnpj')
+        }
+    },
+    
     methods:{
-
+        
         quantMoedasProfessor:function(){
-            let quant_moedas = 300; // COLOCAR VARIÁVEL COM A QUATIDADE DE MOEDAS QUE VIER DO BANCO.
-            this.quant_moedas_prof = '<p>' + quant_moedas + '</p>'
+            
+            //localStorage.removeItem('cpfProfessor');
+            //localStorage.removeItem('cnpj');
+
+
+            //var cnpj = localStorage.getItem('cnpj')
+            console.log(this.cpf_Professor)
+            axios
+            .post('/users/moeda-professor', {
+                cpf: this.cpf_Professor         
+            })
+            .then(function (response) {
+                //console.log(response.data.moedas)
+                console.log(response.data.moedas)
+                this.quant_moedas_prof = '<p>' + response.data.moedas + '</p>'
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         }
     },
 
     mounted(){
-        let quant_moedas = 200;
-        this.quant_moedas_prof = '<p>' + quant_moedas + '</p>'
+        //var quant_moedas;
+        //this.quant_moedas_prof = '<p>' + quant_moedas + '</p>'
 
-        axios
-          .get('/users/moeda-professor', {
-            cpfAluno: this.form.cpf         
-          })
-          .then(function (response) {
-            console.log(response.data)
+        // var cpfProfessor = localStorage.getItem('cpfProfessor')
+        // var cnpj = localStorage.getItem('cnpj')
+        
+        // axios
+        //   .post('/users/moeda-professor', {
+        //     cpfProfessor: cpfProfessor         
+        //   })
+        //   .then(function (response) {
+        //     console.log(response.data)
             
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        // });
     }
   
 };
