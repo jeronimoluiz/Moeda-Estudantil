@@ -40,7 +40,7 @@
             ></b-form-radio-group>
           </b-form-group>
           <button id="button_signup" type="primary">Cadastrar</button><br />
-        <br/>
+          <br/>
         </form>
         
       </div>
