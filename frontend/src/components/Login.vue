@@ -17,12 +17,7 @@
       <h1>LOGIN</h1>
       <form v-on:submit.prevent="enviar">
         <input v-model="form.cpf" type="text" placeholder="CPF" required />
-        <input 
-          v-model="form.senha"
-          type="password"
-          placeholder="Senha"
-          required
-        />
+        <input v-model="form.senha" type="password" placeholder="Senha" required />
   
         <button id="botão" type="primary">Entrar</button>
         <div class="titulo-botao">Eu sou um:</div>
@@ -59,6 +54,7 @@ export default {
        senha: '',
       },
 
+ 
       selected_radio: "first",
       options_radio: [
         { text: "Aluno", value: "first" },
@@ -69,9 +65,7 @@ export default {
 
   methods: {
     enviar: function () {
-      console.log("Verificando...");
-      console.log(this.selected_radio);
-      console.log(this.form.cpf);
+      console.log("Verificando...");      
 
       if (this.selected_radio == "first") {
         axios
@@ -83,12 +77,15 @@ export default {
           .then(function (response) {
             console.log(response);    
             if(response.data.error === 404)      
-                  alert("Dados incorretos, por favor tente novamente!")
+              alert("Dados incorretos, por favor tente novamente!")
 
-            else if (response.data.cpfaluno !== ''){router.push('/home-aluno')}
+               else if (response.data.CPFALUNO !== ''){
+                 localStorage.setItem('cpfAluno', response.data.CPFALUNO);
+                 localStorage.setItem('cnpj', response.data.CNPJUNIVERSIDADE);
+                 router.push('/home-aluno')
+               }
                    
             }) 
-
           .catch(function (error) {
             console.log(error);
           });
@@ -101,10 +98,13 @@ export default {
           .then(function (response) {
             console.log(response);
             if(response.data.error === 404)      
-                  alert("Dados incorretos, por favor tente novamente!")
+              alert("Dados incorretos, por favor tente novamente!")
 
-            else if (response.data.cpfprofessor !== ''){router.push('/home-professor')}
-                   
+            else if (response.data.CPFPROFESSOR !== ''){
+              localStorage.setItem('cpfProfessor', response.data.CPFPROFESSOR);
+              localStorage.setItem('cnpj', response.data.CNPJUNIVERSIDADE);
+              router.push('/home-professor')
+            }
           })
           .catch(function (error) {
             console.log(error);

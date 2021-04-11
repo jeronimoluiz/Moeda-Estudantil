@@ -128,6 +128,7 @@ export default {
                   alert("Este professor já está cadastrado!")
             else if(response.data == "Professor cadastrado com sucesso"){
                    alert("Professor cadastrado com sucesso!")
+                   router.push('/')
             }
           })
           .catch(function (error) {
