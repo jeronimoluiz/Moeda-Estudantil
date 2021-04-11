@@ -56,6 +56,7 @@
 
 <script>
 import axios from "../service/config.js";
+import router from "../router"
 export default {
   data() {
     return {
@@ -93,7 +94,6 @@ export default {
         // var new_name = document.getElementsByName("nome").value;
         // console.log(new_name);
         if (this.selected_radio == 'first'){
-
           axios
           .post('/users/cadastro-aluno', {
             cpfAluno: this.form.cpf,
@@ -101,7 +101,14 @@ export default {
             cnpjUniversidade: this.selected_university            
           })
           .then(function (response) {
-            console.log(response);
+            if (response.data == "Aluno não existe")
+                  alert("Este aluno não existe!")
+            else if(response.data == "Aluno já cadastrado")
+                  alert("Este aluno já está cadastrado!")
+            else if(response.data == "Aluno cadastrado com sucesso"){
+                alert("Aluno cadastrado com sucesso!")
+                router.push('/')
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -115,7 +122,13 @@ export default {
             cnpjUniversidade: this.selected_university
           })
           .then(function (response) {
-            console.log(response);
+            if (response.data == "Professor não existe")
+                  alert("Este professor não existe!")
+            else if(response.data == "Professor já cadastrado")
+                  alert("Este professor já está cadastrado!")
+            else if(response.data == "Professor cadastrado com sucesso"){
+                   alert("Professor cadastrado com sucesso!")
+            }
           })
           .catch(function (error) {
             console.log(error);
