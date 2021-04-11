@@ -116,7 +116,7 @@ export default {
         }else{
 
           axios
-          .post('/users/cadastro-professor', {  // ESTA URL DO POST PRECISA SER ALTERADA. 
+          .post('/users/cadastro-professor', { 
             cpfProfessor: this.form.cpf,
             senha: this.form.senha,
             cnpjUniversidade: this.selected_university
@@ -128,6 +128,7 @@ export default {
                   alert("Este professor já está cadastrado!")
             else if(response.data == "Professor cadastrado com sucesso"){
                    alert("Professor cadastrado com sucesso!")
+                    router.push('/')
             }
           })
           .catch(function (error) {
