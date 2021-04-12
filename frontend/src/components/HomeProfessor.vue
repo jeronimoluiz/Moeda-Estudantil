@@ -29,9 +29,9 @@
                 <div>
                     <br>
                     <h1>TRANSFERÊNCIA DE MOEDAS</h1>
-                    <input v-model="text" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
-                    <input v-model="text" name="moedasProf" type="text" placeholder=" Digite a CPF do aluno" required />
-                    <button id="button_transf" type="primary">Enviar</button><br />
+                    <input v-model="form.valor_" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
+                    <input v-model="form.cpf_Aluno" name="moedasProf" type="text" placeholder=" Digite a CPF do aluno" required />
+                    <button v-on:click="transfMoedasProfessor" id="button_transf" type="primary">Enviar</button><br />
                     <br/>
                 </div>
             </b-card>
@@ -58,12 +58,17 @@
 
 <script>
 import axios from "../service/config.js";
-// import router from "../router"
+//import router from "../router"
 
 export default {
     
     data() {
         return {
+            form: {
+                cpf_Aluno:'',
+                valor_: '',
+            },
+
             quant_moedas_prof: '',
             cpf_Professor : localStorage.getItem('cpfProfessor'),
             // cnpj : localStorage.getItem('cnpj')
@@ -71,6 +76,7 @@ export default {
     },
     
     methods:{
+
         quantMoedasProfessor:function(){
 
             function retornaQuantMoeda(cpf) {
@@ -87,6 +93,31 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
+
+        transfMoedasProfessor:function(){             
+            axios
+                .post('/tranfer/professor-aluno',{
+                cpfProfessor: this.cpf_Professor ,
+                cpfAluno: this.form.cpf_Aluno ,
+                valor: this.form.valor_ ,       
+                })
+                .then(function (response) {
+                    console.log(response);  
+                    if(response.data == "CPF não encontrado")  
+                        alert("Aluno não cadastrado no sistema")
+                    else if(response.data ==  "Você não tem moedas suficientes")
+                        alert("Saldo insificiente para transação")
+                    else if(response.data == "Transação não realizada")
+                        alert("Não foi possível realizar a transação")
+                    else if(response.data == "Transação realizada com sucesso"){
+                        alert("Operação realizada com sucesso!")
+                        location.reload();
+                    }
+                }) 
+                .catch(function (error) {
+                    console.log(error);
+                });           
+        }              
     },
 
     mounted(){
