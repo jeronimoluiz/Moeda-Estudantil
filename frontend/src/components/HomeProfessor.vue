@@ -36,7 +36,7 @@
                 </div>
             </b-card>
         </div>
-
+        <component-to-re-render :key = "componentKey" />
         <div class="TrasnfProf">
             <b-card class="card2">
                 <div>
@@ -69,6 +69,7 @@ export default {
                 valor_: '',
             },
 
+            componentKey: 0,
             quant_moedas_prof: '',
             cpf_Professor : localStorage.getItem('cpfProfessor'),
             // cnpj : localStorage.getItem('cnpj')
@@ -76,6 +77,10 @@ export default {
     },
     
     methods:{
+
+        forceRerender(){
+            this.componentKey += 1
+        },
 
         quantMoedasProfessor:function(){
 
@@ -94,29 +99,33 @@ export default {
                 .catch(error => console.log(error))
         },
 
-        transfMoedasProfessor:function(){             
-            axios
-                .post('/tranfer/professor-aluno',{
-                cpfProfessor: this.cpf_Professor ,
-                cpfAluno: this.form.cpf_Aluno ,
-                valor: this.form.valor_ ,       
-                })
-                .then(function (response) {
-                    console.log(response);  
-                    if(response.data == "CPF não encontrado")  
-                        alert("Aluno não cadastrado no sistema")
-                    else if(response.data ==  "Você não tem moedas suficientes")
-                        alert("Saldo insificiente para transação")
-                    else if(response.data == "Transação não realizada")
-                        alert("Não foi possível realizar a transação")
-                    else if(response.data == "Transação realizada com sucesso"){
-                        alert("Operação realizada com sucesso!")
-                        location.reload();
-                    }
-                }) 
-                .catch(function (error) {
-                    console.log(error);
-                });           
+        transfMoedasProfessor:function(){   
+            function atualizaMoedas(cpfProfessor, cpfAluno, valor) {
+                return axios
+                    .post('/tranfer/professor-aluno',{
+                    cpfProfessor,
+                    cpfAluno,
+                    valor,       
+                    })
+                    .then(response => response.data) 
+                    .catch(error => error);
+            }
+            atualizaMoedas(this.cpf_Professor, this.form.cpf_Aluno, this.form.valor_)
+                .then(data => {
+                        if(data == "CPF não encontrado")  
+                            alert("Aluno não cadastrado no sistema")
+                        else if(data ==  "Você não tem moedas suficientes")
+                            alert("Saldo insificiente para transação")
+                        else if(data == "Transação não realizada")
+                            alert("Não foi possível realizar a transação")
+                        else if(data == "Transação realizada com sucesso"){
+                            alert("Operação realizada com sucesso!")
+                            this.quantMoedasProfessor()
+                            this.forceRerender()
+                        }
+                    })
+                    .catch(error => console.log(error))         
+                       
         }              
     },
 
