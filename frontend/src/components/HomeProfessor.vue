@@ -9,7 +9,7 @@
                 <b-dropdown size="lg"  variant="link" right toggle-class="text-decoration-none" caret>
                     <template #button-content>
                     </template>
-                    <b-dropdown-item href="#">Sair</b-dropdown-item>
+                    <b-dropdown-item href="#" to="/" >Sair</b-dropdown-item>
                 </b-dropdown>
             </div>
 
@@ -31,21 +31,24 @@
                     <h1>TRANSFERÊNCIA DE MOEDAS</h1>
                     <input v-model="text" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
                     <input v-model="text" name="moedasProf" type="text" placeholder=" Digite a CPF do aluno" required />
-                    <button v-on:click="quantMoedasProfessor" id="button_transf" type="primary">Enviar</button><br />
+                    <button id="button_transf" type="primary">Enviar</button><br />
                     <br/>
                 </div>
             </b-card>
         </div>
 
         <div class="TrasnfProf">
-            <b-card class="card">
+            <b-card class="card2">
                 <div>
                     <br>
-                    <h1>QUANTIDADE DE MOEDAS</h1>
+                    <h1>
+                        QUANTIDADE DE MOEDAS
+                    </h1>
                     
                     <span v-html="quant_moedas_prof" class="QuantMoedas"></span>
                     
                 </div>
+                <!-- <button v-on:click="quantMoedasProfessor" id="button_transf" type="primary" ref="myBtn">Atualizar moedas</button><br /> -->
             </b-card>
         </div>
         
@@ -57,65 +60,38 @@
 import axios from "../service/config.js";
 // import router from "../router"
 
-
-
-
-
 export default {
     
     data() {
         return {
-            quant_moedas_prof:"<p>0</p>",
+            quant_moedas_prof: '',
             cpf_Professor : localStorage.getItem('cpfProfessor'),
-            cnpj : localStorage.getItem('cnpj')
+            // cnpj : localStorage.getItem('cnpj')
         }
     },
     
     methods:{
-        
         quantMoedasProfessor:function(){
-            
-            //localStorage.removeItem('cpfProfessor');
-            //localStorage.removeItem('cnpj');
 
+            function retornaQuantMoeda(cpf) {
+                console.log(cpf);
+                    return axios.post('/users/moeda-professor', {
+                    cpf: cpf         
+                    }).then(response => response.data).catch(error => error);
+            }
 
-            //var cnpj = localStorage.getItem('cnpj')
-            console.log(this.cpf_Professor)
-            axios
-            .post('/users/moeda-professor', {
-                cpf: this.cpf_Professor         
-            })
-            .then(function (response) {
-                //console.log(response.data.moedas)
-                console.log(response.data.moedas)
-                this.quant_moedas_prof = '<p>' + response.data.moedas + '</p>'
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        }
+            retornaQuantMoeda(this.cpf_Professor)
+                .then(data => {
+                    console.log(data.moedas)
+                    this.quant_moedas_prof = '<p>' + data.moedas + '</p>'
+                })
+                .catch(error => console.log(error))
+        },
     },
 
     mounted(){
-        //var quant_moedas;
-        //this.quant_moedas_prof = '<p>' + quant_moedas + '</p>'
-
-        // var cpfProfessor = localStorage.getItem('cpfProfessor')
-        // var cnpj = localStorage.getItem('cnpj')
-        
-        // axios
-        //   .post('/users/moeda-professor', {
-        //     cpfProfessor: cpfProfessor         
-        //   })
-        //   .then(function (response) {
-        //     console.log(response.data)
-            
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        // });
+        // this.anotherRandomFunction()
+        this.quantMoedasProfessor()
     }
   
 };
@@ -158,15 +134,29 @@ export default {
 
     .card {
         position: relative;
-        transform: translate(0%, 25%);
+        transform: translate(0%, 15%);
         background: #f2f2f2;
         border-radius: 20px;
         
     }
 
+    .card2 {
+        position: relative;
+        transform: translate(0%, 31%);
+        background: #f2f2f2;
+        border-radius: 20px;
+        
+    }
+
+    .card h1 {
+        font-size: 5vw;
+        font-family: "Bebas Neue";
+        color: #ffbf03;
+    }
+
     .QuantMoedas{
         font-family: "Bebas Neue";
-        font-size: 80px;
+        font-size: 10vw;
     }
 
     .TrasnfProf{
@@ -189,7 +179,7 @@ export default {
 
     #button_transf {
         margin-top: 2.5%;
-        width: 10%;
+        width: 20%;
         white-space: normal;
         height: 6vh;
         font-family: "Bebas Neue";
