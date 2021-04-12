@@ -22,7 +22,7 @@ exports.studentToStudent = (req, res) => {
     if (moedasBancoAluno1 >= valor) {
       sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE CPFALUNO ='${cpfAluno2}';`, (dataset2) => {
         if(dataset2 === undefined) {
-          res.status(404).send('CPF não encontrado');
+          res.status(200).send('CPF não encontrado');
         } else { 
           moedasBancoAluno2 = dataset2.MOEDAS;
           idAluno2 = dataset2.IDALUNO;
@@ -39,14 +39,14 @@ exports.studentToStudent = (req, res) => {
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 res.status(200).send('Transação realizada com sucesso');
               } else {
-                res.status(401).send('Transação não realizada');
+                res.status(200).send('Transação não realizada');
               }
             });
           });
         }
       });
     } else {
-      res.status(401).send('Você não tem moedas suficientes');
+      res.status(200).send('Você não tem moedas suficientes');
     }
   });
 }
@@ -72,7 +72,7 @@ exports.teacherToStudent = (req, res) => {
     if (moedasBancoProfessor >= valor) {
       sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE CPFALUNO ='${cpfAluno}';`, (dataset2) => {
         if(dataset2 === undefined) {
-          res.status(404).send('CPF não encontrado');
+          res.status(200).send('CPF não encontrado');
         } else { 
           moedasBancoAluno = dataset2.MOEDAS;
           idAluno = dataset2.IDALUNO;
@@ -89,14 +89,14 @@ exports.teacherToStudent = (req, res) => {
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 res.status(200).send('Transação realizada com sucesso');
               } else {
-                res.status(401).send('Transação não realizada');
+                res.status(200).send('Transação não realizada');
               }
             });
           });
         }
       });
     } else {
-      res.status(401).send('Você não tem moedas suficientes');
+      res.status(200).send('Você não tem moedas suficientes');
     }
   });
 }
