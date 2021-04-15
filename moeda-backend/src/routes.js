@@ -1,4 +1,4 @@
-const express  = require('express');
+const express = require('express');
 const router = express.Router();
 
 const studentController = require('./controllers/student');
@@ -6,9 +6,9 @@ const teacherController = require('./controllers/teacher');
 const loginControllerAluno = require('./controllers/loginAluno');
 const loginControllerProfessor = require('./controllers/loginProfessor');
 const transferController = require('./controllers/transfers');
-const searchs = require('./controllers/select');
+const searchs = require('./controllers/tools/select');
 
-router.get('/', (req, res) => res.json({ message: 'API working'}));
+router.get('/', (req, res) => res.json({ message: 'API working' }));
 
 //ROTA DO LOGIN DO ALUNO
 router.post('/users/login-aluno', loginControllerAluno.loginAluno);
@@ -21,9 +21,11 @@ router.post('/users/cadastro-aluno', studentController.registroAluno);
 router.post('/users/cadastro-professor', teacherController.registroProfessor);
 
 // ROTA DA PROCURA DO PROFESSOR
-router.post('/users/professor/search', searchs.filterAluno);
+router.post('/users/professor/search', searchs.filterAlunoCPF);
 //ROTA PARA PROCURA DO PROFESSOR DE TODOS OS ALUNOS DE UMA UNIVERSIDADE
 router.post('/users/searchall', searchs.filterBuscaAlunos);
+//ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO
+router.post('/users/search-name', searchs.filterAlunoMatricula);
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO
 router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
