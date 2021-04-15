@@ -28,3 +28,27 @@ exports.execSQLQuery = (sqlQry, callback) => {
   });
   //connection.end();
 };
+
+//QUERY NO BD QUE INSTANCIA VÁRIOS VALORES DO BANCO AO CALLBACK (NO CASO, EXCLUSIVAMENTE O CAMPO DE NOMES)
+exports.execSQLQueryArrays = (sqlQry, callback) => {
+    
+  //connection.connect();
+  // console.log(sqlQry);
+  connection.query(sqlQry, function(error, results, fields){
+    let dataset=[''];  
+    if(error) {
+        console.log(error);
+      } else {
+        var i = 0;
+        while (results[i] != undefined){
+        console.log(results[i]);
+        dataset[i] = results[i];
+        i++;
+        }
+        // console.log('Conseguiu conectar ao banco! ' + JSON.stringify(results))
+        // console.log('Conectou com sucesso ao BD');
+        return callback(dataset);
+      }
+  });
+  //connection.end();
+};

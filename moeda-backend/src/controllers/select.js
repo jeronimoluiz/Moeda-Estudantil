@@ -46,8 +46,8 @@ exports.filterMoedaProfessor = (req, res) =>{
 //POR ALGUM MOTIVO RETORNA APENA UM VALOR;
 exports.filterBuscaAlunos = (req, res) =>{
   const universidade = req.body.cnpj.substring(0,14);
-  sqlQry.execSQLQuery(`SELECT nome FROM aluno WHERE cnpjuniversidade='${universidade}';`,dataset=>{
-    console.log(dataset);
+  sqlQry.execSQLQueryArrays(`SELECT nome FROM aluno WHERE cnpjuniversidade='${universidade}';`,dataset=>{
+    // console.log(dataset);
     if (dataset === undefined){
       res.send({success: false, message: 'Ocorreu um erro no sistema', error: 404});
     } else{
