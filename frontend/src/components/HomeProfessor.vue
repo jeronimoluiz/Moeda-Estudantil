@@ -15,9 +15,6 @@
 
             <b-avatar id="avatar" variant="warning" size="6vh"></b-avatar>
 
-            <div class="info">
-            </div>
-
             <div>
 
             </div>
@@ -30,7 +27,12 @@
                     <br>
                     <h1>TRANSFERÊNCIA DE MOEDAS</h1>
                     <input v-model="form.valor_" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
-                    <input v-model="form.cpf_Aluno" name="moedasProf" type="text" placeholder=" Digite a CPF do aluno" required />
+                    <div class="comboxBoxAutocomplete">
+                        <input list="my-list-id"  name="inputAlunos" placeholder=" Digite o nome do aluno" required />
+                        <datalist id="my-list-id" class="mb-4">
+                            <option v-for="aluno in alunos" v-bind:key="aluno">{{ aluno }}</option>
+                        </datalist>
+                    </div>
                     <button v-on:click="transfMoedasProfessor" id="button_transf" type="primary">Enviar</button><br />
                     <br/>
                 </div>
@@ -73,6 +75,8 @@ export default {
             quant_moedas_prof: '',
             cpf_Professor : localStorage.getItem('cpfProfessor'),
             // cnpj : localStorage.getItem('cnpj')
+
+            alunos: ['Small', 'Medium', 'Large', 'Extra Large'],
         }
     },
     
@@ -212,6 +216,17 @@ export default {
     }
 
     .TrasnfProf input[name="moedasProf"] {
+        margin-top: 5%;
+        width: 15%;
+        margin-left: 2%;
+        border-radius: 50px;
+        font-family: "Bebas Neue";
+        font-size: 20px;
+        outline: 0;
+        width: 500px;
+    }
+
+    .TrasnfProf input[name="inputAlunos"] {
         margin-top: 5%;
         width: 15%;
         margin-left: 2%;
