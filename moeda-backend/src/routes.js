@@ -24,8 +24,10 @@ router.post('/users/cadastro-professor', teacherController.registroProfessor);
 router.post('/users/professor/search', searchs.filterAlunoCPF);
 //ROTA PARA PROCURA DO PROFESSOR DE TODOS OS ALUNOS DE UMA UNIVERSIDADE
 router.post('/users/searchall', searchs.filterBuscaAlunos);
-//ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO
+//ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELA MATRICULA
 router.post('/users/search-name', searchs.filterAlunoMatricula);
+//ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELO NOME
+router.post('/users/search-name', searchs.filterBuscaNomeAluno);
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO
 router.post('/users/moeda-aluno', searchs.filterMoedaAluno);

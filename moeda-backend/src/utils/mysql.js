@@ -35,13 +35,14 @@ exports.execSQLQueryArrays = (sqlQry, callback) => {
   //connection.connect();
   // console.log(sqlQry);
   connection.query(sqlQry, function(error, results, fields){
+    //CRIAR O DATASET COMO VETOR
     let dataset=[''];  
     if(error) {
         console.log(error);
       } else {
         var i = 0;
         while (results[i] != undefined){
-        console.log(results[i]);
+        // console.log(results[i]);
         dataset[i] = results[i];
         i++;
         }
