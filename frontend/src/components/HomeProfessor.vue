@@ -99,7 +99,12 @@ export default {
                 .catch(error => console.log(error))
         },
 
-        transfMoedasProfessor:function(){   
+        transfMoedasProfessor:function(){  
+            var valor_int = parseInt(this.form.valor_,10)
+            if (valor_int <= 0){
+                alert("Quantidade de moedas inválidas!");
+                return;
+            }
             function atualizaMoedas(cpfProfessor, cpfAluno, valor) {
                 return axios
                     .post('/tranfer/professor-aluno',{
