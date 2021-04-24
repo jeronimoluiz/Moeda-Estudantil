@@ -3,20 +3,42 @@
         <div class="navbar">
             <div class="logo">
                 <img id="img" src="../assets/logo.png">
-            </div>     
+            </div>
+            
             <div class="drop">
                 <b-dropdown size="lg"  variant="link" right toggle-class="text-decoration-none" caret>
                     <template #button-content>
                     </template>
-                    <b-dropdown-item href="#" to="/">Sair</b-dropdown-item>
+                    <b-dropdown-item href="#" to="/" >Sair</b-dropdown-item>
                 </b-dropdown>
             </div>
+
+            <b-avatar id="avatar" variant="warning" size="6vh"></b-avatar>
+
+            <div class="info">
+            </div>
+
             <div>
-                <b-avatar id="avatar" variant="warning" size="6vh"></b-avatar>
+
             </div>
         </div>
-        <div class="d-flex justify-content-center flex-direction: column">
+        
+        
+        <div class="TrasnfAluno">
             <b-card class="card">
+                <div>
+                    <br>
+                    <h1>TRANSFERÊNCIA DE MOEDAS</h1>
+                    <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
+                    <input v-model="form.cpf_AlunoDestino" name="moedasAluno" type="text" placeholder=" Digite a CPF do aluno" required />
+                    <button v-on:click="transfMoedasAluno" id="button_transf" type="primary">Enviar</button><br />
+                    <br/>
+                </div>
+            </b-card>
+        </div>
+        <component-to-re-render :key = "componentKey" />
+        <div class="TrasnfAluno">
+            <b-card class="card2">
                 <div>
                     <br>
                     <h1>
@@ -26,27 +48,38 @@
                     <span v-html="quant_moedas_aluno" class="QuantMoedas"></span>
                     
                 </div>
-                <!-- <button v-on:click="quantMoedasProfessor" id="button_transf" type="primary" ref="myBtn">Atualizar moedas</button><br /> -->
             </b-card>
         </div>
+        
+        
     </div>
 </template>
 
 <script>
 import axios from "../service/config.js";
-// import router from "../router"
+//import router from "../router"
 
 export default {
     
     data() {
         return {
+            form: {
+                cpf_AlunoDestino:'',
+                valor_: '',
+            },
+
+            componentKey: 0,
             quant_moedas_aluno: '',
-            cpfAluno : localStorage.getItem('cpfAluno'),
-            // cnpj : localStorage.getItem('cnpj')
+            cpf_Aluno : localStorage.getItem('cpfAluno'),
         }
     },
     
     methods:{
+
+        forceRerender(){
+            this.componentKey += 1
+        },
+
         quantMoedasAluno:function(){
 
             function retornaQuantMoeda(cpf) {
@@ -56,13 +89,51 @@ export default {
                     }).then(response => response.data).catch(error => error);
             }
 
-            retornaQuantMoeda(this.cpfAluno)
+            retornaQuantMoeda(this.cpf_Aluno)
                 .then(data => {
                     console.log(data.moedas)
                     this.quant_moedas_aluno = '<p>' + data.moedas + '</p>'
                 })
                 .catch(error => console.log(error))
         },
+
+        transfMoedasAluno:function(){  
+            var valor_int = parseInt(this.form.valor_,10)
+            if (valor_int <= 0){
+                alert("Quantidade de moedas inválidas!");
+                return;
+            }
+            var cpf_int2 = parseInt(this.form.cpf_AlunoDestino,10)
+            if (cpf_int2 == this.cpf_Aluno){
+                alert("Não pode enviar para si mesmo!");
+                return;
+            }
+            function atualizaMoedas(cpfAluno1, cpfAluno2, valor) {
+                return axios
+                    .post('/tranfer/aluno-aluno',{
+                    cpfAluno1,
+                    cpfAluno2,
+                    valor,       
+                    })
+                    .then(response => response.data) 
+                    .catch(error => error);
+            }
+            atualizaMoedas(this.cpf_Aluno, this.form.cpf_AlunoDestino, this.form.valor_)
+                .then(data => {
+                    if(data == "CPF não encontrado")  
+                        alert("Aluno não cadastrado no sistema")
+                    else if(data ==  "Você não tem moedas suficientes")
+                        alert("Saldo insificiente para transação")
+                    else if(data == "Transação não realizada")
+                        alert("Não foi possível realizar a transação")
+                    else if(data == "Transação realizada com sucesso"){
+                        alert("Operação realizada com sucesso!")
+                        this.quantMoedasAluno()
+                        this.forceRerender()
+                    }
+                })
+            .catch(error => console.log(error))                  
+        }              
     },
 
     mounted(){
@@ -74,22 +145,6 @@ export default {
 </script>
 
 <style>
-    .card {
-    position: relative;
-    width:30vw;
-    margin-top: -10.5vh;
-    transform: translate(0vw, 34vh);
-    background: #f2f2f2;
-    border-radius: 20px;
-    /* font-family: "Bebas Neue"; */
-    }
-
-    .card h1 {
-        font-size: 3vw;
-        font-family: "Bebas Neue";
-        color: #ffbf03;
-    }
-
     .home{
         background-color: #fff;
         width: 100vw;
@@ -111,19 +166,6 @@ export default {
         position: absolute;
         right: 0%;
     }
-
-    .QuantMoedas{
-        font-family: "Bebas Neue";
-        font-size: 5vw;
-    }
-
-    .d-flex justify-content-center flex-direction:column {  /* Quantidade de moedas Aluno */
-        position: absolute;
-        width: 30vw;
-        /* display: inline-block;
-        padding: 1vw; */
-    }
-
     #img{
         position: absolute;
         max-width: 17vw;
@@ -134,6 +176,71 @@ export default {
         background-color: #ffbf03;
         position: absolute;
         right: 3%;
-        bottom:13%;
     }
+
+    .card {
+        position: relative;
+        transform: translate(0%, 15%);
+        background: #f2f2f2;
+        border-radius: 20px;
+        
+    }
+
+    .card2 {
+        position: relative;
+        transform: translate(0%, 31%);
+        background: #f2f2f2;
+        border-radius: 20px;
+        
+    }
+
+    .card h1 {
+        font-size: 5vw;
+        font-family: "Bebas Neue";
+        color: #ffbf03;
+    }
+
+    .QuantMoedas{
+        font-family: "Bebas Neue";
+        font-size: 10vw;
+    }
+
+    .TrasnfAluno{
+        position: relative;
+        width: 45%;
+        display: inline-block;
+        padding: 1%;
+    }
+
+    .TrasnfAluno input[name="moedasAluno"] {
+        margin-top: 5%;
+        width: 15%;
+        margin-left: 2%;
+        border-radius: 50px;
+        font-family: "Bebas Neue";
+        font-size: 20px;
+        outline: 0;
+        width: 500px;
+    }
+
+    #button_transf {
+        margin-top: 2.5%;
+        width: 20%;
+        white-space: normal;
+        height: 6vh;
+        font-family: "Bebas Neue";
+        letter-spacing: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 45%;
+        background: #ffbf03;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #fff;
+        border: none;
+        font-size: 26px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
 </style>
