@@ -28,7 +28,7 @@
                     <h1>TRANSFERÊNCIA DE MOEDAS</h1>
                     <input v-model="form.valor_" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
                     <div class="comboxBoxAutocomplete">
-                        <input list="my-list-id"  name="inputAlunos" placeholder=" Digite o nome do aluno" required />
+                        <input v-on:keyup="teste($event.target.value)" list="my-list-id"  name="inputAlunos" placeholder=" Digite o nome do aluno" required />
                         <datalist id="my-list-id" class="mb-4">
                             <option v-for="aluno in alunos" v-bind:key="aluno">{{ aluno }}</option>
                         </datalist>
@@ -76,7 +76,7 @@ export default {
             cpf_Professor : localStorage.getItem('cpfProfessor'),
             // cnpj : localStorage.getItem('cnpj')
 
-            alunos: ['Small', 'Medium', 'Large', 'Extra Large'],
+            alunos: [],
         }
     },
     
@@ -135,7 +135,34 @@ export default {
                     })
                     .catch(error => console.log(error))         
                        
-        }              
+        },
+
+        teste:function(tes){
+            console.log(typeof tes)
+            console.log(tes.length)
+            
+            this.alunos = [];
+            if (tes.length > 1){
+                axios
+                .post('/users/search-name', {
+                    nome: tes,
+                    cnpj: "00000000000001"
+                })
+                .then(function (response) {
+                    response.data
+                    response.data.length
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+            
+
+            //console.log(this.alunos)
+        }
+        
+        
+        
     },
 
     mounted(){
