@@ -72,7 +72,7 @@ exports.filterBuscaAlunos = (req, res) => {
 exports.filterBuscaNomeAluno = (req, res) => {
   const nomeAluno = req.body.nome.substring(0, 100);
   const universidade = req.body.cnpj.substring(0, 14);
-  sqlQry.execSQLQueryArrays(`SELECT nome FROM aluno WHERE nome='${nomeAluno}' AND cnpjuniversidade='${universidade};`, dataset => {
+  sqlQry.execSQLQueryArrays(`SELECT nome FROM aluno WHERE nome='${nomeAluno}' AND cnpjuniversidade='${universidade}';`, dataset => {
     // console.log(dataset);
     if (dataset === undefined) {
       res.send({ success: false, message: 'Ocorreu um erro no sistema', error: 404 });
