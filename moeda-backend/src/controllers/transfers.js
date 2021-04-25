@@ -103,7 +103,7 @@ exports.teacherToStudentCPF = (req, res) => {
 
 // Função para o aluno procurar ooutro aluno pelo nome
 exports.studentToStudentName = (req, res) => {
-  const nomeAluno1 = req.body.nomeAluno1;
+  const cpfAluno1 = req.body.nomeAluno1;
   const nomeAluno2 = req.body.nomeAluno2;
   const valor = parseInt(req.body.valor);
   let moedasBancoAluno1 = 0;
@@ -114,7 +114,7 @@ exports.studentToStudentName = (req, res) => {
   let sucessoTransicao2 = false;
 
   // pegando a quantidade de moedas do aluno1 e o id para as proximas querys
-  sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE nome ='${nomeAluno1}';`, (dataset) => {
+  sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE cpfaluno ='${cpfAluno1}';`, (dataset) => {
 
     moedasBancoAluno1 = dataset.MOEDAS;
     idAluno1 = dataset.IDALUNO;
@@ -153,7 +153,7 @@ exports.studentToStudentName = (req, res) => {
 }
 
 exports.teacherToStudentName = (req, res) => {
-  const nomeProfessor = req.body.nomeProfessor;
+  const cpfProfessor = req.body.cpfProfessor;
   const nomeAluno = req.body.nomeAluno;
   const valor = parseInt(req.body.valor);
   let moedasBancoProfessor = 0;
@@ -164,7 +164,7 @@ exports.teacherToStudentName = (req, res) => {
   let sucessoTransicao2 = false;
 
   // pegando a quantidade de moedas do professor e o id para as proximas querys
-  sqlQry.execSQLQuery(`SELECT MOEDAS, IDPROFESSOR FROM professor WHERE nome ='${nomeProfessor}';`, (dataset) => {
+  sqlQry.execSQLQuery(`SELECT MOEDAS, IDPROFESSOR FROM professor WHERE cpfprofessor ='${cpfProfessor}';`, (dataset) => {
 
     moedasBancoProfessor = dataset.MOEDAS;
     idProfessor = dataset.IDPROFESSOR;
