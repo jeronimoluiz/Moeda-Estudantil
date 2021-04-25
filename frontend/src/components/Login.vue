@@ -12,7 +12,7 @@
         <p>Resgate recompensas</p>
       </div>
       <!--Caixa de login-->
-      <div class="col-lg-4 col-md-12 col-sm-12 area-caixa">
+      <div class="col-lg-4 col-md-12 col-sm-12">
         <div class="caixa">
           <h1>LOGIN</h1>
           <form v-on:submit.prevent="enviar">
@@ -124,9 +124,6 @@ export default {
   .texto p:nth-child(3){
     font-size: 4rem;
     color: #ffbf03;
-  }
-  .area-caixa{
-    padding-top: 50px;
   }
   .caixa{
     background: #f2f2f2;
