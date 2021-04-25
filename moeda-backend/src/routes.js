@@ -34,10 +34,14 @@ router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
 // ROTA DE RETORNO DE MOEDAS DO PROFESSOR
 router.post('/users/moeda-professor', searchs.filterMoedaProfessor);
 
-// ROTA TRANSFERENCIA DE ALUNO PRA ALUNO
-router.post('/tranfer/aluno-aluno', transferController.studentToStudent);
-// ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO
-router.post('/tranfer/professor-aluno', transferController.teacherToStudent);
+// ROTA TRANSFERENCIA DE ALUNO PRA ALUNO PELO CPF
+router.post('/tranfer/aluno-aluno-cpf', transferController.studentToStudentCPF);
+// ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO PELO CPF
+router.post('/tranfer/professor-aluno-cpf', transferController.teacherToStudentCPF);
+// ROTA TRANSFERENCIA DE ALUNO PRA ALUNO PELO NOME
+router.post('/tranfer/aluno-aluno-name', transferController.studentToStudentName);
+// ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO PELO NOME
+router.post('/tranfer/professor-aluno-name', transferController.teacherToStudentName);
 
 router.delete('/student/:id', studentController.remove);
 router.patch('/student/:id', studentController.update);
