@@ -1,5 +1,6 @@
 const { json } = require('body-parser');
 const sqlQry = require('../utils/mysql');
+require('date-utils');
 
 exports.studentToStudent = (req, res) => {
   const cpfAluno1 = req.body.cpfAluno1;
@@ -30,14 +31,19 @@ exports.studentToStudent = (req, res) => {
           // somando o valor da quantidade de moedas do aluno2 
           sqlQry.execSQLQuery(`UPDATE ALUNO SET MOEDAS = '${moedasBancoAluno2 + valor}' WHERE IDALUNO = '${idAluno2}';`, () => {
             sucessoTransicao1 = true;
-
+            
             // subtraindo o valor da quantidade de moedas do aluno1
             sqlQry.execSQLQuery(`UPDATE ALUNO SET MOEDAS = '${moedasBancoAluno1 - valor}' WHERE IDALUNO = '${idAluno1}';`, () => {
               sucessoTransicao2 = true;
 
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
-                res.status(200).send('Transação realizada com sucesso');
+                // Armazenar as informações de transferência na tabela de transfaluno
+                var dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                sqlQry.execSQLQuery(`INSERT INTO transfaluno (IDALUNOREMETENTE, IDALUNODESTINATARIO, QUANTMOEDAS, DATA) 
+                VALUES ('${idAluno1}', '${idAluno2}', '${valor}', '${dataAtual}');`, () => {
+                  res.status(200).send('Transação realizada com sucesso');
+                })
               } else {
                 res.status(200).send('Transação não realizada');
               }
@@ -87,7 +93,12 @@ exports.teacherToStudent = (req, res) => {
 
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
-                res.status(200).send('Transação realizada com sucesso');
+                // Armazenar as informações de transferência na tabela de transfaluno
+                var dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                sqlQry.execSQLQuery(`INSERT INTO transfprofessor (IDPROFESSOR, IDALUNOD, QUANTMOEDAS, DATA) 
+                VALUES ('${idProfessor}', '${idAluno}', '${valor}', '${dataAtual}');`, () => {
+                  res.status(200).send('Transação realizada com sucesso');
+                })
               } else {
                 res.status(200).send('Transação não realizada');
               }
