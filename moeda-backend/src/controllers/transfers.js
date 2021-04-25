@@ -103,7 +103,7 @@ exports.teacherToStudentCPF = (req, res) => {
 
 // Função para o aluno procurar ooutro aluno pelo nome
 exports.studentToStudentName = (req, res) => {
-  const cpfAluno1 = req.body.nomeAluno1;
+  const cpfAluno1 = req.body.cpfAluno;
   const nomeAluno2 = req.body.nomeAluno2;
   const valor = parseInt(req.body.valor);
   let moedasBancoAluno1 = 0;
