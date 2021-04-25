@@ -25,7 +25,7 @@ router.post('/users/professor/search', searchs.filterAlunoCPF);
 //ROTA PARA PROCURA DO PROFESSOR DE TODOS OS ALUNOS DE UMA UNIVERSIDADE
 router.post('/users/searchall', searchs.filterBuscaAlunos);
 //ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELA MATRICULA
-router.post('/users/search-name', searchs.filterAlunoMatricula);
+router.post('/users/search-matricula', searchs.filterAlunoMatricula);
 //ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELO NOME
 router.post('/users/search-name', searchs.filterBuscaNomeAluno);
 
