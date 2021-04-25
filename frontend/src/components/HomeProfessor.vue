@@ -26,15 +26,17 @@
                 <div>
                     <br>
                     <h1>TRANSFERÊNCIA DE MOEDAS</h1>
-                    <input v-model="form.valor_" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
-                    <div class="comboxBoxAutocomplete">
-                        <input v-on:keyup="teste($event.target.value)" list="my-list-id"  name="inputAlunos" placeholder=" Digite o nome do aluno" required />
-                        <datalist id="my-list-id" class="mb-4">
-                            <option v-for="aluno in alunos" v-bind:key="aluno">{{ aluno }}</option>
-                        </datalist>
-                    </div>
-                    <button v-on:click="transfMoedasProfessor" id="button_transf" type="primary">Enviar</button><br />
-                    <br/>
+                    <form v-on:submit.prevent = "transfMoedasProfessor">
+                        <input v-model="form.valor_" name="moedasProf" type="text" placeholder=" Digite a quantidade de moedas" required />
+                        <div class="comboxBoxAutocomplete">
+                            <input v-on:keyup="listaAluno($event.target.value)" list="my-list-id"  name="inputAlunos" placeholder=" Digite o nome do aluno" required />
+                            <datalist id="my-list-id" class="mb-4">
+                                <option v-for="aluno in alunos" v-bind:key="aluno">{{ aluno }}</option>
+                            </datalist>
+                        </div>
+                        <button id="button_transf" type="primary">Enviar</button><br />
+                        <br/>
+                    </form>
                 </div>
             </b-card>
         </div>
@@ -67,14 +69,14 @@ export default {
     data() {
         return {
             form: {
-                cpf_Aluno:'',
+                cpf_Aluno:'12345678902',
                 valor_: '',
             },
 
             componentKey: 0,
             quant_moedas_prof: '',
             cpf_Professor : localStorage.getItem('cpfProfessor'),
-            // cnpj : localStorage.getItem('cnpj')
+            cnpj : localStorage.getItem('cnpj'),
 
             alunos: [],
         }
@@ -85,7 +87,7 @@ export default {
         forceRerender(){
             this.componentKey += 1
         },
-
+        
         quantMoedasProfessor:function(){
 
             function retornaQuantMoeda(cpf) {
@@ -121,10 +123,11 @@ export default {
             }
             atualizaMoedas(this.cpf_Professor, this.form.cpf_Aluno, this.form.valor_)
                 .then(data => {
+                        console.log(data)
                         if(data == "CPF não encontrado")  
                             alert("Aluno não cadastrado no sistema")
                         else if(data ==  "Você não tem moedas suficientes")
-                            alert("Saldo insificiente para transação")
+                            alert("Saldo insuficiente para transação")
                         else if(data == "Transação não realizada")
                             alert("Não foi possível realizar a transação")
                         else if(data == "Transação realizada com sucesso"){
@@ -133,35 +136,36 @@ export default {
                             this.forceRerender()
                         }
                     })
-                    .catch(error => console.log(error))         
+                .catch(error => console.log(error))         
                        
         },
 
-        teste:function(tes){
-            console.log(typeof tes)
-            console.log(tes.length)
-            
-            this.alunos = [];
-            if (tes.length > 1){
-                axios
-                .post('/users/search-name', {
-                    nome: tes,
-                    cnpj: "00000000000001"
-                })
-                .then(function (response) {
-                    response.data
-                    response.data.length
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            }
-            
+        listaAluno:function(aluno){            
 
-            //console.log(this.alunos)
+            console.log(this.cnpj)
+            if (aluno.length > 0){
+                pesquisaAluno(aluno, this.cnpj)
+                .then(data => {
+                    console.log(this.alunos)
+                    this.alunos.splice(0, this.alunos.length)
+                    for (var i = 0; i != data.length; i++){
+                        this.alunos.push((data[i].nome).toUpperCase())
+                    }
+                })
+                .catch(error => console.log(error))
+            }  
+
+            function pesquisaAluno(nome, cnpj){
+                return axios
+                .post('/users/search-name', {
+                    nome,
+                    cnpj
+                })
+                .then(response => response.data)
+                .catch(error => error);
+            }
+
         }
-        
-        
         
     },
 
