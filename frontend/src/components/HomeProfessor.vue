@@ -69,7 +69,7 @@ export default {
     data() {
         return {
             form: {
-                cpf_Aluno:'12345678902',
+                nomeAluno_:'',
                 valor_: '',
             },
 
@@ -89,7 +89,6 @@ export default {
         },
         
         quantMoedasProfessor:function(){
-
             function retornaQuantMoeda(cpf) {
                 console.log(cpf);
                     return axios.post('/users/moeda-professor', {
@@ -111,20 +110,20 @@ export default {
                 alert("Quantidade de moedas inválidas!");
                 return;
             }
-            function atualizaMoedas(cpfProfessor, cpfAluno, valor) {
+            function atualizaMoedas(cpfProfessor, nomeAluno, valor) {
                 return axios
-                    .post('/tranfer/professor-aluno',{
+                    .post('/tranfer/professor-aluno-name',{
                     cpfProfessor,
-                    cpfAluno,
+                    nomeAluno,
                     valor,       
                     })
                     .then(response => response.data) 
                     .catch(error => error);
             }
-            atualizaMoedas(this.cpf_Professor, this.form.cpf_Aluno, this.form.valor_)
+            atualizaMoedas(this.cpf_Professor, this.form.nomeAluno_, this.form.valor_)
                 .then(data => {
                         console.log(data)
-                        if(data == "CPF não encontrado")  
+                        if(data == "Nome do aluno não encontrado")  
                             alert("Aluno não cadastrado no sistema")
                         else if(data ==  "Você não tem moedas suficientes")
                             alert("Saldo insuficiente para transação")
@@ -141,7 +140,7 @@ export default {
         },
 
         listaAluno:function(aluno){            
-
+            this.form.nomeAluno_ = ''
             console.log(this.cnpj)
             if (aluno.length > 0){
                 pesquisaAluno(aluno, this.cnpj)
@@ -151,8 +150,10 @@ export default {
                     for (var i = 0; i != data.length; i++){
                         this.alunos.push((data[i].nome).toUpperCase())
                     }
+                    
                 })
                 .catch(error => console.log(error))
+                this.form.nomeAluno_ = aluno
             }  
 
             function pesquisaAluno(nome, cnpj){
