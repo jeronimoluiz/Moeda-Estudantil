@@ -168,40 +168,6 @@
       </footer>
     </div>
   </div>
-
-  <!--<div class="home">
-        
-        
-        
-        <div class="TrasnfAluno">
-            <b-card class="card">
-                <div>
-                    <br>
-                    <h1>TRANSFERÊNCIA DE MOEDAS</h1>
-                    <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
-                    <input v-model="form.cpf_AlunoDestino" name="moedasAluno" type="text" placeholder=" Digite a CPF do aluno" required />
-                    <button v-on:click="transfMoedasAluno" id="button_transf" type="primary">Enviar</button><br />
-                    <br/>
-                </div>
-            </b-card>
-        </div>
-        <component-to-re-render :key = "componentKey" />
-        <div class="TrasnfAluno">
-            <b-card class="card2">
-                <div>
-                    <br>
-                    <h1>
-                        QUANTIDADE DE MOEDAS
-                    </h1>
-                    
-                    <span v-html="quant_moedas_aluno" class="QuantMoedas"></span>
-                    
-                </div>
-            </b-card>
-        </div>
-        
-        
-    </div>-->
 </template>
 
 <script>
@@ -450,6 +416,7 @@ export default {
 .cards{
   padding-left: 60px;
 }
+
 .card-title{
     font-family: bebas neue;
     color: #ffbf03;
