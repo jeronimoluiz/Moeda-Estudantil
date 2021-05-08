@@ -39,7 +39,11 @@ exports.studentToStudentCPF = (req, res) => {
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 // Armazenar as informações de transferência na tabela de transfaluno
-                let dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                let dataAtual = new Date();
+                let hora = dataAtual.getHours();
+                hora = hora - 3;
+                dataAtual.setHours(hora);
+                dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfaluno (IDALUNOREMETENTE, IDALUNODESTINATARIO, QUANTMOEDAS, DATA) 
                 VALUES ('${idAluno1}', '${idAluno2}', '${valor}', '${dataAtual}');`, () => {
                   res.status(200).send('Transação realizada com sucesso');
@@ -94,7 +98,11 @@ exports.teacherToStudentCPF = (req, res) => {
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 // Armazenar as informações de transferência na tabela de transfaluno
-                var dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                let dataAtual = new Date();
+                let hora = dataAtual.getHours();
+                hora = hora - 3;
+                dataAtual.setHours(hora);
+                dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfprofessor (IDPROFESSORR, IDALUNOD, QUANTMOEDAS, DATA) 
                 VALUES ('${idProfessor}', '${idAluno}', '${valor}', '${dataAtual}');`, () => {
                   res.status(200).send('Transação realizada com sucesso');
@@ -150,7 +158,11 @@ exports.studentToStudentName = (req, res) => {
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 // Armazenar as informações de transferência na tabela de transfaluno
-                var dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                let dataAtual = new Date();
+                let hora = dataAtual.getHours();
+                hora = hora - 3;
+                dataAtual.setHours(hora);
+                dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfaluno (IDALUNOREMETENTE, IDALUNODESTINATARIO, QUANTMOEDAS, DATA) 
                 VALUES ('${idAluno1}', '${idAluno2}', '${valor}', '${dataAtual}');`, () => {
                   res.status(200).send('Transação realizada com sucesso');
@@ -205,7 +217,11 @@ exports.teacherToStudentName = (req, res) => {
               // Se as duas operações derem certo, retorna mensagem de sucesso
               if(sucessoTransicao1==true && sucessoTransicao2==true) {
                 // Armazenar as informações de transferência na tabela de transfaluno
-                var dataAtual = new Date().toJSON().slice(0, 19).replace('T', ' ');
+                let dataAtual = new Date();
+                let hora = dataAtual.getHours();
+                hora = hora - 3;
+                dataAtual.setHours(hora);
+                dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfprofessor (IDPROFESSORR, IDALUNOD, QUANTMOEDAS, DATA) 
                 VALUES ('${idProfessor}', '${idAluno}', '${valor}', '${dataAtual}');`, () => {
                   res.status(200).send('Transação realizada com sucesso');
