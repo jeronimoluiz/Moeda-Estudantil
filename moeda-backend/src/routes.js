@@ -28,6 +28,8 @@ router.post('/users/searchall', searchs.filterBuscaAlunos);
 router.post('/users/search-matricula', searchs.filterAlunoMatricula);
 //ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELO NOME
 router.post('/users/search-name', searchs.filterBuscaNomeAluno);
+//ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELO NOME E RETORNAR A MATRICULA
+router.post('/users/search-registration', searchs.filterBuscaNomeAlunoMatricula);
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO
 router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
