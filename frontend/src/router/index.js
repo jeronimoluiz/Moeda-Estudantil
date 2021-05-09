@@ -29,7 +29,7 @@ const routes = [
     path: "/home-professor",
     name: "HomeProfessor",
     component: () =>
-      import( "../components/HomeProfessor.vue"),
+      import( "../components/HomeProfessor_New.vue"),
   },
 
 
