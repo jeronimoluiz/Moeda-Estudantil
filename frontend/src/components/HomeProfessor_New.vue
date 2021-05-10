@@ -24,7 +24,7 @@
 
         <div class="infos">
           <div class="user-infos">
-            <span v-html="nome_prof" class="NomeAluno"></span>
+            <span class="NomeProfessor">{{nome_Professor}}</span>
             <div class="user-infosMoeda">
               <img src="../assets/moeda.png" />
               <span v-html="quant_moedas_prof" class="QuantMoedas"></span>
@@ -133,6 +133,7 @@ export default {
       quant_moedas_prof: "",
       cpf_Professor: localStorage.getItem("cpfProfessor"),
       cnpj: localStorage.getItem("cnpj"),
+      nome_Professor: localStorage.getItem("nome_Professor"),
       alunos: [],
       transferencias: [],
     };
@@ -313,7 +314,7 @@ export default {
   justify-content: flex-start;
 }
 .logo-homeAluno img {
-  width: 100px;
+  width: 120px;
 }
 .pesquisa {
   display: flex;
@@ -370,9 +371,11 @@ export default {
   font-family: Bebas Neue;
   font-size: 1.1rem;
 }
-.NomeAluno p {
+.NomeProfessor{
   padding-left: 25px;
   color: #ffbf03;
+  font-family: 'Bebas Neue';
+  font-size: 1.3rem;
 }
 .QuantMoedas {
   padding-left: 5px;

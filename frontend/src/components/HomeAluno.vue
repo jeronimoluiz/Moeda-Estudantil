@@ -113,46 +113,40 @@
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=24"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
+              <b-card-text>
                   500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
+              <b-card-text>
                   500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=26"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
-                 500 moedas
+              <b-card-text>
+                  500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
           </div>
@@ -164,7 +158,7 @@
       <footer class="footer">
         <h1>TRANSFERÊNCIA DE MOEDAS</h1>
         <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
-        <input v-on:keyup="listaAluno($event.target.value)" list="my-list-id" name="moedasAluno" placeholder=" Digite o nome do aluno" required />
+        <input v-on:keyup="listaAluno($event.target.value)" list="my-list-id" name="nomeAlunoDestino" placeholder=" Digite o nome do aluno" required />
         <datalist id="my-list-id" class="mb-4">
           <option v-for="aluno in alunos" v-bind:key="aluno">
             {{ aluno }}
@@ -184,7 +178,7 @@ export default {
   data() {
     return {
       form: {
-        cpf_AlunoDestino: "",
+        nomeAlunoDestino_: "",
         valor_: "",
       },
 
@@ -233,9 +227,14 @@ export default {
         alert("Não pode enviar para si mesmo!");
         return;
       }
-      function atualizaMoedas(cpfAluno1, cpfAluno2, valor) {
+      function atualizaMoedas(cpfAluno1, matricula, valor) {
+        var cpfAluno2 = matricula.replace(/\D+/g, "");
+        console.log(cpfAluno1);
+        console.log(cpfAluno2);
+        console.log(valor);
+        console.log(matricula)
         return axios
-          .post("/tranfer/aluno-aluno", {
+          .post("/tranfer/aluno-aluno-matricula", {
             cpfAluno1,
             cpfAluno2,
             valor,
@@ -245,7 +244,7 @@ export default {
       }
       atualizaMoedas(
         this.cpf_Aluno,
-        this.form.cpf_AlunoDestino,
+        this.form.nomeAlunoDestino_,
         this.form.valor_
       )
         .then((data) => {
@@ -265,7 +264,7 @@ export default {
     },
 
     listaAluno: function (aluno) {
-      this.form.nomeAluno_ = "";
+      this.form.nomeAlunoDestino_ = "";
       console.log(this.cnpj);
       if (aluno.length > 0) {
         pesquisaAluno(aluno, this.cnpj)
@@ -273,16 +272,16 @@ export default {
             console.log(this.alunos);
             this.alunos.splice(0, this.alunos.length);
             for (var i = 0; i != data.length; i++) {
-              this.alunos.push(data[i].nome.toUpperCase());
+              this.alunos.push(data[i].dado.toUpperCase());
             }
           })
           .catch((error) => console.log(error));
-        this.form.nomeAluno_ = aluno;
+        this.form.nomeAlunoDestino_ = aluno;
       }
 
       function pesquisaAluno(nome, cnpj) {
         return axios
-          .post("/users/search-name", {
+          .post("/users/search-registration", {
             nome,
             cnpj,
           })
@@ -294,6 +293,7 @@ export default {
 
   mounted() {
     this.quantMoedasAluno();
+
   },
 };
 </script>
@@ -476,6 +476,13 @@ export default {
         width: 300px;
         margin:20px
 }
+.footer input[name="nomeAlunoDestino"] {
+        border-radius: 50px;
+        font-family: "Bebas Neue";
+        font-size: 20px;
+        width: 300px;
+        margin:20px
+}
 #button_transf {
         width: 200px;
         font-family: "Bebas Neue";
@@ -487,5 +494,9 @@ export default {
         border: none;
         font-size: 26px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.img-card{
+  max-width: 300px;
+  max-height: 200px;
 }
 </style>
