@@ -46,7 +46,47 @@
       </header>
     </div>
 
-    <div class="container main"></div>
+    <div class="container main">
+      <div class="col-4 cards">
+        <b-card
+          title="HISTÓRICO DE TRANSFERÊNCIAS"
+          
+          img-top
+          tag="article"
+          style="max-width: 20rem"
+          class="mb-2"
+        >
+          <b-card-text>
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Aluno</th>
+                          <th>Quant. moedas</th>
+                          <th>Data</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="user in users" :key="user.id">
+                          <td>{{ user.url }}</td>
+                          <td>{{ user.lastname }}</td>
+                          <td>{{ user.email }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-card-text>
+        </b-card>
+      </div>
+      
+
+    </div>
 
     <div class="grid-footer">
       <footer class="footer">
@@ -151,10 +191,12 @@ export default {
         return;
       }
       function atualizaMoedas(cpfProfessor, nomeAluno, valor) {
+        var matriculaAluno = nomeAluno.replace(/\D+/g, "");
+        console.log(matriculaAluno)
         return axios
-          .post("/tranfer/professor-aluno-name", {
+          .post("/tranfer/professor-aluno-matricula", {
             cpfProfessor,
-            nomeAluno,
+            matriculaAluno,
             valor,
           })
           .then((response) => response.data)
@@ -187,7 +229,8 @@ export default {
             console.log(this.alunos);
             this.alunos.splice(0, this.alunos.length);
             for (var i = 0; i != data.length; i++) {
-              this.alunos.push(data[i].nome.toUpperCase());
+              this.alunos.push(data[i].dado.toUpperCase());
+              //console.log(data[i].dado.toUpperCase())
             }
           })
           .catch((error) => console.log(error));
@@ -196,7 +239,7 @@ export default {
 
       function pesquisaAluno(nome, cnpj) {
         return axios
-          .post("/users/search-name", {
+          .post("/users/search-registration", {
             nome,
             cnpj,
           })
