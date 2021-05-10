@@ -6,6 +6,7 @@ const teacherController = require('./controllers/teacher');
 const loginControllerAluno = require('./controllers/loginAluno');
 const loginControllerProfessor = require('./controllers/loginProfessor');
 const transferController = require('./controllers/transfers');
+const historicController = require('./controllers/historic');
 const searchs = require('./controllers/tools/select');
 
 router.get('/', (req, res) => res.json({ message: 'API working' }));
@@ -44,6 +45,11 @@ router.post('/tranfer/professor-aluno-cpf', transferController.teacherToStudentC
 router.post('/tranfer/aluno-aluno-matricula', transferController.studentToStudentRegistration);
 // ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO PELO NOME
 router.post('/tranfer/professor-aluno-matricula', transferController.teacherToStudentRegistration);
+
+// ROTA HISTORICO DE TRANSFERENCIAS ALUNO-ALUNO
+router.post('/historic/historic-student', historicController.searchHistoricByDateStudent);
+// ROTA HISTORICO DE TRANSFERENCIAS PROFESSOR-ALUNO
+router.post('/historic/historic-teacher', historicController.searchHistoricByDateTeacher);
 
 router.delete('/student/:id', studentController.remove);
 router.patch('/student/:id', studentController.update);

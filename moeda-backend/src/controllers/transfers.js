@@ -41,7 +41,7 @@ exports.studentToStudentCPF = (req, res) => {
                 // Armazenar as informações de transferência na tabela de transfaluno
                 let dataAtual = new Date();
                 let hora = dataAtual.getHours();
-                hora = hora - 3;
+                // hora = hora - 3;
                 dataAtual.setHours(hora);
                 dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfaluno (IDALUNOREMETENTE, IDALUNODESTINATARIO, QUANTMOEDAS, DATA) 
@@ -100,7 +100,7 @@ exports.teacherToStudentCPF = (req, res) => {
                 // Armazenar as informações de transferência na tabela de transfaluno
                 let dataAtual = new Date();
                 let hora = dataAtual.getHours();
-                hora = hora - 3;
+                // hora = hora - 3;
                 dataAtual.setHours(hora);
                 dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfprofessor (IDPROFESSORR, IDALUNOD, QUANTMOEDAS, DATA) 
@@ -160,7 +160,7 @@ exports.studentToStudentRegistration = (req, res) => {
                 // Armazenar as informações de transferência na tabela de transfaluno
                 let dataAtual = new Date();
                 let hora = dataAtual.getHours();
-                hora = hora - 3;
+                // hora = hora - 3;
                 dataAtual.setHours(hora);
                 dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfaluno (IDALUNOREMETENTE, IDALUNODESTINATARIO, QUANTMOEDAS, DATA) 
@@ -219,7 +219,7 @@ exports.teacherToStudentRegistration = (req, res) => {
                 // Armazenar as informações de transferência na tabela de transfaluno
                 let dataAtual = new Date();
                 let hora = dataAtual.getHours();
-                hora = hora - 3;
+                // hora = hora - 3;
                 dataAtual.setHours(hora);
                 dataAtual = dataAtual.toJSON().slice(0, 19).replace('T', ' ');
                 sqlQry.execSQLQuery(`INSERT INTO transfprofessor (IDPROFESSORR, IDALUNOD, QUANTMOEDAS, DATA) 
