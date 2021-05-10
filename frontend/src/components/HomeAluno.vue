@@ -2,6 +2,7 @@
   <div class="home-aluno">
     <div class="grid">
       <header class="header">
+        
         <div class="logo-homeAluno">
           <img src="../assets/logo.png" />
         </div>
@@ -10,7 +11,7 @@
             <input
               type="text"
               class="caixa-pesquisa"
-              placeholder="Pesquisar produtos"
+              placeholder="Pesquisar produtos"              
               value
             />
             <span class="icone-pesquisa">
@@ -20,7 +21,7 @@
         </span>
         <div class="infos">
           <div class="user-infos">
-            <span v-html="nome_aluno" class="NomeAluno"></span>
+            <span class="NomeAluno">{{nome_Aluno}}</span>
             <div class="user-infosMoeda">
               <img src="../assets/moeda.png" />
               <span v-html="quant_moedas_aluno" class="QuantMoedas"></span>
@@ -161,10 +162,15 @@
 
     <div class="grid-footer">
       <footer class="footer">
-                    <h1>TRANSFERÊNCIA DE MOEDAS</h1>
-                    <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
-                    <input v-model="form.cpf_AlunoDestino" name="moedasAluno" type="text" placeholder=" Digite a CPF do aluno" required />
-                    <button v-on:click="transfMoedasAluno" id="button_transf" type="primary">Enviar</button>
+        <h1>TRANSFERÊNCIA DE MOEDAS</h1>
+        <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
+        <input v-on:keyup="listaAluno($event.target.value)" list="my-list-id" name="moedasAluno" placeholder=" Digite o nome do aluno" required />
+        <datalist id="my-list-id" class="mb-4">
+          <option v-for="aluno in alunos" v-bind:key="aluno">
+            {{ aluno }}
+          </option>
+        </datalist>
+        <button v-on:click="transfMoedasAluno" id="button_transf" type="primary">Enviar</button>
       </footer>
     </div>
   </div>
@@ -183,34 +189,18 @@ export default {
       },
 
       componentKey: 0,
-      nome_aluno: " ",
+      nome_aluno: "",
       quant_moedas_aluno: "",
+      nome_Aluno: localStorage.getItem("nome_Aluno"),
       cpf_Aluno: localStorage.getItem("cpfAluno"),
+      cnpj: localStorage.getItem("cnpj"),
+      alunos: [],
     };
   },
 
   methods: {
     forceRerender() {
       this.componentKey += 1;
-    },
-
-    nomeAluno: function () {
-      function retornaNomeAluno(cpf) {
-        console.log(cpf);
-        return axios
-          .post("/users/nome-aluno", {
-            cpf: cpf,
-          })
-          .then((response) => response.data)
-          .catch((error) => error);
-      }
-
-      retornaNomeAluno(this.cpf_Aluno)
-        .then((data) => {
-          console.log(data.nomeAluno);
-          this.nome_aluno = "<p>" + data.nome + "</p>";
-        })
-        .catch((error) => console.log(error));
     },
 
     quantMoedasAluno: function () {
@@ -273,11 +263,37 @@ export default {
         })
         .catch((error) => console.log(error));
     },
+
+    listaAluno: function (aluno) {
+      this.form.nomeAluno_ = "";
+      console.log(this.cnpj);
+      if (aluno.length > 0) {
+        pesquisaAluno(aluno, this.cnpj)
+          .then((data) => {
+            console.log(this.alunos);
+            this.alunos.splice(0, this.alunos.length);
+            for (var i = 0; i != data.length; i++) {
+              this.alunos.push(data[i].nome.toUpperCase());
+            }
+          })
+          .catch((error) => console.log(error));
+        this.form.nomeAluno_ = aluno;
+      }
+
+      function pesquisaAluno(nome, cnpj) {
+        return axios
+          .post("/users/search-name", {
+            nome,
+            cnpj,
+          })
+          .then((response) => response.data)
+          .catch((error) => error);
+      }
+    },
   },
 
   mounted() {
     this.quantMoedasAluno();
-    this.nomeAluno();
   },
 };
 </script>
@@ -311,7 +327,7 @@ export default {
   justify-content: flex-start;
 }
 .logo-homeAluno img {
-  width: 100px;
+  width: 120px;
 }
 .pesquisa {
   display: flex;
@@ -368,9 +384,11 @@ export default {
   font-family: Bebas Neue;
   font-size: 1.1rem;
 }
-.NomeAluno p {
+.NomeAluno{
   padding-left: 25px;
   color: #ffbf03;
+  font-family: 'Bebas Neue';
+  font-size: 1.3rem;
 }
 .QuantMoedas {
   padding-left: 5px;
@@ -378,6 +396,7 @@ export default {
 }
 .user-infosMoeda {
   display: flex;
+  padding-left: 20px;
 }
 .user-infosMoeda img {
   width: 20px;
@@ -429,6 +448,7 @@ export default {
 .grid-footer {
   display: grid;
   grid-template-rows: auto;
+  position: fixed;
   width: 100%;
   z-index: 20;
   bottom: 0px;

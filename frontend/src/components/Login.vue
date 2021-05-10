@@ -56,6 +56,7 @@ export default {
   methods: {
     enviar: function () {
       console.log("Verificando...");
+      
       if (this.selected_radio == "first") {
         axios
           .post("/users/login-aluno", {
@@ -69,6 +70,7 @@ export default {
             else if (response.data.CPFALUNO !== "") {
               localStorage.setItem("cpfAluno", response.data.CPFALUNO);
               localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
+              localStorage.setItem("nome_Aluno", response.data.NOME);
               router.push("/home-aluno");
             }
           })
@@ -87,7 +89,7 @@ export default {
               alert("Dados incorretos, por favor tente novamente!");
             else if (response.data.CPFPROFESSOR !== "") {
               localStorage.setItem("cpfProfessor", response.data.CPFPROFESSOR);
-              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
+              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE); 
               router.push("/home-professor");
             }
           })
