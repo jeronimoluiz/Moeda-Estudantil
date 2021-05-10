@@ -47,15 +47,8 @@
     </div>
 
     <div class="container main">
-      <div class="col-4 cards">
-        <b-card
-          title="HISTÓRICO DE TRANSFERÊNCIAS"
-          
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2"
-        >
+      <div class="historico">
+        <b-card title="HISTÓRICO DE TRANSFERÊNCIAS">
           <b-card-text>
             <div class="row">
               <div class="col-md-8 col-md-offset-2">
@@ -64,16 +57,18 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Aluno</th>
+                          <th>ID Professor</th>
+                          <th>ID Aluno</th>
                           <th>Quant. moedas</th>
                           <th>Data</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="user in users" :key="user.id">
-                          <td>{{ user.url }}</td>
-                          <td>{{ user.lastname }}</td>
-                          <td>{{ user.email }}</td>
+                        <tr v-for="transferencia in transferencias" :key="transferencia.id">
+                          <td>{{ transferencia.IDPROFESSORR }}</td>
+                          <td>{{ transferencia.IDALUNOD }}</td>
+                          <td>{{ transferencia.quantmoedas }}</td>
+                          <td>{{ transferencia.data.replace(/T/, ' ').replace(/\..+/, '') }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -82,6 +77,8 @@
               </div>
             </div>
           </b-card-text>
+          <br><br>
+
         </b-card>
       </div>
       
@@ -137,6 +134,7 @@ export default {
       cpf_Professor: localStorage.getItem("cpfProfessor"),
       cnpj: localStorage.getItem("cnpj"),
       alunos: [],
+      transferencias: [],
     };
   },
 
@@ -145,6 +143,29 @@ export default {
       this.componentKey += 1;
     },
 
+
+    historico: function () {
+      function retornaHistorico(cpf) {
+        // console.log("Histórico");
+        // console.log(cpf);
+        // console.log("----------------");
+        return axios
+          .post("/historic/historic-teacher", {
+            cpf: cpf,
+          })
+          .then((response) => response.data)
+          .catch((error) => error);
+      }
+
+      retornaHistorico(this.cpf_Professor)
+        .then((data) => {
+          console.log(data);
+          this.transferencias = data;
+        })
+        .catch((error) => console.log(error));
+    },
+    
+    
     //Precisa atualizar para o nome do professor
     // nomeAluno: function () {
     //   function retornaNomeAluno(cpf) {
@@ -251,12 +272,19 @@ export default {
 
   mounted() {
     this.quantMoedasProfessor();
+    this.historico();
     this.nomeAluno();
+    
   },
 };
 </script>
 
 <style>
+
+.historico{
+  margin-top: 40px;
+}
+
 .home-aluno {
   background-color: #034f6d;
   width: 100vw;
