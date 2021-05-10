@@ -90,6 +90,7 @@ export default {
             else if (response.data.CPFPROFESSOR !== "") {
               localStorage.setItem("cpfProfessor", response.data.CPFPROFESSOR);
               localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE); 
+              localStorage.setItem("nome_Professor", response.data.NOME);
               router.push("/home-professor");
             }
           })

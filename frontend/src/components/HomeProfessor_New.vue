@@ -24,7 +24,7 @@
 
         <div class="infos">
           <div class="user-infos">
-            <span v-html="nome_prof" class="NomeAluno"></span>
+            <span class="NomeProfessor">{{nome_Professor}}</span>
             <div class="user-infosMoeda">
               <img src="../assets/moeda.png" />
               <span v-html="quant_moedas_prof" class="QuantMoedas"></span>
@@ -96,6 +96,7 @@ export default {
       quant_moedas_prof: "",
       cpf_Professor: localStorage.getItem("cpfProfessor"),
       cnpj: localStorage.getItem("cnpj"),
+      nome_Professor: localStorage.getItem("nome_Professor"),
       alunos: [],
     };
   },
@@ -105,27 +106,7 @@ export default {
       this.componentKey += 1;
     },
 
-    //Precisa atualizar para o nome do professor
-    // nomeAluno: function () {
-    //   function retornaNomeAluno(cpf) {
-    //     console.log(cpf);
-    //     return axios
-    //       .post("/users/nome-aluno", {
-    //         cpf: cpf,
-    //       })
-    //       .then((response) => response.data)
-    //       .catch((error) => error);
-    //   }
-
-    //   retornaNomeAluno(this.cpf_Aluno)
-    //     .then((data) => {
-    //       console.log(data.nomeAluno);
-    //       this.nome_prof = "<p>" + data.nome + "</p>";
-    //     })
-    //     .catch((error) => console.log(error));
-    // },
-
-    quantMoedasProfessor: function () {
+     quantMoedasProfessor: function () {
       function retornaQuantMoeda(cpf) {
         console.log(cpf);
         return axios
@@ -242,7 +223,7 @@ export default {
   justify-content: flex-start;
 }
 .logo-homeAluno img {
-  width: 100px;
+  width: 120px;
 }
 .pesquisa {
   display: flex;
@@ -299,9 +280,11 @@ export default {
   font-family: Bebas Neue;
   font-size: 1.1rem;
 }
-.NomeAluno p {
+.NomeProfessor{
   padding-left: 25px;
   color: #ffbf03;
+  font-family: 'Bebas Neue';
+  font-size: 1.3rem;
 }
 .QuantMoedas {
   padding-left: 5px;
