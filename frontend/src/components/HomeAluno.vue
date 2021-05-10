@@ -113,46 +113,40 @@
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=24"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
+              <b-card-text>
                   500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
+              <b-card-text>
                   500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
             <div class="col-4 cards">
               <b-card
                 title="Vitamina de açai"
-                img-src="https://picsum.photos/600/300/?image=26"
-                img-alt="Image"
-                img-top
                 tag="article"
                 style="max-width: 20rem"
                 class="mb-2"
               >
-                <b-card-text>
-                 500 moedas
+              <b-card-text>
+                  500 moedas
                 </b-card-text>
+              <img src="../assets/vitamina-de-açai.png" class="img-card">
               </b-card>
             </div>
           </div>
@@ -500,5 +494,9 @@ export default {
         border: none;
         font-size: 26px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.img-card{
+  max-width: 300px;
+  max-height: 200px;
 }
 </style>
