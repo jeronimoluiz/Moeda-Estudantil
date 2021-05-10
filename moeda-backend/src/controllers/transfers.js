@@ -121,9 +121,9 @@ exports.teacherToStudentCPF = (req, res) => {
 }
 
 // Função para o aluno procurar ooutro aluno pelo nome
-exports.studentToStudentName = (req, res) => {
+exports.studentToStudentRegistration = (req, res) => {
   const cpfAluno1 = req.body.cpfAluno1;
-  const nomeAluno2 = req.body.nomeAluno2;
+  const matriculaAluno2 = req.body.matriculaAluno2;
   const valor = parseInt(req.body.valor);
   let moedasBancoAluno1 = 0;
   let moedasBancoAluno2 = 0;
@@ -140,7 +140,7 @@ exports.studentToStudentName = (req, res) => {
 
     // se o aluno1 tiver moedas suficientes para realizar a transação, faz a pesquisa das moedas do aluno2 e id
     if (moedasBancoAluno1 >= valor) {
-      sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE nome ='${nomeAluno2}';`, (dataset2) => {
+      sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE MATRICULAALUNO ='${matriculaAluno2}';`, (dataset2) => {
         if(dataset2 === undefined) {
           res.status(200).send('Nome não encontrado');
         } else { 
@@ -180,9 +180,9 @@ exports.studentToStudentName = (req, res) => {
   });
 }
 
-exports.teacherToStudentName = (req, res) => {
+exports.teacherToStudentRegistration = (req, res) => {
   const cpfProfessor = req.body.cpfProfessor;
-  const nomeAluno = req.body.nomeAluno;
+  const matriculaAluno = req.body.matriculaAluno;
   const valor = parseInt(req.body.valor);
   let moedasBancoProfessor = 0;
   let moedasBancoAluno = 0;
@@ -199,7 +199,7 @@ exports.teacherToStudentName = (req, res) => {
 
     // se o professor tiver moedas suficientes para realizar a transação, faz a pesquisa das moedas do aluno e id
     if (moedasBancoProfessor >= valor) {
-      sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE nome ='${nomeAluno}';`, (dataset2) => {
+      sqlQry.execSQLQuery(`SELECT MOEDAS, IDALUNO FROM aluno WHERE MATRICULAALUNO ='${matriculaAluno}';`, (dataset2) => {
         if(dataset2 === undefined) {
           res.status(200).send('Nome do aluno não encontrado');
         } else { 

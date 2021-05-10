@@ -41,9 +41,9 @@ router.post('/tranfer/aluno-aluno-cpf', transferController.studentToStudentCPF);
 // ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO PELO CPF
 router.post('/tranfer/professor-aluno-cpf', transferController.teacherToStudentCPF);
 // ROTA TRANSFERENCIA DE ALUNO PRA ALUNO PELO NOME
-router.post('/tranfer/aluno-aluno-name', transferController.studentToStudentName);
+router.post('/tranfer/aluno-aluno-matricula', transferController.studentToStudentRegistration);
 // ROTA TRANSFERENCIA DE PROFESSOR PRA ALUNO PELO NOME
-router.post('/tranfer/professor-aluno-name', transferController.teacherToStudentName);
+router.post('/tranfer/professor-aluno-matricula', transferController.teacherToStudentRegistration);
 
 router.delete('/student/:id', studentController.remove);
 router.patch('/student/:id', studentController.update);
