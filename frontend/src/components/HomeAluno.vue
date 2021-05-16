@@ -222,21 +222,21 @@ export default {
         alert("Quantidade de moedas inválidas!");
         return;
       }
-      var cpf_int2 = parseInt(this.form.cpf_AlunoDestino, 10);
+      /*var cpf_int2 = parseInt(this.form.cpf_AlunoDestino, 10);
       if (cpf_int2 == this.cpf_Aluno) {
         alert("Não pode enviar para si mesmo!");
         return;
-      }
+      }*/
       function atualizaMoedas(cpfAluno1, matricula, valor) {
-        var cpfAluno2 = matricula.replace(/\D+/g, "");
-        console.log(cpfAluno1);
-        console.log(cpfAluno2);
-        console.log(valor);
-        console.log(matricula)
+        var matriculaAluno2 = matricula.replace(/\D+/g, "");
+        // console.log(cpfAluno1);
+        // console.log(cpfAluno2);
+        // console.log(valor);
+        // console.log(matricula)
         return axios
           .post("/tranfer/aluno-aluno-matricula", {
             cpfAluno1,
-            cpfAluno2,
+            matriculaAluno2,
             valor,
           })
           .then((response) => response.data)

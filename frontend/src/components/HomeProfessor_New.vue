@@ -56,12 +56,12 @@
                   <div class="panel-body">
                     <table class="table">
                       <thead>
-                        
+                        <tr>
                           <th>Nome Professor</th>
                           <th>Nome Aluno</th>
                           <th>Quant. moedas</th>
                           <th>Data</th>
-                        
+                        </tr>
                       </thead>
                       <tbody>
                         <tr v-for="transferencia in transferencias" :key="transferencia.id">
