@@ -1,5 +1,5 @@
 <template>
-  <div class="home-aluno">
+  <div class="home-professor">
     <div class="grid">
       <header class="header">
         <div class="logo-homeAluno">
@@ -20,7 +20,7 @@
             </span>
           </div>
         </span>
-        <!--  -->
+          <!-- -->
 
         <div class="infos">
           <div class="user-infos">
@@ -48,7 +48,7 @@
 
     <div class="container main">
       <div class="historico">
-        <b-card title="HISTÓRICO DE TRANSFERÊNCIAS">
+        <b-card class="tabela_historico" title="HISTÓRICO DE TRANSFERÊNCIAS">
           <b-card-text>
             <div class="row">
               <div class="col-md-8 col-md-offset-2">
@@ -56,17 +56,17 @@
                   <div class="panel-body">
                     <table class="table">
                       <thead>
-                        <tr>
-                          <th>ID Professor</th>
-                          <th>ID Aluno</th>
+                        
+                          <th>Nome Professor</th>
+                          <th>Nome Aluno</th>
                           <th>Quant. moedas</th>
                           <th>Data</th>
-                        </tr>
+                        
                       </thead>
                       <tbody>
                         <tr v-for="transferencia in transferencias" :key="transferencia.id">
-                          <td>{{ transferencia.IDPROFESSORR }}</td>
-                          <td>{{ transferencia.IDALUNOD }}</td>
+                          <td>{{ transferencia.professor }}</td>
+                          <td>{{ transferencia.aluno }}</td>
                           <td>{{ transferencia.quantmoedas }}</td>
                           <td>{{ transferencia.data.replace(/T/, ' ').replace(/\..+/, '') }}</td>
                         </tr>
@@ -286,7 +286,12 @@ export default {
   margin-top: 40px;
 }
 
-.home-aluno {
+.panel-body{
+  margin-right: -390px;
+  margin-left: 30px;
+}
+
+.home-professor {
   background-color: #034f6d;
   width: 100vw;
   height: 100vh;
@@ -322,6 +327,7 @@ export default {
   align-self: start;
   align-items: flex-start;
   flex-grow: 0.5;
+  opacity: 0;
 }
 .pcompleta {
   height: 30px;
