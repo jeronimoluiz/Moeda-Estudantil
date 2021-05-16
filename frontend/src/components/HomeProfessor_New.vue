@@ -7,7 +7,7 @@
         </div>
 
         <!-- Classe invisível -->
-        <span class="pesquisa">
+        <span class="pesquisa-professor">
           <div class="pcompleta">
             <input
               type="text"
@@ -321,7 +321,7 @@ export default {
 .logo-homeAluno img {
   width: 120px;
 }
-.pesquisa {
+.pesquisa-professor {
   display: flex;
   flex-direction: column;
   align-self: start;

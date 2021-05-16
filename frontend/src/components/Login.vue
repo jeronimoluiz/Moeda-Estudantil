@@ -147,6 +147,7 @@ export default {
     font-size: 1.2rem;
     padding: 0.8rem;
     border: 0.1rem solid #dddddd;
+    outline: 0;
   }
   .titulo-botao {
     font-family: "Bebas Neue";

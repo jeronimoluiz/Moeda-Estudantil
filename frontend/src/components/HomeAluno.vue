@@ -2,7 +2,6 @@
   <div class="home-aluno">
     <div class="grid">
       <header class="header">
-        
         <div class="logo-homeAluno">
           <img src="../assets/logo.png" />
         </div>
@@ -11,7 +10,7 @@
             <input
               type="text"
               class="caixa-pesquisa"
-              placeholder="Pesquisar produtos"              
+              placeholder="Pesquisar produtos"
               value
             />
             <span class="icone-pesquisa">
@@ -21,7 +20,7 @@
         </span>
         <div class="infos">
           <div class="user-infos">
-            <span class="NomeAluno">{{nome_Aluno}}</span>
+            <span class="NomeAluno">{{ nome_Aluno }}</span>
             <div class="user-infosMoeda">
               <img src="../assets/moeda.png" />
               <span v-html="quant_moedas_aluno" class="QuantMoedas"></span>
@@ -117,10 +116,8 @@
                 style="max-width: 20rem"
                 class="mb-2"
               >
-              <b-card-text>
-                  500 moedas
-                </b-card-text>
-              <img src="../assets/vitamina-de-açai.png" class="img-card">
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
               </b-card>
             </div>
             <div class="col-4 cards">
@@ -130,10 +127,8 @@
                 style="max-width: 20rem"
                 class="mb-2"
               >
-              <b-card-text>
-                  500 moedas
-                </b-card-text>
-              <img src="../assets/vitamina-de-açai.png" class="img-card">
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
               </b-card>
             </div>
             <div class="col-4 cards">
@@ -143,10 +138,8 @@
                 style="max-width: 20rem"
                 class="mb-2"
               >
-              <b-card-text>
-                  500 moedas
-                </b-card-text>
-              <img src="../assets/vitamina-de-açai.png" class="img-card">
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
               </b-card>
             </div>
           </div>
@@ -157,14 +150,32 @@
     <div class="grid-footer">
       <footer class="footer">
         <h1>TRANSFERÊNCIA DE MOEDAS</h1>
-        <input v-model="form.valor_" name="moedasAluno" type="text" placeholder=" Digite a quantidade de moedas" required />
-        <input v-on:keyup="listaAluno($event.target.value)" list="my-list-id" name="nomeAlunoDestino" placeholder=" Digite o nome do aluno" required />
+        <input
+          v-model="form.valor_"
+          name="moedasAluno"
+          type="text"
+          placeholder=" Digite a quantidade de moedas"
+          required
+        />
+        <input
+          v-on:keyup="listaAluno($event.target.value)"
+          list="my-list-id"
+          name="nomeAlunoDestino"
+          placeholder=" Digite o nome do aluno"
+          required
+        />
         <datalist id="my-list-id" class="mb-4">
           <option v-for="aluno in alunos" v-bind:key="aluno">
             {{ aluno }}
           </option>
         </datalist>
-        <button v-on:click="transfMoedasAluno" id="button_transf" type="primary">Enviar</button>
+        <button
+          v-on:click="transfMoedasAluno"
+          id="button_transf"
+          type="primary"
+        >
+          Enviar
+        </button>
       </footer>
     </div>
   </div>
@@ -293,7 +304,6 @@ export default {
 
   mounted() {
     this.quantMoedasAluno();
-
   },
 };
 </script>
@@ -359,6 +369,7 @@ export default {
   height: 100%;
   color: #ffbf03;
   padding-left: 6px;
+  outline: 0;
 }
 ::-webkit-input-placeholder {
   color: #ffbf03;
@@ -384,10 +395,10 @@ export default {
   font-family: Bebas Neue;
   font-size: 1.1rem;
 }
-.NomeAluno{
+.NomeAluno {
   padding-left: 25px;
   color: #ffbf03;
-  font-family: 'Bebas Neue';
+  font-family: "Bebas Neue";
   font-size: 1.3rem;
 }
 .QuantMoedas {
@@ -409,7 +420,7 @@ export default {
   padding-top: 70px;
   background-color: #034f6d;
 }
-.main-carousel h1{
+.main-carousel h1 {
   text-align: center;
   padding-top: 20px;
   font-size: 3rem;
@@ -423,27 +434,27 @@ export default {
 .imagem img {
   max-width: 100%;
 }
-.descricao h1{
+.descricao h1 {
   text-align: initial;
   padding-bottom: 30px;
 }
-.descricao p{
+.descricao p {
   text-align: initial;
   font-family: bebas neue;
   font-size: 2rem;
 }
-.cards{
+.cards {
   padding-left: 60px;
 }
 
-.card-title{
-    font-family: bebas neue;
-    color: #ffbf03;
-    font-size: 1.5rem;
+.card-title {
+  font-family: bebas neue;
+  color: #ffbf03;
+  font-size: 1.5rem;
 }
-.card-text{
-    font-family: "Bebas Neue";
-    font-size: 1.3rem;
+.card-text {
+  font-family: "Bebas Neue";
+  font-size: 1.3rem;
 }
 .grid-footer {
   display: grid;
@@ -463,39 +474,41 @@ export default {
   height: 60px;
   padding: 0px 24px 0px 40px;
 }
-.footer h1{
-    font-family: bebas neue;
-    color: #ffbf03;
-    padding-right: 20px;
-    padding-top: 10px;
+.footer h1 {
+  font-family: bebas neue;
+  color: #ffbf03;
+  padding-right: 20px;
+  padding-top: 10px;
 }
 .footer input[name="moedasAluno"] {
-        border-radius: 50px;
-        font-family: "Bebas Neue";
-        font-size: 20px;
-        width: 300px;
-        margin:20px
+  border-radius: 50px;
+  font-family: "Bebas Neue";
+  font-size: 20px;
+  width: 300px;
+  margin: 20px;
+  outline: 0;
 }
 .footer input[name="nomeAlunoDestino"] {
-        border-radius: 50px;
-        font-family: "Bebas Neue";
-        font-size: 20px;
-        width: 300px;
-        margin:20px
+  border-radius: 50px;
+  font-family: "Bebas Neue";
+  font-size: 20px;
+  width: 300px;
+  margin: 20px;
+  outline: 0;
 }
 #button_transf {
-        width: 200px;
-        font-family: "Bebas Neue";
-        letter-spacing: 2px;
-        background: #ffbf03;
-        border-radius: 6px;
-        cursor: pointer;
-        color: #fff;
-        border: none;
-        font-size: 26px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 200px;
+  font-family: "Bebas Neue";
+  letter-spacing: 2px;
+  background: #ffbf03;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  font-size: 26px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.img-card{
+.img-card {
   max-width: 300px;
   max-height: 200px;
 }
