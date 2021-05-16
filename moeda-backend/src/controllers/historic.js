@@ -33,17 +33,27 @@ exports.searchHistoricByDateStudent = (req, res) => {
 
       let endDate = new Date(actualYear, actualMonth - 1, actualDay, actualHours - 3, actualMinutes).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 
-      sqlQry.execSQLQueryArrays(`SELECT remetente, destinatario, quantmoedas, data
+      sqlQry.execSQLQueryArrays(`SELECT nome_remetente, nome_destinatario, quantmoedas, data
         FROM(
-          SELECT IDALUNOREMETENTE as remetente, IDALUNODESTINATARIO as destinatario, QUANTMOEDAS as quantmoedas, DATA as data FROM transfaluno 
-          UNION ALL 
-          SELECT IDPROFESSORR as remetente, IDALUNOD as destinatario, QUANTMOEDAS as quantmoedas, DATA as data FROM transfprofessor
-        ) historico where(remetente = '${idStudent}' or destinatario = '${idStudent}') and data between CONVERT_TZ('${startDate}','+00:00','-03:00') 
-        and CONVERT_TZ('${endDate}','+00:00','-03:00');`, (dataset) => {
+            SELECT t.IDALUNOREMETENTE as remetente, t.IDALUNODESTINATARIO as destinatario, t.QUANTMOEDAS as quantmoedas, t.DATA as data, 
+            a.NOME AS nome_remetente, b.NOME AS nome_destinatario FROM transfaluno as t
+            LEFT JOIN aluno AS a ON a.IDALUNO = t.IDALUNOREMETENTE
+            LEFT JOIN aluno AS b ON b.IDALUNO = t.IDALUNODESTINATARIO
+            UNION ALL
+            SELECT t.IDPROFESSORR as remetente, t.IDALUNOD as destinatario, t.QUANTMOEDAS as quantmoedas, t.DATA as data, a.NOME AS nome_remetente, 
+            b.NOME AS nome_destinatario FROM transfprofessor as t
+            LEFT JOIN professor AS a ON a.IDPROFESSOR = t.IDPROFESSORR
+            LEFT JOIN aluno AS b ON b.IDALUNO = t.IDALUNOD       
+        ) historico
+        WHERE(remetente = '${idStudent}' or destinatario = '${idStudent}') and data between CONVERT_TZ('${startDate}','+00:00', '-03:00') 
+        and CONVERT_TZ('${endDate}','+00:00', '-03:00');`, (dataset) => {
 
           if(dataset == undefined) {
             res.status(200).send('Ocorreu um erro na busca dos dados');
           } else {
+            dataset.forEach(obj => {
+              obj.data.setHours(obj.data.getHours() - 3);
+            });
             res.status(200).send(dataset);
           }
       });
@@ -58,6 +68,7 @@ exports.searchHistoricByDateTeacher = (req, res) => {
 
   // buscando o id do aluno
   sqlQry.execSQLQuery(`SELECT IDPROFESSOR FROM professor WHERE CPFPROFESSOR ='${cpfTeacher}';`, (dataset) => {
+
     idTeacher = dataset.IDPROFESSOR;
 
     if (dataset === undefined) {
@@ -82,17 +93,19 @@ exports.searchHistoricByDateTeacher = (req, res) => {
 
       let endDate = new Date(actualYear, actualMonth - 1, actualDay, actualHours - 3, actualMinutes).toISOString().replace(/T/, ' ').replace(/\..+/, '');
 
-      sqlQry.execSQLQueryArrays(`Select p.IDPROFESSORR, p.IDALUNOD, p.quantmoedas, p.data FROM transfprofessor as p where (p.IDPROFESSORR = '${idTeacher}') 
-        and p.data between CONVERT_TZ('${startDate}','+00:00','-03:00') and CONVERT_TZ('${endDate}','+00:00','-03:00');`, (dataset) => {
+      sqlQry.execSQLQueryArrays(`SELECT b.NOME AS professor, a.NOME as aluno, p.quantmoedas, p.data 
+      FROM transfprofessor AS p LEFT JOIN aluno AS a ON a.IDALUNO = p.IDALUNOD LEFT JOIN professor AS b on b.IDPROFESSOR = p.IDPROFESSORR
+      WHERE (p.IDPROFESSORR = '${idTeacher}') AND p.data between CONVERT_TZ('${startDate}','+00:00','-03:00') and CONVERT_TZ('${endDate}','+00:00','-03:00');`, (dataset) => {
 
           if(dataset == undefined) {
             res.status(200).send('Ocorreu um erro na busca dos dados');
           } else {
+            dataset.forEach(obj => {
+              obj.data.setHours(obj.data.getHours() - 3);
+            });
             res.status(200).send(dataset);
           }
       });
     }
   });
-
-
 }
