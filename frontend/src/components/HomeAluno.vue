@@ -36,6 +36,7 @@
               <b-avatar id="avatar" variant="warning" size="3.5rem"></b-avatar
               ><span class="sr-only">Search</span>
             </template>
+            <b-dropdown-item href="#" to="/transacoes-aluno">Histórico de Transferências</b-dropdown-item>
             <b-dropdown-item href="#" to="/">Sair</b-dropdown-item>
           </b-dropdown>
         </div>
