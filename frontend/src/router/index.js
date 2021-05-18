@@ -44,6 +44,12 @@ const routes = [
     component: () =>
       import( "../components/HomeProfessor.vue"),
   },
+  {
+    path: "/transacoes-aluno",
+    name: "transacoesAluno",
+    component: () =>
+      import( "../components/TransacoesAluno.vue"),
+  },
 
 
 ];
