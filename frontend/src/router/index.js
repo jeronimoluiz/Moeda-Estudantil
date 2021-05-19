@@ -50,6 +50,12 @@ const routes = [
     component: () =>
       import( "../components/TransacoesAluno.vue"),
   },
+  {
+    path: "/home-fornecedor",
+    name: "HomeFornecedor",
+    component: () =>
+      import( "../components/HomeFornecedor.vue"),
+  },
 
 
 ];
