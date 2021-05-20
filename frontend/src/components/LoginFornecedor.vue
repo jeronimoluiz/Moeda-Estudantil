@@ -14,9 +14,9 @@
             <form v-on:submit.prevent="enviar">
               <input
                 id="campo"
-                v-model="form.cpf"
+                v-model="form.cnpj"
                 type="text"
-                placeholder="CPF"
+                placeholder="CNPJ"
                 required
               />
               <input
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       form: {
-        cpf: "",
+        cnpj: "",
         senha: "",
       },
       selected_radio: "first",
@@ -63,47 +63,25 @@ export default {
     enviar: function () {
       console.log("Verificando...");
 
-      if (this.selected_radio == "first") {
         axios
-          .post("/users/login-aluno", {
-            cpf: this.form.cpf,
+          .post("/users/login-loja", {
+            cnpj: this.form.cnpj,
             senha: this.form.senha,
           })
           .then(function (response) {
             console.log(response);
             if (response.data.error === 404)
               alert("Dados incorretos, por favor tente novamente!");
-            else if (response.data.CPFALUNO !== "") {
-              localStorage.setItem("cpfAluno", response.data.CPFALUNO);
-              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
-              localStorage.setItem("nome_Aluno", response.data.NOME);
-              router.push("/home-aluno");
+            else if (response.data.Cnpj !== "") {
+              localStorage.setItem("nome_loja", response.data.NomeDaLoja);
+              localStorage.setItem("cnpj", response.data.Cnpj);
+              //localStorage.setItem("nome_Aluno", response.data.NOME);
+              router.push("/home-fornecedor");
             }
           })
           .catch(function (error) {
             console.log(error);
           });
-      } else {
-        axios
-          .post("/users/login-professor", {
-            cpf: this.form.cpf,
-            senha: this.form.senha,
-          })
-          .then(function (response) {
-            console.log(response);
-            if (response.data.error === 404)
-              alert("Dados incorretos, por favor tente novamente!");
-            else if (response.data.CPFPROFESSOR !== "") {
-              localStorage.setItem("cpfProfessor", response.data.CPFPROFESSOR);
-              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
-              localStorage.setItem("nome_Professor", response.data.NOME);
-              router.push("/home-professor");
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
     },
   },
 };
