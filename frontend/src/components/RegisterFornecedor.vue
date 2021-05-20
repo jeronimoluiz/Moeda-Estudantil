@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-
     <b-img
       :src="require('../assets/logo.png')"
       class="image-fluid"
@@ -11,118 +10,122 @@
     <div class="cadastro">
       <div class="card">
         <h1>ENTRE AGORA</h1>
-        <form v-on:submit.prevent = "enviar">
-          <input v-model="form.nome" name="nome" type="text" placeholder="Nome" required />
-          <input v-model="form.cpf" name="cpf" type="text" placeholder="CPF" required />
-          <input v-model="form.senha" name="senha" type="password" placeholder="Senha" required />
-          <input v-model="form.confirmSenha" name="senhaconfirm" type="password" placeholder="Confirmar Senha" required
+        <form v-on:submit.prevent="enviar">
+          <input
+            v-model="form.nome"
+            name="nome"
+            type="text"
+            placeholder="Nome"
+            required
           />
-          <br/>
-          <br>
+          <input
+            v-model="form.cnpj"
+            name="cnpj"
+            type="text"
+            placeholder="CNPJ"
+            required
+          />
+          <input
+            v-model="form.senha"
+            name="senha"
+            type="password"
+            placeholder="Senha"
+            required
+          />
+          <input
+            v-model="form.confirmSenha"
+            name="senhaconfirm"
+            type="password"
+            placeholder="Confirmar Senha"
+            required
+          />
+          <br />
+          <br />
           <button id="button_signup" type="primary">Cadastrar</button><br />
-          <br/>
+          <br />
         </form>
-        
       </div>
 
       <div class="link-login">
         Já tem cadastro?
         <router-link to="/login-fornecedor" id="_link-login">Login</router-link>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
 import axios from "../service/config.js";
-import router from "../router"
+import router from "../router";
 export default {
   data() {
     return {
-      form:{
-        nome: '',
-        cpf: '',
-        senha: '',
-        confirmSenha: '',
+      form: {
+        nome: "",
+        cnpj: "",
+        senha: "",
+        confirmSenha: "",
       },
-      
+
       selected_university: null,
       selected_radio: "first",
       options_university: [
         { value: null, name: "Selecione sua Universidade" },
-        { item: "00000000000001", name: "Potifícia Universidade Católica de Minas Gerais" },
-        { item: "00000000000002", name: "Universidade Federal de Minas Gerais" },
+        {
+          item: "00000000000001",
+          name: "Potifícia Universidade Católica de Minas Gerais",
+        },
+        {
+          item: "00000000000002",
+          name: "Universidade Federal de Minas Gerais",
+        },
         { item: "00000000000003", name: "Centro Universitário UNA" },
       ],
       options_radio: [
         { text: "Aluno", value: "first" },
         { text: "Professor", value: "second" },
       ],
-
-    }
+    };
   },
 
-  methods:{
+  methods: {
     // POST para realizar o cadastro de alunos e professores.
-    enviar:function(){
+    enviar: function () {
       console.log("Enviando... to the heeeell");
-      
-      if (this.form.confirmSenha != this.form.senha){
+
+      if (this.form.confirmSenha != this.form.senha) {
         alert("As senhas digitadas são diferentes.");
-      }else{
+      } else {
         // var new_name = document.getElementsByName("nome").value;
         // console.log(new_name);
-        if (this.selected_radio == 'first'){
-          axios
-          .post('/users/cadastro-aluno', {
-            cpfAluno: this.form.cpf,
-            senha: this.form.senha,
-            cnpjUniversidade: this.selected_university            
-          })
-          .then(function (response) {
-            if (response.data == "Aluno não existe")
-                  alert("Este aluno não existe!")
-            else if(response.data == "Aluno já cadastrado")
-                  alert("Este aluno já está cadastrado!")
-            else if(response.data == "Aluno cadastrado com sucesso"){
-                alert("Aluno cadastrado com sucesso!")
-                router.push('/')
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        }else{
 
-          axios
-          .post('/users/cadastro-professor', {  // ESTA URL DO POST PRECISA SER ALTERADA. 
-            cpfProfessor: this.form.cpf,
+        console.log(this.form.nome);
+        console.log(this.form.cnpj);
+        console.log(this.form.senha);
+
+        axios
+          .post("/users/cadastro-loja", {
+            nome: this.form.nome,
+            cnpj: this.form.cnpj,
             senha: this.form.senha,
-            cnpjUniversidade: this.selected_university
           })
           .then(function (response) {
-            if (response.data == "Professor não existe")
-                  alert("Este professor não existe!")
-            else if(response.data == "Professor já cadastrado")
-                  alert("Este professor já está cadastrado!")
-            else if(response.data == "Professor cadastrado com sucesso"){
-                   alert("Professor cadastrado com sucesso!")
-                   router.push('/')
+            if (response.data == "CNPJ já cadastrado")
+              alert("Este CNPJ encontra-se cadastrado!");
+            else if (response.data == "Aluno já cadastrado")
+              alert("Este aluno já está cadastrado!");
+            else if (response.data == "Aluno cadastrado com sucesso") {
+              alert("Aluno cadastrado com sucesso!");
+              router.push("/");
             }
           })
           .catch(function (error) {
             console.log(error);
           });
-        }
-        
       }
-      
-    }
-  }
-  
+    },
+  },
 };
-
 </script>
 
 <style>
@@ -160,7 +163,7 @@ export default {
   box-sizing: border-box;
 }
 
-.cadastro input[name="cpf"] {
+.cadastro input[name="cnpj"] {
   width: 40%;
   margin-left: 5%;
   border-radius: 50px;
@@ -263,6 +266,5 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
-
 </style>
 
