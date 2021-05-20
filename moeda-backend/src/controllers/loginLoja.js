@@ -7,7 +7,7 @@ exports.loginLojaParceira = (req, res) => {
   const senha = req.body.senha.substring(0,64);
   sqlQry.execSQLQuery(`SELECT * FROM lojaparceira WHERE Cnpj = '${cnpj}' AND Senha='${senha}';`,dataset=>{
     if(dataset === undefined){
-      res.send({success: false, message: 'Senha ou cpf incorretos', error: 404});
+      res.send({success: false, message: 'Cnpj ou senha incompletos', error: 404});
     } else
       res.status(200).send(dataset);
   });
