@@ -39,6 +39,8 @@ router.post('/users/search-matricula', searchs.filterAlunoMatricula);
 router.post('/users/search-name', searchs.filterBuscaNomeAluno);
 //ROTA PARA PROCURA DO ALUNO PARA OUTRO ALUNO PELO NOME E RETORNAR A MATRICULA
 router.post('/users/search-registration', searchs.filterBuscaNomeAlunoMatricula);
+//ROTA PARA RETORNAR A LISTA DE UNIVERSIDADES
+router.post('/users/search-all-university', searchs.filterBuscaNomeUniversidade);
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO
 router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
