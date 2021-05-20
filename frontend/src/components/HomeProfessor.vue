@@ -1,5 +1,6 @@
 <template>
   <div class="home-professor">
+    <component-to-re-render :key="componentKey" />
     <div class="grid">
       <header class="header">
         <div class="logo-homeAluno">
@@ -76,6 +77,7 @@
                 </div>
               </div>
             </div>
+            <button v-on:click="forceRerender()" id="button_transf" type="primary">Atualizar</button><br />
           </b-card-text>
           <br><br>
 
@@ -140,6 +142,7 @@ export default {
   },
 
   methods: {
+
     forceRerender() {
       this.componentKey += 1;
     },
