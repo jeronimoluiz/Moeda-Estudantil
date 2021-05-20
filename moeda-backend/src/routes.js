@@ -9,6 +9,7 @@ const transferController = require('./controllers/transfers');
 const historicController = require('./controllers/historic');
 const searchs = require('./controllers/tools/select');
 const storeLogin = require('./controllers/loginLoja');
+const storeRegistration = require('./controllers/cadastroLoja');
 
 router.get('/', (req, res) => res.json({ message: 'API working' }));
 
@@ -24,6 +25,9 @@ router.post('/users/login-loja', storeLogin.loginLojaParceira);
 router.post('/users/cadastro-aluno', studentController.registroAluno);
 //ROTA DO CADASTRO DO PROFESSOR
 router.post('/users/cadastro-professor', teacherController.registroProfessor);
+
+//ROTA DO CADASTRO DA LOJA
+router.post('/users/cadastro-loja', storeRegistration.CadastroLojaParceira);
 
 // ROTA DA PROCURA DO PROFESSOR
 router.post('/users/professor/search', searchs.filterAlunoCPF);
