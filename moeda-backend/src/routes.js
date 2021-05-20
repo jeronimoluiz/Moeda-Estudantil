@@ -8,6 +8,7 @@ const loginControllerProfessor = require('./controllers/loginProfessor');
 const transferController = require('./controllers/transfers');
 const historicController = require('./controllers/historic');
 const searchs = require('./controllers/tools/select');
+const storeLogin = require('./controllers/loginLoja');
 
 router.get('/', (req, res) => res.json({ message: 'API working' }));
 
@@ -15,6 +16,9 @@ router.get('/', (req, res) => res.json({ message: 'API working' }));
 router.post('/users/login-aluno', loginControllerAluno.loginAluno);
 //ROTA DO LOGIN DO PROFESSOR
 router.post('/users/login-professor', loginControllerProfessor.loginProfessor);
+
+//ROTA DO LOGIN DA LOJA
+router.post('/users/login-loja', storeLogin.loginLojaParceira);
 
 //ROTA DO CADASTRO DO ALUNO
 router.post('/users/cadastro-aluno', studentController.registroAluno);
