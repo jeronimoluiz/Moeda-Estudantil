@@ -1,13 +1,13 @@
 const { json } = require('body-parser');
 const sqlQry = require('../utils/mysql');
-const moment = require('moment');
+//const moment = require('moment');
 require('date-utils');
 
 exports.searchHistoricByDateStudent = (req, res) => {
   const numberOfDays = 14;
   const cpfStudent = req.body.cpf;
   let idStudent = 0;
-
+S
   // buscando o id do aluno
   sqlQry.execSQLQuery(`SELECT IDALUNO FROM aluno WHERE CPFALUNO ='${cpfStudent}';`, (dataset) => {
     idStudent = dataset.IDALUNO;
