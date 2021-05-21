@@ -10,6 +10,8 @@ const historicController = require('./controllers/historic');
 const searchs = require('./controllers/tools/select');
 const storeLogin = require('./controllers/loginLoja');
 const storeRegistration = require('./controllers/cadastroLoja');
+const vinculate = require('./controllers/vinculoLojaUniversidade');
+const { Router } = require('express');
 
 router.get('/', (req, res) => res.json({ message: 'API working' }));
 
@@ -17,7 +19,6 @@ router.get('/', (req, res) => res.json({ message: 'API working' }));
 router.post('/users/login-aluno', loginControllerAluno.loginAluno);
 //ROTA DO LOGIN DO PROFESSOR
 router.post('/users/login-professor', loginControllerProfessor.loginProfessor);
-
 //ROTA DO LOGIN DA LOJA
 router.post('/users/login-loja', storeLogin.loginLojaParceira);
 
@@ -25,9 +26,10 @@ router.post('/users/login-loja', storeLogin.loginLojaParceira);
 router.post('/users/cadastro-aluno', studentController.registroAluno);
 //ROTA DO CADASTRO DO PROFESSOR
 router.post('/users/cadastro-professor', teacherController.registroProfessor);
-
 //ROTA DO CADASTRO DA LOJA
 router.post('/users/cadastro-loja', storeRegistration.CadastroLojaParceira);
+//ROTA PARA CADASTRO DE UM VINCULO DA UMA LOJA A UMA UNIVERSIDADE
+router.post('/users/vincular-loja', vinculate.FazerOVinculoLojaUniversidade); 
 
 // ROTA DA PROCURA DO PROFESSOR
 router.post('/users/professor/search', searchs.filterAlunoCPF);
