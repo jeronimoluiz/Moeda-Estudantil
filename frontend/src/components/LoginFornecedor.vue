@@ -1,39 +1,41 @@
 <template>
-  <div class="container login">
-    <div class="row">
-      <!--Logo-->
-      <div class="col-12 logo-login">
-        <img src="../assets/logo.png" />
-      </div>
+  <div class="login-fornecedor">
+    <div class="container login">
+      <div class="row">
+        <!--Logo-->
+        <div class="col-12 logo-login">
+          <img src="../assets/logo.png" />
+        </div>
 
-      <!--Caixa de login-->
-      <div class="fornecedor">
-        <div class="col-lg-4 col-md-12 col-sm-12">
-          <div class="caixa-fornecedor">
-            <h1>LOGIN<br>FORNECEDOR</h1>
-            <form v-on:submit.prevent="enviar">
-              <input
-                id="campo"
-                v-model="form.cnpj"
-                type="text"
-                placeholder="CNPJ"
-                required
-              />
-              <input
-                id="campo"
-                v-model="form.senha"
-                type="password"
-                placeholder="Senha"
-                required
-              />
-              <button type="primary">Entrar</button>
-            </form>
-          </div>
-          <div class="link">
-            Ainda não é fornecedor?
-            <router-link to="/register-fornecedor" id="link-cadastrar"
-              >Cadastrar</router-link
-            >
+        <!--Caixa de login-->
+        <div class="fornecedor">
+          <div class="col-lg-4 col-md-12 col-sm-12">
+            <div class="caixa-fornecedor">
+              <h1>LOGIN<br>FORNECEDOR</h1>
+              <form v-on:submit.prevent="enviar">
+                <input
+                  id="campo"
+                  v-model="form.cnpj"
+                  type="text"
+                  placeholder="CNPJ"
+                  required
+                />
+                <input
+                  id="campo"
+                  v-model="form.senha"
+                  type="password"
+                  placeholder="Senha"
+                  required
+                />
+                <button type="primary">Entrar</button>
+              </form>
+            </div>
+            <div class="link">
+              Ainda não é fornecedor?
+              <router-link to="/register-fornecedor" id="link-cadastrar"
+                >Cadastrar</router-link
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -88,10 +90,18 @@ export default {
 </script>
 
 <style>
+
+.login-fornecedor{
+  background-image: url("../assets/bg_fornecedores.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
 .fornecedor{
-    align-content: center;
-    margin-top: 5rem;
-    margin-left: 30rem;
+  align-content: center;
+  margin-top: 5rem;
+  margin-left: 30rem;
 }
 .login {
   min-height: 85vh;

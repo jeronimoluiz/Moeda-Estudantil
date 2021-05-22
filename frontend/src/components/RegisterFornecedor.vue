@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="register-fornecedor">
     <b-img
       :src="require('../assets/logo.png')"
       class="image-fluid"
@@ -129,6 +129,14 @@ export default {
 </script>
 
 <style>
+
+.register-fornecedor {
+  background-image: url("../assets/bg_fornecedores.jpg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
 .card {
   position: relative;
   transform: translate(0%, 25%);
