@@ -39,11 +39,11 @@
             </div>
             <div class="field">
               <label for="preco">Preço: </label>
-              <input type="number" name="preco" id="preco" min="50" max="10000" required/>
+              <input type="number" name="preco" id="preco" placeholder="Valor minimo - 50 | Valor maximo - 10000" min="50" max="10000" required/>
             </div>
-            <div class="field">
-                <label for="">Imagem:</label>
-                <label for="foto-capa" class="labelfoto">Escolher aquivo</label>
+            <div class="fieldFoto">
+                <label for="">Imagem:</label><br>
+                <label for="foto-capa" id="labelFoto" class="labelfoto">Escolher aquivo</label>
                 <input type="file" name="foto-capa" id="foto-capa" required>
             </div>
             <input type="submit" name="enviar" value="Enviar">
@@ -132,20 +132,29 @@ export default {
     margin: 15px 0;
 }
 .field label{
-    padding-left: 10px;
-    font-size: 1.1em;
+    padding-left: 10px;    
     display: block;
     width: 100%;
     font-family: "Bebas Neue";
     color: #ffbf03;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
+
+.fieldFoto{    
+    padding-left: 10px;    
+    display: block;
+    width: 100%;
+    font-family: "Bebas Neue";
+    color: #ffbf03;
+    font-size: 2rem;
+}
+
 input[type=text],
 input[type=number],
 textarea{
     width: 50%;
     padding-left: 10px;
-    height: 30px;
+    height: 50px;
     line-height: 30px;
     border-radius: 15px;
     border: 1px solid #ccc;
@@ -154,33 +163,50 @@ textarea{
 input[type=file]{
     display: none;
 }
-.labelfoto{
-    width: 50px;
-    align-items: center;
-    background-color: #333;
-    color: #FFF;
-    text-transform: uppercase;
-    text-align: center;
-    display: block;
-    margin-top: 10px;
+
+.labelfoto{   
+    width: 51%;
+    padding-left: 10px;
+    color:rgb(255, 255, 255);
+    background-color: rgb(26, 24, 24);
+    border-radius: 15px;
     cursor: pointer;
 }
+
+#nome{
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#desc{
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#preco{
+   text-align: center;
+   font-size: 1.2rem;
+}
+
 textarea{
-    line-height: 20px;
+    line-height: 70px;
     padding: 10px;
     height: 90px;
     resize: none;
 }
+
 input[type=submit]{
-    display: block;
     background-color: #ccc;
+    color:blueviolet;
     height: 35px;
     border: none;
     outline: 0;
     cursor: pointer;
-    width: 100px;
-    margin: 0 auto;
+    width: 200px;
     text-align: center;
     border-radius: 15px;
+    margin-top: 40px;
+    font-size: 1.2rem;
 }
+
 </style>
