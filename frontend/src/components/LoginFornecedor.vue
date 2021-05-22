@@ -6,6 +6,12 @@
         <div class="col-12 logo-login">
           <img src="../assets/logo.png" />
         </div>
+        
+        <router-link to="/">
+          <div class="logo-loginForn">
+            <img src="../assets/moeda_fornecedor.png"/>
+          </div>
+        </router-link>
 
         <!--Caixa de login-->
         <div class="fornecedor">
@@ -96,6 +102,21 @@ export default {
   background-size: cover;
   width: 100vw;
   height: 100vh;
+}
+
+.logo-loginForn {
+  display: flex;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+}
+.logo-loginForn img {
+  position:relative;
+  width: 100px;
+  margin-left: 100%;
+  margin-top: -7%;
+  overflow:visible;
 }
 
 .fornecedor{

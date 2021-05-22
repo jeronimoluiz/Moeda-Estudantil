@@ -5,6 +5,14 @@
       <div class="col-12 logo-login">
         <img src="../assets/logo.png" />
       </div>
+
+      <!--Logo que leva para a página de login das lojas parceiras-->
+      <router-link to="/login-fornecedor">
+          <div class="logo-loginForn">
+            <img src="../assets/moeda_fornecedor.png"/>
+          </div>
+      </router-link>
+
       <!--Texto-->
       <div class="col-lg-8 texto">
         <p>Receba moedas ao realizar tarefas</p>
