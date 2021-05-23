@@ -2,16 +2,19 @@
   <div class="container login">
     <div class="row">
       <!--Logo-->
-      <div class="col-12 logo-login">
-        <img src="../assets/logo.png" />
-      </div>
+      <router-link to="/">
+          <div class="col-12 logo-login">
+            <img src="../assets/logo.png" />
+          </div>
+        </router-link>
+        
 
       <!--Logo que leva para a página de login das lojas parceiras-->
-      <router-link to="/login-fornecedor">
+      <!-- <router-link to="/login-fornecedor">
           <div class="logo-loginForn">
             <img src="../assets/moeda_fornecedor.png"/>
           </div>
-      </router-link>
+      </router-link> -->
 
       <!--Texto-->
       <div class="col-lg-8 texto">
@@ -37,6 +40,11 @@
           Ainda não tem cadastro?
           <router-link to="/register" id="link-cadastrar"
             >Cadastrar</router-link>
+        </div>
+        <div class="link">
+          É loja parceira?
+          <router-link to="/login-fornecedor" id="link-cadastrar"
+            >Login Parceiro</router-link>
         </div>
       </div>
     </div>

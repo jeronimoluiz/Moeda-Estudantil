@@ -1,12 +1,14 @@
 <template>
   <div class="main">
 
-    <b-img
-      :src="require('../assets/logo.png')"
-      class="image-fluid"
-      alt="Responsive image"
-      height="80%"
-    ></b-img>
+       <router-link to="/">
+      <b-img
+        :src="require('../assets/logo.png')"
+        class="image-fluid"
+        alt="Responsive image"
+        height="80%"
+      ></b-img>
+    </router-link>
 
     <div class="cadastro">
       <div class="card">

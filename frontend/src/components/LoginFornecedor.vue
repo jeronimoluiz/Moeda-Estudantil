@@ -3,15 +3,17 @@
     <div class="container login">
       <div class="row">
         <!--Logo-->
-        <div class="col-12 logo-login">
-          <img src="../assets/logo.png" />
-        </div>
-        
         <router-link to="/">
+          <div class="col-12 logo-login">
+            <img src="../assets/logo.png" />
+          </div>
+        </router-link>
+
+        <!-- <router-link to="/">
           <div class="logo-loginForn">
             <img src="../assets/moeda_fornecedor.png"/>
           </div>
-        </router-link>
+        </router-link> -->
 
         <!--Caixa de login-->
         <div class="fornecedor">
@@ -38,9 +40,16 @@
             </div>
             <div class="link">
               Ainda não é fornecedor?
-              <router-link to="/register-fornecedor" id="link-cadastrar"
-                >Cadastrar</router-link
-              >
+              <router-link to="/register-fornecedor" id="link-cadastrar">
+              Cadastrar
+              </router-link>
+            </div>
+
+            <div class="link">
+              É aluno ou professor?
+              <router-link to="/" id="link-cadastrar">
+              Clique aqui!
+              </router-link>
             </div>
           </div>
         </div>
@@ -121,8 +130,8 @@ export default {
 
 .fornecedor{
   align-content: center;
-  margin-top: 5rem;
-  margin-left: 30rem;
+  margin-top: 1.5vh;
+  margin-left: 30vw;
 }
 .login {
   min-height: 85vh;
