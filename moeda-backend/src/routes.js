@@ -11,6 +11,7 @@ const searchs = require('./controllers/tools/select');
 const storeLogin = require('./controllers/loginLoja');
 const storeRegistration = require('./controllers/cadastroLoja');
 const vinculate = require('./controllers/vinculoLojaUniversidade');
+const productRegistration = require('./controllers/cadastroDeProduto');
 const { Router } = require('express');
 
 router.get('/', (req, res) => res.json({ message: 'API working' }));
@@ -30,6 +31,8 @@ router.post('/users/cadastro-professor', teacherController.registroProfessor);
 router.post('/users/cadastro-loja', storeRegistration.CadastroLojaParceira);
 //ROTA PARA CADASTRO DE UM VINCULO DA UMA LOJA A UMA UNIVERSIDADE
 router.post('/users/vincular-loja', vinculate.FazerOVinculoLojaUniversidade); 
+//ROTA PARA CADASTRO DE UM PRODUTO EM UMA LOJA
+router.post('/users/store/product-register', productRegistration.CadastroProdutoNovo);
 
 // ROTA DA PROCURA DO PROFESSOR
 router.post('/users/professor/search', searchs.filterAlunoCPF);
