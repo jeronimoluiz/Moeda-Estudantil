@@ -5,7 +5,17 @@ exports.CadastroProdutoNovo = (req, res) => {
   const nome = req.body.nome.substring(0,100);
   const valor = parseInt(req.body.preco.substring(0,30));
   const loja = parseInt(req.body.idloja.substring(0,30));
-  sqlQry.execSQLQuery(`INSERT INTO produtosloja (NomeDoProduto, Preco, IdLoja) values ('${nome}','${valor}','${loja}');`,dataset=>{
+  const imagem = req.body.image.substring(0,100);
+  const descricao = req.body.descricao.substring(0,100)
+
+  if (descricao == undefined)
+    descricao = null;
+
+  if (imagem == undefined)
+    imagem = null;
+
+  sqlQry.execSQLQuery(`INSERT INTO produtosloja (NomeDoProduto, Preco, IdLoja, Imagem, Descricao) 
+                      values ('${nome}','${valor}','${loja}', '${imagem}','${descricao}');`,dataset=>{
     if(dataset === undefined){
       res.send({success: false, message: 'Ocorreu algum erro', error: 404});
     } else
