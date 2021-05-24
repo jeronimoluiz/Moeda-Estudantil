@@ -15,7 +15,7 @@ exports.CadastroProdutoNovo = (req, res) => {
     imagem = null;
 
   sqlQry.execSQLQuery(`INSERT INTO produtosloja (NomeDoProduto, Preco, IdLoja, Imagem, Descricao) 
-                      values ('${nome}','${valor}','${loja}', '${imagem}','${descricao}');`,dataset=>{
+                      values ('${nome}','${valor}','${loja}', 'LOAD_FILE(${imagem})','${descricao}');`,dataset=>{
     if(dataset === undefined){
       res.send({success: false, message: 'Ocorreu algum erro', error: 404});
     } else
