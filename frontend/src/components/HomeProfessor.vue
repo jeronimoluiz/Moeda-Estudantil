@@ -77,7 +77,7 @@
                 </div>
               </div>
             </div>
-            <button v-on:click="forceRerender()" id="button_transf">Atualizar</button><br />
+            <button v-on:click="forceRerender()" id="button_transf" type="primary">Atualizar</button><br />
           </b-card-text>
           <br><br>
 

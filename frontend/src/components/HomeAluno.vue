@@ -57,41 +57,91 @@
           >
             <!-- Conteudo do slide -->
             <!-- Slide 1 -->
-              <b-carousel-slide v-for="slide in slidesItem" v-bind:key="slide" class="slide">
-                <div class="row">
-                  <div class="col-6 imagem">
-                    <img src="../assets/xpicanha.jpg" />
-                  </div>
-                  <div class="col-6 descricao">
-                    <h1 class="titulo">{{slide.title}}</h1>
-                    <p class="preco"><strong>Preço: </strong>{{slide.price}}</p>
-                    <p class="descricao">
-                      <strong>Descrição: </strong>{{slide.description}}.
-                    </p>
-                  </div> 
+            <b-carousel-slide class="slide">
+              <div class="row">
+                <div class="col-6 imagem">
+                  <img src="../assets/xpicanha.jpg" />
                 </div>
-              </b-carousel-slide>
+                <div class="col-6 descricao">
+                  <h1 class="titulo">X-picanha</h1>
+                  <p class="preco"><strong>Preço: </strong>1000 moedas</p>
+                  <p class="descricao">
+                    <strong>Descrição: </strong>pão, hamburguer bovino 100g,
+                    alface, tomate, cebola, queijo cheddar.
+                  </p>
+                </div>
+              </div>
+            </b-carousel-slide>
+            <!-- Slide 2 -->
+            <b-carousel-slide class="slide">
+              <div class="row">
+                <div class="col-6 imagem">
+                  <img src="../assets/xpicanha.jpg" />
+                </div>
+                <div class="col-6 descricao">
+                  <h1 class="titulo">X-picanha</h1>
+                  <p class="preco"><strong>Preço: </strong>1000 moedas</p>
+                  <p class="descricao">
+                    <strong>Descrição: </strong>pão, hamburguer bovino 100g,
+                    alface, tomate, cebola, queijo cheddar.
+                  </p>
+                </div>
+              </div>
+            </b-carousel-slide>
+
+            <!-- Slide 3 -->
+            <b-carousel-slide class="slide">
+              <div class="row">
+                <div class="col-6 imagem">
+                  <img src="../assets/xpicanha.jpg" alt="" />
+                </div>
+                <div class="col-6 descricao">
+                  <h1 class="titulo">X-picanha</h1>
+                  <p class="preco"><strong>Preço: </strong>1000 moedas</p>
+                  <p class="descricao">
+                    <strong>Descrição: </strong>pão, hamburguer bovino 100g,
+                    alface, tomate, cebola, queijo cheddar.
+                  </p>
+                </div>
+              </div>
+            </b-carousel-slide>
           </b-carousel>
         </div>
         <!--Cards-->
         <div class="col-12 main-cards">
           <div class="row">
             <div class="col-4 cards">
-                <ul :style="gridStyle" class="card-list">
-                  <b-card
-                    v-for="card in cardsItem" v-bind:key="card"
-                    :title="card.title"
-                    tag="article"
-                    style="max-width: 20rem"
-                    class="mb-2"
-                  > 
-                    <b-card-text> {{card.price}} </b-card-text>
-                    <img src="../assets/vitamina-de-açai.png" class="img-card" />  
-                  </b-card>
-                  <!-- <li v-for="(card, index) in cards" v-bind:key="card" class="card-item">
-                    {{ index + 1 }}
-                  </li> -->
-                </ul>
+              <b-card
+                title="Vitamina de açai"
+                tag="article"
+                style="max-width: 20rem"
+                class="mb-2"
+              >
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
+              </b-card>
+            </div>
+            <div class="col-4 cards">
+              <b-card
+                title="Vitamina de açai"
+                tag="article"
+                style="max-width: 20rem"
+                class="mb-2"
+              >
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
+              </b-card>
+            </div>
+            <div class="col-4 cards">
+              <b-card
+                title="Vitamina de açai"
+                tag="article"
+                style="max-width: 20rem"
+                class="mb-2"
+              >
+                <b-card-text> 500 moedas </b-card-text>
+                <img src="../assets/vitamina-de-açai.png" class="img-card" />
+              </b-card>
             </div>
           </div>
         </div>
@@ -143,43 +193,7 @@ export default {
         nomeAlunoDestino_: "",
         valor_: "",
       },
-      cardsItem: [
-        {cards: 1,
-        title: "Açai",
-        price: "500"
-        },
-        {cards: 2,
-        title: "Açai",
-        price: "1000"
-        },
-        {cards: 3,
-        title: "Açai",
-        price: "1500"
-        },
-        {cards: 4,
-        title: "Açai",
-        price: "2000"
-        },
-      ],
-      slidesItem: [
-        {slide: 1,
-         title: "X-Picanha",
-         price: "500",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-         {slide: 2,
-         title: "X-Picanha",
-         price: "1000",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-         {slide: 3,
-         title: "X-Picanha",
-         price: "1500",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-      ],
-      images: [],
-      numberOfColumns: 3,
+
       componentKey: 0,
       nome_aluno: "",
       quant_moedas_aluno: "",
@@ -188,14 +202,6 @@ export default {
       cnpj: localStorage.getItem("cnpj"),
       alunos: [],
     };
-  },
-
-  computed: {
-    gridStyle() {
-      return {
-        gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(380px, 1fr))`
-      }
-    },
   },
 
   methods: {
@@ -439,7 +445,7 @@ export default {
   font-size: 2rem;
 }
 .cards {
-  padding-left: 0px;
+  padding-left: 60px;
 }
 
 .card-title {
@@ -507,18 +513,4 @@ export default {
   max-width: 300px;
   max-height: 200px;
 }
-
-.card-list {
-  display: grid;
-}
-
-.card-item {
-  padding: 2em;
-}
-
-ul {
-  margin-left:0.1vw;
-  list-style-type: none;
-}
-
 </style>
