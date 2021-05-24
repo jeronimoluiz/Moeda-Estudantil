@@ -114,11 +114,11 @@ export default {
           .then(function (response) {
             if (response.data == "CNPJ já cadastrado")
               alert("Este CNPJ encontra-se cadastrado!");
-            else if(response.data == "Houve algum erro, tenta novamente mais tarde")
-              alert("Houve algum erro, tenta novamente mais tarde!");
-            else if (response.data == "Loja cadastrada com sucesso") {
-              alert("Loja cadastrada com sucesso!");
-              router.push("/login-fornecedor");
+            else if (response.data == "Aluno já cadastrado")
+              alert("Este aluno já está cadastrado!");
+            else if (response.data == "Aluno cadastrado com sucesso") {
+              alert("Aluno cadastrado com sucesso!");
+              router.push("/");
             }
           })
           .catch(function (error) {
