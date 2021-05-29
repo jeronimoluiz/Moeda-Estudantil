@@ -99,3 +99,26 @@ exports.filterBuscaNomeUniversidade = (req, res) => {
     }
   });
 }
+
+//FUNÇÃO PARA RETORNAR OS PRODUTOS COM PREÇO INFERIOR A QUANTIDADE DE MOEDAS DO ALUNO
+exports.filterBuscaProdutos = (req, res) => {
+  const IDALUNO = req.body.ID;
+  sqlQry.execSQLQueryArrays(`SELECT  
+  produtosloja.NomeDoProduto,
+  produtosloja.Preco,
+  produtosloja.Imagem,
+  lojaparceira.NomeDaLoja
+  FROM produtosloja 
+  LEFT JOIN lojaparceira ON produtosloja.idLoja = lojaparceira.idLojaParceira 
+  LEFT JOIN aluno ON produtosloja.preco < aluno.moedas
+  where aluno.IDALUNO =${IDALUNO}
+  ORDER BY produtosloja.Preco;`, (dataset) => {
+    if (dataset === undefined) {
+      res.send({ success: false, message: 'Ocorreu algum erro', error: 404 });
+    } else
+      res.status(200).send(dataset);
+  });
+}
+
+
+

@@ -46,6 +46,9 @@ router.post('/users/search-name', searchs.filterBuscaNomeAluno);
 router.post('/users/search-registration', searchs.filterBuscaNomeAlunoMatricula);
 //ROTA PARA RETORNAR A LISTA DE UNIVERSIDADES
 router.post('/users/search-all-university', searchs.filterBuscaNomeUniversidade);
+//ROTA PARA OS PRODUTOS DISPONIVEIS PARA O ALUNO
+router.post('/users/search-produtos', searchs.filterBuscaProdutos);
+
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO
 router.post('/users/moeda-aluno', searchs.filterMoedaAluno);
