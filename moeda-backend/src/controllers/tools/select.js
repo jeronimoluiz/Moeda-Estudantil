@@ -102,7 +102,7 @@ exports.filterBuscaNomeUniversidade = (req, res) => {
 
 //FUNÇÃO PARA RETORNAR OS PRODUTOS COM PREÇO INFERIOR A QUANTIDADE DE MOEDAS DO ALUNO
 exports.filterBuscaProdutos = (req, res) => {
-  const IDALUNO = req.body.ID;
+  const cpfAluno = req.body.cpf.substring(0, 100);
   sqlQry.execSQLQueryArrays(`SELECT  
   produtosloja.NomeDoProduto,
   produtosloja.Preco,
@@ -111,7 +111,7 @@ exports.filterBuscaProdutos = (req, res) => {
   FROM produtosloja 
   LEFT JOIN lojaparceira ON produtosloja.idLoja = lojaparceira.idLojaParceira 
   LEFT JOIN aluno ON produtosloja.preco < aluno.moedas
-  where aluno.IDALUNO =${IDALUNO}
+  where aluno.CPFALUNO =${cpfAluno}
   ORDER BY produtosloja.Preco;`, (dataset) => {
     if (dataset === undefined) {
       res.send({ success: false, message: 'Ocorreu algum erro', error: 404 });
