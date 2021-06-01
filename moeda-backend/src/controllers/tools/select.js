@@ -106,7 +106,8 @@ exports.filterBuscaProdutos = (req, res) => {
   sqlQry.execSQLQueryArrays(`SELECT  
   produtosloja.NomeDoProduto,
   produtosloja.Preco,
-  produtosloja.Imagem,
+  CONVERT(produtosloja.Imagem USING utf8) AS Imagem,
+  produtosloja.Descricao,
   lojaparceira.NomeDaLoja
   FROM produtosloja 
   LEFT JOIN lojaparceira ON produtosloja.idLoja = lojaparceira.idLojaParceira 
