@@ -60,13 +60,13 @@
               <b-carousel-slide v-for="slide in slidesItem" v-bind:key="slide" class="slide">
                 <div class="row">
                   <div class="col-6 imagem">
-                    <img src="../assets/xpicanha.jpg" />
+                    <img :src="slide.Imagem" />
                   </div>
                   <div class="col-6 descricao">
-                    <h1 class="titulo">{{slide.title}}</h1>
-                    <p class="preco"><strong>Preço: </strong>{{slide.price}}</p>
+                    <h1 class="titulo">{{slide.NomeDoProduto}}</h1>
+                    <p class="preco"><strong>Preço: </strong>{{slide.Preco}}</p>
                     <p class="descricao">
-                      <strong>Descrição: </strong>{{slide.description}}.
+                      <strong>Descrição: </strong>{{slide.Descricao}}.
                     </p>
                   </div> 
                 </div>
@@ -80,13 +80,13 @@
                 <ul :style="gridStyle" class="card-list">
                   <b-card
                     v-for="card in cardsItem" v-bind:key="card"
-                    :title="card.title"
+                    :title="card.NomeDoProduto"
                     tag="article"
                     style="max-width: 20rem"
                     class="mb-2"
                   > 
-                    <b-card-text> {{card.price}} </b-card-text>
-                    <img src="../assets/vitamina-de-açai.png" class="img-card" />  
+                    <b-card-text> {{card.Preco}} </b-card-text>
+                    <img :src="card.Imagem" class="img-card" />  
                   </b-card>
                   <!-- <li v-for="(card, index) in cards" v-bind:key="card" class="card-item">
                     {{ index + 1 }}
@@ -143,44 +143,22 @@ export default {
         nomeAlunoDestino_: "",
         valor_: "",
       },
-      cardsItem: [
-        {cards: 1,
-        title: "Açai",
-        price: "500"
-        },
-        {cards: 2,
-        title: "Açai",
-        price: "1000"
-        },
-        {cards: 3,
-        title: "Açai",
-        price: "1500"
-        },
-        {cards: 4,
-        title: "Açai",
-        price: "2000"
-        },
-      ],
-      slidesItem: [
-        {slide: 1,
-         title: "X-Picanha",
-         price: "500",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-         {slide: 2,
-         title: "X-Picanha",
-         price: "1000",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-         {slide: 3,
-         title: "X-Picanha",
-         price: "1500",
-         description: "pão, hamburguer bovino 100g, alface, tomate, cebola, queijo cheddar."
-         },
-      ],
-      images: [],
+      cardsItem: [],
+      slidesItem: [],
       numberOfColumns: 3,
       componentKey: 0,
+      slide: {slide: 0,
+              title: "",
+              price: "",
+              image: [],
+              shopName: "",
+              description: ""},
+      cards: {card: 0,
+              title: "",
+              price: "",
+              image: [],
+              shopName: "",
+              description: ""},
       nome_aluno: "",
       quant_moedas_aluno: "",
       nome_Aluno: localStorage.getItem("nome_Aluno"),
@@ -295,10 +273,39 @@ export default {
           .catch((error) => error);
       }
     },
+
+    produtos: function() {
+      function selectProdutos(cpf) {
+        console.log(cpf)
+        return axios
+          .post("/users/search-produtos", {
+            cpf,
+          })
+          .then((response) => response.data)
+          .catch((error) => error);
+      }
+
+      selectProdutos(this.cpf_Aluno)
+        .then((data)=> {
+          for (var i = 0; i != data.length; i++){
+            if (i < 3) { 
+              data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem) 
+              console.log(data[i].Imagem)
+              this.slidesItem.push(data[i]);
+            }
+            else {
+              data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem)
+              this.cardsItem.push(data[i]);
+            }
+          }
+        })
+        .catch((error) => console.log(error))
+    }
   },
 
   mounted() {
     this.quantMoedasAluno();
+    this.produtos();
   },
 };
 </script>
