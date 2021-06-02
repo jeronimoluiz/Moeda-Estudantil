@@ -45,6 +45,19 @@ const routes = [
       import( "../components/HomeProfessor.vue"),
   },
   {
+    path: "/produtos-loja",
+    name: "produtosLoja",
+    props: true,
+    component: () =>
+      import("../components/ProdutosLoja.vue"),
+  },
+  {
+    path: "/lojas",
+    name: "lojas",
+    component: () =>
+      import("../components/ListaLojas.vue"),
+  },
+  {
     path: "/transacoes-aluno",
     name: "transacoesAluno",
     component: () =>

@@ -1,12 +1,13 @@
 <template>
   <div class="home-aluno">
+    <component-to-re-render :key="componentKey" />
     <div class="grid">
       <header class="header">
         <div class="logo-homeAluno">
           <img src="../assets/logo.png" />
         </div>
         <span class="pesquisa">
-          <div class="pcompleta">
+          <!-- <div class="pcompleta">
             <input
               type="text"
               class="caixa-pesquisa"
@@ -16,7 +17,7 @@
             <span class="icone-pesquisa">
               <i class="fas fa-search"></i>
             </span>
-          </div>
+          </div> -->
         </span>
         <div class="infos">
           <div class="user-infos">
@@ -37,6 +38,7 @@
               ><span class="sr-only">Search</span>
             </template>
             <b-dropdown-item href="#" to="/transacoes-aluno">Histórico de Transferências</b-dropdown-item>
+            <b-dropdown-item href="#" to="/lojas">Lojas</b-dropdown-item>
             <b-dropdown-item href="#" to="/">Sair</b-dropdown-item>
           </b-dropdown>
         </div>
@@ -59,12 +61,17 @@
             <!-- Slide 1 -->
               <b-carousel-slide v-for="slide in slidesItem" v-bind:key="slide" class="slide">
                 <div class="row">
+                  
                   <div class="col-6 imagem">
-                    <img :src="slide.Imagem" />
+                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: slide.NomeDaLoja }}"> -->
+                    <img :src="slide.Imagem"/>
+                    <!-- </router-link> -->
                   </div>
+                  
                   <div class="col-6 descricao">
                     <h1 class="titulo">{{slide.NomeDoProduto}}</h1>
                     <p class="preco"><strong>Preço: </strong>{{slide.Preco}}</p>
+                    <p class="loja"><strong>Loja: </strong>{{slide.NomeDaLoja}}</p>
                     <p class="descricao">
                       <strong>Descrição: </strong>{{slide.Descricao}}.
                     </p>
@@ -76,7 +83,7 @@
         <!--Cards-->
         <div class="col-12 main-cards">
           <div class="row">
-            <div class="col-4 cards">
+              <div class="col-4 cards"> 
                 <ul :style="gridStyle" class="card-list">
                   <b-card
                     v-for="card in cardsItem" v-bind:key="card"
@@ -85,14 +92,17 @@
                     style="max-width: 20rem"
                     class="mb-2"
                   > 
-                    <b-card-text> {{card.Preco}} </b-card-text>
-                    <img :src="card.Imagem" class="img-card" />  
+                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
+                      <b-card-text> {{card.Preco}} </b-card-text>
+                      <img :src="card.Imagem" class="img-card" /> 
+                      <b-card-text> Loja: {{card.NomeDaLoja}} </b-card-text> 
+                    <!-- </router-link> -->
                   </b-card>
                   <!-- <li v-for="(card, index) in cards" v-bind:key="card" class="card-item">
                     {{ index + 1 }}
                   </li> -->
                 </ul>
-            </div>
+              </div>
           </div>
         </div>
       </div>
@@ -290,7 +300,6 @@ export default {
           for (var i = 0; i != data.length; i++){
             if (i < 3) { 
               data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem) 
-              console.log(data[i].Imagem)
               this.slidesItem.push(data[i]);
             }
             else {
