@@ -48,6 +48,12 @@ router.post('/users/search-registration', searchs.filterBuscaNomeAlunoMatricula)
 router.post('/users/search-all-university', searchs.filterBuscaNomeUniversidade);
 //ROTA PARA OS PRODUTOS DISPONIVEIS PARA O ALUNO
 router.post('/users/search-produtos', searchs.filterBuscaProdutos);
+//ROTA PARA LISTAR TODAS AS LOJAS
+router.post('/users/search-allStores', searchs.filterAlunoBuscaLoja);
+//ROTA PARA O ALUNO SELECIONAR UM PRODUTO DE DETERMINADA LOJA
+router.post('/users/search-produtoLoja', searchs.filterAlunoSelecionaProduto);
+//ROTA PARA RETORNAR A LISTA DE PRODUTOS DE TODAS AS LOJAS
+router.post('/users/search-TodosProdutos', searchs.filterListaLojas);
 
 
 // ROTA DE RETORNO DE MOEDAS DO ALUNO

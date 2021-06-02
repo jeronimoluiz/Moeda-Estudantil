@@ -121,5 +121,53 @@ exports.filterBuscaProdutos = (req, res) => {
   });
 }
 
+//FUNÇÃO PARA RETORNAR A LISTA DE TODAS AS LOJAS
+exports.filterAlunoBuscaLoja = (req, res) => {
+  sqlQry.execSQLQueryArrays(`SELECT NomeDaLoja FROM lojaparceira;`, (dataset) => {
+    if (dataset === undefined) {
+      res.send({ success: false, message: 'Ocorreu algum erro', error: 404 });
+    } else
+      res.status(200).send(dataset);
+  });
+}
+
+//FUNÇÃO PARA SELECIONAR TODOS OS PRODUTOS DE DETERMINADA LOJA
+exports.filterAlunoSelecionaProduto = (req, res) =>{
+  const nomeDaLoja = req.body.nomeLoja.substring(0,100);
+  sqlQry.execSQLQueryArrays(`SELECT  
+  produtosloja.NomeDoProduto,
+  produtosloja.Preco,
+  CONVERT(produtosloja.Imagem USING utf8) AS Imagem,
+  produtosloja.Descricao,
+  lojaparceira.NomeDaLoja
+  FROM produtosloja 
+  LEFT JOIN lojaparceira ON produtosloja.idLoja = lojaparceira.idLojaParceira 
+  where lojaparceira.NomeDaLoja= '${nomeDaLoja}'
+  ORDER BY produtosloja.Preco ;`, (dataset) => {
+    if (dataset === undefined) {
+      res.send({ success: false, message: 'Ocorreu algum erro', error: 404 });
+    } else
+      res.status(200).send(dataset);
+  });
+}
+
+//FUNÇÃO PARA RETORNAR TODOS OS PRODUTOS DE TODAS AS LOJAS
+exports.filterListaLojas = (req, res) => {
+  sqlQry.execSQLQueryArrays(`SELECT  
+  produtosloja.NomeDoProduto,
+  produtosloja.Preco,
+  CONVERT(produtosloja.Imagem USING utf8) AS Imagem,
+  lojaparceira.NomeDaLoja
+  FROM produtosloja 
+  LEFT JOIN lojaparceira ON produtosloja.idLoja = lojaparceira.idLojaParceira 
+  ORDER BY produtosloja.Preco; `, (dataset) => {
+    if (dataset === undefined) {
+      res.send({ success: false, message: 'Ocorreu algum erro', error: 404 });
+    } else
+      res.status(200).send(dataset);
+  });
+}
+
+
 
 
