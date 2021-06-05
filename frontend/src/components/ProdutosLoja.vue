@@ -1,5 +1,6 @@
 <template>
   <div class="home-aluno">
+    <component-to-re-render :key="componentKey" />
     <div class="grid">
       <header class="header">
         <div class="logo-homeAluno">
@@ -35,8 +36,9 @@
     </div>
     <div class="container main">
       <div class="row">
-        <h1>Produtos</h1>
-        
+        <div class="title">
+          <h1>Produtos</h1>
+        </div>
         <!--Cards-->
         <div class="col-12 main-cards">
           <div class="row">
@@ -49,14 +51,11 @@
                     style="max-width: 20rem"
                     class="mb-2"
                   > 
-                    <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000">
+                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
                       <b-card-text> {{card.Preco}} </b-card-text>
                       <img :src="card.Imagem" class="img-card" /> 
-                    </router-link>
+                    <!-- </router-link> -->
                   </b-card>
-                  <!-- <li v-for="(card, index) in cards" v-bind:key="card" class="card-item">
-                    {{ index + 1 }}
-                  </li> -->
                 </ul>
               </div>
           </div>
@@ -73,8 +72,7 @@ import axios from "../service/config.js";
 export default {
     name: "produtosLoja",
     props: {
-        nomeDaLoja: Object,
-        cnpjLoja: Object
+        nomeDaLoja: Object
     },
     data(){
         return {
@@ -127,10 +125,31 @@ export default {
                 })
                 .catch((error) => console.log(error));
         },
+
+        selectTodosProdutos: function () {
+          function retornaProdutos(nomeDaLoja) {
+            return axios
+            .post('/users/search-produtoLoja', {
+              nomeLoja: nomeDaLoja
+            })
+            .then((response) => response.data)
+            .catch((error) => error);
+          }
+
+          retornaProdutos(this.nomeDaLoja)
+            .then((data) => {
+              for (var i = 0; i != data.length; i++){
+                data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem)
+                this.cardsItem.push(data[i]);
+              }
+            })
+            .catch((error) => console.log(error));
+        }
     },
 
     mounted() {
         this.quantMoedasAluno();
+        this.selectTodosProdutos();
     }
 }
 
@@ -141,6 +160,7 @@ export default {
   background-color: #034f6d;
   width: 100vw;
   height: 100vh;
+  overflow: auto;
 }
 .grid {
   display: grid;
@@ -352,6 +372,34 @@ export default {
 ul {
   margin-left:0.1vw;
   list-style-type: none;
+}
+
+.title{
+  padding:1%;
+  color: #ffbf03;
+  align-items: center;
+  font-family: bebas neue;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #ffbf03; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #ffbf03; 
 }
 
 </style>

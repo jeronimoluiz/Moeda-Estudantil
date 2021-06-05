@@ -1,5 +1,6 @@
 <template>
   <div class="home-aluno">
+    <component-to-re-render :key="componentKey" />
     <div class="grid">
       <header class="header">
         <div class="logo-homeAluno">
@@ -34,14 +35,15 @@
     </div>
     <div class="container main">
       <div class="row">
-        <h1>Lojas</h1>
-        
+        <div class="title">
+          <h1>Lojas</h1>
+        </div>
         <b-list-group flush class="list my--3">
           <b-list-group-item v-for="member in lojas"
             :key="member"
-            class="list-group-item px-0">
+            class="list-group-item px-3">
             <b-row align-v="center" >
-              <b-col md="auto">{{member.nome}}
+              <b-col class="nameloja" md="auto">{{member.NomeDaLoja}}
               </b-col>
               <b-col class="ml--2">
                   <h4 class="mb-0">
@@ -50,8 +52,8 @@
                   <small></small>
               </b-col>
               <b-col md="auto">
-                  <b-button type="button" size="sm" variany="primary" 
-                  :to="{ name: 'produtosLoja', params: { nomeDaLoja: member.nome, cnpjLoja:member.cnpj }}">Produtos</b-button>
+                  <b-button id="buttonProd" type="button" size="sm" variany="primary"
+                  :to="{ name: 'produtosLoja', params: { nomeDaLoja: member.NomeDaLoja}}">Produtos</b-button>
               </b-col>
             </b-row>
           </b-list-group-item>
@@ -75,15 +77,7 @@ export default {
             cardsItem: [],
             numberOfColumns: 3,
             componentKey: 0,
-            lojas: [{
-                nome: "Praçai",
-                cnpj: 11111111111111,
-              },
-              {
-                nome: "Choco Lattel",
-                cnpj: 11111111111110,
-              }
-            ],
+            lojas: [],
             nome_aluno: "",
             quant_moedas_aluno: "",
             nome_Aluno: localStorage.getItem("nome_Aluno"),
@@ -122,10 +116,28 @@ export default {
                 })
                 .catch((error) => console.log(error));
         },
+
+        selectLojas: function(){
+          function retornaLojas() {
+            return axios 
+            .post('/users/search-allStores')
+            .then((response) => response.data)
+            .catch((error) => error);
+          }
+
+          retornaLojas()
+          .then((data) => {
+            for (var i = 0; i != data.length; i++)
+              this.lojas.push(data[i]);
+          })
+          .catch((error) => console.log(error));
+        }
+
     },
 
     mounted() {
         this.quantMoedasAluno();
+        this.selectLojas();
     }
 }
 
@@ -136,6 +148,7 @@ export default {
   background-color: #034f6d;
   width: 100vw;
   height: 100vh;
+  overflow: auto;
 }
 .grid {
   display: grid;
@@ -240,7 +253,7 @@ export default {
   background-color: #ffbf03;
 }
 .main {
-  padding-top: 70px;
+  padding-top:70px;
   background-color: #034f6d;
 }
 .main-carousel h1 {
@@ -347,6 +360,51 @@ export default {
 ul {
   margin-left:0.1vw;
   list-style-type: none;
+}
+
+.title{
+  padding:1%;
+  color: #ffbf03;
+  align-items: center;
+  font-family: bebas neue;
+}
+
+#buttonProd{
+  font-family: bebas neue;
+  background: #ffbf03;
+  border: none;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+}
+
+.nameloja{
+  font-family: bebas neue;
+  font-size: 20px;
+}
+
+.list-group-item{
+  background-color: #D8D8D8;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #ffbf03; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #ffbf03; 
 }
 
 </style>

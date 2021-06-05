@@ -44,7 +44,7 @@
         </div>
       </header>
     </div>
-    <div class="container main">
+    <div class="container main" id="center">
       <div class="row">
         <div class="col-12 main-carousel">
           <h1>Recomendados</h1>
@@ -98,9 +98,6 @@
                       <b-card-text> Loja: {{card.NomeDaLoja}} </b-card-text> 
                     <!-- </router-link> -->
                   </b-card>
-                  <!-- <li v-for="(card, index) in cards" v-bind:key="card" class="card-item">
-                    {{ index + 1 }}
-                  </li> -->
                 </ul>
               </div>
           </div>
@@ -216,17 +213,8 @@ export default {
         alert("Quantidade de moedas inválidas!");
         return;
       }
-      /*var cpf_int2 = parseInt(this.form.cpf_AlunoDestino, 10);
-      if (cpf_int2 == this.cpf_Aluno) {
-        alert("Não pode enviar para si mesmo!");
-        return;
-      }*/
       function atualizaMoedas(cpfAluno1, matricula, valor) {
         var matriculaAluno2 = matricula.replace(/\D+/g, "");
-        // console.log(cpfAluno1);
-        // console.log(cpfAluno2);
-        // console.log(valor);
-        // console.log(matricula)
         return axios
           .post("/tranfer/aluno-aluno-matricula", {
             cpfAluno1,
@@ -324,6 +312,7 @@ export default {
   background-color: #034f6d;
   width: 100vw;
   height: 100vh;
+  overflow: scroll;
 }
 .grid {
   display: grid;
@@ -428,9 +417,14 @@ export default {
   background-color: #ffbf03;
 }
 .main {
-  padding-top: 70px;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
   background-color: #034f6d;
 }
+#center {
+  overflow: scoll;
+}
+
 .main-carousel h1 {
   text-align: center;
   padding-top: 20px;
@@ -535,6 +529,27 @@ export default {
 ul {
   margin-left:0.1vw;
   list-style-type: none;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    background: #ffbf03; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #ffbf03; 
 }
 
 </style>
