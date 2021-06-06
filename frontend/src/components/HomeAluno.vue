@@ -37,7 +37,9 @@
               <b-avatar id="avatar" variant="warning" size="3.5rem"></b-avatar
               ><span class="sr-only">Search</span>
             </template>
-            <b-dropdown-item href="#" to="/transacoes-aluno">Histórico de Transferências</b-dropdown-item>
+            <b-dropdown-item href="#" to="/transacoes-aluno"
+              >Histórico de Transferências</b-dropdown-item
+            >
             <b-dropdown-item href="#" to="/lojas">Lojas</b-dropdown-item>
             <b-dropdown-item href="#" to="/">Sair</b-dropdown-item>
           </b-dropdown>
@@ -59,50 +61,87 @@
           >
             <!-- Conteudo do slide -->
             <!-- Slide 1 -->
-              <b-carousel-slide v-for="slide in slidesItem" v-bind:key="slide" class="slide">
-                <div class="row">
-                  
-                  <div class="col-6 imagem">
-                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: slide.NomeDaLoja }}"> -->
-                    <img :src="slide.Imagem"/>
-                    <!-- </router-link> -->
-                  </div>
-                  
-                  <div class="col-6 descricao">
-                    <h1 class="titulo">{{slide.NomeDoProduto}}</h1>
-                    <p class="preco"><strong>Preço: </strong>{{slide.Preco}}</p>
-                    <p class="loja"><strong>Loja: </strong>{{slide.NomeDaLoja}}</p>
-                    <p class="descricao">
-                      <strong>Descrição: </strong>{{slide.Descricao}}.
-                    </p>
-                  </div> 
+            <b-carousel-slide
+              v-for="slide in slidesItem"
+              v-bind:key="slide"
+              class="slide"
+            >
+              <div class="row">
+                <div class="col-6 imagem">
+                  <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: slide.NomeDaLoja }}"> -->
+                  <img :src="slide.Imagem" />
+                  <!-- </router-link> -->
                 </div>
-              </b-carousel-slide>
+
+                <div class="col-6 descricao">
+                  <h1 class="titulo">{{ slide.NomeDoProduto }}</h1>
+                  <p class="preco"><strong>Preço: </strong>{{ slide.Preco }}</p>
+                  <p class="loja">
+                    <strong>Loja: </strong>{{ slide.NomeDaLoja }}
+                  </p>
+                  <p class="descricao">
+                    <strong>Descrição: </strong>{{ slide.Descricao }}.
+                  </p>
+                </div>
+
+                <div id="botao-comprar" class="row">
+                  <b-button id="comprar" @click="$bvModal.show('modal-scoped')"
+                    >Comprar</b-button
+                  >
+                </div>
+              </div>
+            </b-carousel-slide>
+            <b-modal id="modal-scoped">
+              <template hide-header-close>
+                <p>Você realmente deseja resgatar este item?</p>
+              </template>
+
+              <template #modal-footer="{ cancel, hide }">
+                <b-button size="sm" variant="danger" @click="cancel()">
+                  Cancelar
+                </b-button>
+                <!-- Button with custom close trigger value -->
+                <b-button
+                  id="finalizar-comprar"
+                  size="sm"
+                  variant="outline-secondary"
+                  @click="hide('forget')"
+                >
+                  Comprar
+                </b-button>
+              </template>
+            </b-modal>
           </b-carousel>
         </div>
         <!--Cards-->
         <div class="col-12 main-cards">
           <div class="row">
-              <div class="col-4 cards"> 
-                <ul :style="gridStyle" class="card-list">
-                  <b-card
-                    v-for="card in cardsItem" v-bind:key="card"
-                    :title="card.NomeDoProduto"
-                    tag="article"
-                    style="max-width: 20rem"
-                    class="mb-2"
-                  > 
-                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
-                      <b-card-text> {{card.Preco}} </b-card-text>
-                      <img :src="card.Imagem" class="img-card" /> 
-                      <b-card-text> Loja: {{card.NomeDaLoja}} </b-card-text> 
-                    <!-- </router-link> -->
-                  </b-card>
-                </ul>
-              </div>
+            <div class="col-4 cards">
+              <ul :style="gridStyle" class="card-list">
+                <b-card
+                  v-for="card in cardsItem"
+                  v-bind:key="card"
+                  :title="card.NomeDoProduto"
+                  tag="article"
+                  style="max-width: 20rem"
+                  class="mb-2"
+                >
+                  <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
+                  <b-card-text> {{ card.Preco }} </b-card-text>
+                  <img :src="card.Imagem" class="img-card" />
+                  <b-card-text> Loja: {{ card.NomeDaLoja }} </b-card-text>
+                  <!-- </router-link> -->
+
+                  <b-button id="comprar" @click="$bvModal.show('modal-scoped')"
+                    >Comprar</b-button
+                  >
+                </b-card>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+      <div></div>
     </div>
 
     <div class="grid-footer">
@@ -154,18 +193,6 @@ export default {
       slidesItem: [],
       numberOfColumns: 3,
       componentKey: 0,
-      slide: {slide: 0,
-              title: "",
-              price: "",
-              image: [],
-              shopName: "",
-              description: ""},
-      cards: {card: 0,
-              title: "",
-              price: "",
-              image: [],
-              shopName: "",
-              description: ""},
       nome_aluno: "",
       quant_moedas_aluno: "",
       nome_Aluno: localStorage.getItem("nome_Aluno"),
@@ -178,8 +205,8 @@ export default {
   computed: {
     gridStyle() {
       return {
-        gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(380px, 1fr))`
-      }
+        gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(380px, 1fr))`,
+      };
     },
   },
 
@@ -272,9 +299,9 @@ export default {
       }
     },
 
-    produtos: function() {
+    produtos: function () {
       function selectProdutos(cpf) {
-        console.log(cpf)
+        console.log(cpf);
         return axios
           .post("/users/search-produtos", {
             cpf,
@@ -284,20 +311,19 @@ export default {
       }
 
       selectProdutos(this.cpf_Aluno)
-        .then((data)=> {
-          for (var i = 0; i != data.length; i++){
-            if (i < 3) { 
-              data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem) 
+        .then((data) => {
+          for (var i = 0; i != data.length; i++) {
+            if (i < 3) {
+              data[i].Imagem = "data:image/jpg;base64, ".concat(data[i].Imagem);
               this.slidesItem.push(data[i]);
-            }
-            else {
-              data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem)
+            } else {
+              data[i].Imagem = "data:image/jpg;base64, ".concat(data[i].Imagem);
               this.cardsItem.push(data[i]);
             }
           }
         })
-        .catch((error) => console.log(error))
-    }
+        .catch((error) => console.log(error));
+    },
   },
 
   mounted() {
@@ -308,6 +334,25 @@ export default {
 </script>
 
 <style>
+#botao-comprar {
+  width: 160px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-left: 40vh;
+}
+
+.close {
+  display: none;
+}
+
+#comprar {
+  background-color: #ffbf03;
+}
+
+#finalizar-comprar {
+  background-color: #ffbf03;
+}
+
 .home-aluno {
   background-color: #034f6d;
   width: 100vw;
@@ -434,7 +479,8 @@ export default {
 }
 .slide {
   width: 100%;
-  height: 400px;
+  height: 500px;
+  padding: 30px;
 }
 .imagem img {
   max-width: 100%;
@@ -527,29 +573,28 @@ export default {
 }
 
 ul {
-  margin-left:0.1vw;
+  margin-left: 0.1vw;
   list-style-type: none;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  width: 6px;
+  height: 6px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    background: #ffbf03; 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background: #ffbf03;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: #ffbf03; 
+  background: #ffbf03;
 }
-
 </style>

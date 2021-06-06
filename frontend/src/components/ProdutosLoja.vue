@@ -6,8 +6,7 @@
         <div class="logo-homeAluno">
           <img src="../assets/logo.png" />
         </div>
-        <span class="pesquisa">
-        </span>
+        <span class="pesquisa"> </span>
         <div class="infos">
           <div class="user-infos">
             <span class="NomeAluno">{{ nome_Aluno }}</span>
@@ -28,7 +27,9 @@
             </template>
             <b-dropdown-item href="#" to="/home-aluno">Home</b-dropdown-item>
             <b-dropdown-item href="#" to="/lojas">Lojas</b-dropdown-item>
-            <b-dropdown-item href="#" to="/transacoes-aluno">Histórico de Transferências</b-dropdown-item>
+            <b-dropdown-item href="#" to="/transacoes-aluno"
+              >Histórico de Transferências</b-dropdown-item
+            >
             <b-dropdown-item href="#" to="/">Sair</b-dropdown-item>
           </b-dropdown>
         </div>
@@ -42,22 +43,46 @@
         <!--Cards-->
         <div class="col-12 main-cards">
           <div class="row">
-              <div class="col-4 cards"> 
-                <ul :style="gridStyle" class="card-list">
-                  <b-card
-                    v-for="card in cardsItem" v-bind:key="card"
-                    :title="card.NomeDoProduto"
-                    tag="article"
-                    style="max-width: 20rem"
-                    class="mb-2"
-                  > 
-                    <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
-                      <b-card-text> {{card.Preco}} </b-card-text>
-                      <img :src="card.Imagem" class="img-card" /> 
-                    <!-- </router-link> -->
-                  </b-card>
-                </ul>
-              </div>
+            <div class="col-4 cards">
+              <ul :style="gridStyle" class="card-list">
+                <b-card
+                  v-for="card in cardsItem"
+                  v-bind:key="card"
+                  :title="card.NomeDoProduto"
+                  tag="article"
+                  style="max-width: 20rem"
+                  class="mb-2"
+                >
+                  <!-- <router-link :to="{ name: 'produtosLoja', params: { nomeDaLoja: card.NomeDaLoja }}" style="display: inline-block;text-decoration:none;color:#000"> -->
+                  <b-card-text> {{ card.Preco }} </b-card-text>
+                  <img :src="card.Imagem" class="img-card" />
+                  <!-- </router-link> -->
+                  <b-button id="comprar" @click="$bvModal.show('modal-scoped')">
+                    Comprar
+                  </b-button>
+                </b-card>
+                <b-modal id="modal-scoped">
+                  <template hide-header-close>
+                    <p>Você realmente deseja resgatar este item?</p>
+                  </template>
+
+                  <template #modal-footer="{ cancel, hide }">
+                    <b-button size="sm" variant="danger" @click="cancel()">
+                      Cancelar
+                    </b-button>
+                    <!-- Button with custom close trigger value -->
+                    <b-button
+                      id="finalizar-comprar"
+                      size="sm"
+                      variant="outline-secondary"
+                      @click="hide('forget')"
+                    >
+                      Comprar
+                    </b-button>
+                  </template>
+                </b-modal>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -70,92 +95,97 @@
 import axios from "../service/config.js";
 
 export default {
-    name: "produtosLoja",
-    props: {
-        nomeDaLoja: Object
+  name: "produtosLoja",
+  props: {
+    nomeDaLoja: Object,
+  },
+  data() {
+    return {
+      cardsItem: [],
+      numberOfColumns: 3,
+      componentKey: 0,
+      cards: {
+        card: 0,
+        title: "",
+        price: "",
+        image: [],
+        shopName: "",
+        description: "",
+      },
+      nome_aluno: "",
+      quant_moedas_aluno: "",
+      nome_Aluno: localStorage.getItem("nome_Aluno"),
+      cpf_Aluno: localStorage.getItem("cpfAluno"),
+      cnpj: localStorage.getItem("cnpj"),
+    };
+  },
+
+  computed: {
+    gridStyle() {
+      return {
+        gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(380px, 1fr))`,
+      };
     },
-    data(){
-        return {
-            cardsItem: [],
-            numberOfColumns: 3,
-            componentKey: 0,
-            cards: {
-                card: 0,
-                title: "",
-                price: "",
-                image: [],
-                shopName: "",
-                description: ""
-            },
-            nome_aluno: "",
-            quant_moedas_aluno: "",
-            nome_Aluno: localStorage.getItem("nome_Aluno"),
-            cpf_Aluno: localStorage.getItem("cpfAluno"),
-            cnpj: localStorage.getItem("cnpj"),
-        }
-    },
-    
-    computed: {
-        gridStyle() {
-            return {
-                gridTemplateColumns: `repeat(${this.numberOfColumns}, minmax(380px, 1fr))`
-            }
-        },
+  },
+
+  methods: {
+    forceRerender() {
+      this.componentKey += 1;
     },
 
-    methods: {
-        forceRerender() {
-            this.componentKey += 1;
-        },
+    quantMoedasAluno: function () {
+      function retornaQuantMoeda(cpf) {
+        return axios
+          .post("/users/moeda-aluno", {
+            cpf: cpf,
+          })
+          .then((response) => response.data)
+          .catch((error) => error);
+      }
 
-        quantMoedasAluno: function () {
-            function retornaQuantMoeda(cpf) {
-                return axios
-                .post("/users/moeda-aluno", {
-                    cpf: cpf,
-                })
-                .then((response) => response.data)
-                .catch((error) => error);
-            }
+      retornaQuantMoeda(this.cpf_Aluno)
+        .then((data) => {
+          console.log(data.moedas);
+          this.quant_moedas_aluno = "<p>" + data.moedas + "</p>";
+        })
+        .catch((error) => console.log(error));
+    },
 
-             retornaQuantMoeda(this.cpf_Aluno)
-                .then((data) => {
-                    console.log(data.moedas);
-                    this.quant_moedas_aluno = "<p>" + data.moedas + "</p>";
-                })
-                .catch((error) => console.log(error));
-        },
+    selectTodosProdutos: function () {
+      function retornaProdutos(nomeDaLoja) {
+        return axios
+          .post("/users/search-produtoLoja", {
+            nomeLoja: nomeDaLoja,
+          })
+          .then((response) => response.data)
+          .catch((error) => error);
+      }
 
-        selectTodosProdutos: function () {
-          function retornaProdutos(nomeDaLoja) {
-            return axios
-            .post('/users/search-produtoLoja', {
-              nomeLoja: nomeDaLoja
-            })
-            .then((response) => response.data)
-            .catch((error) => error);
+      retornaProdutos(this.nomeDaLoja)
+        .then((data) => {
+          for (var i = 0; i != data.length; i++) {
+            data[i].Imagem = "data:image/jpg;base64, ".concat(data[i].Imagem);
+            this.cardsItem.push(data[i]);
           }
-
-          retornaProdutos(this.nomeDaLoja)
-            .then((data) => {
-              for (var i = 0; i != data.length; i++){
-                data[i].Imagem = 'data:image/jpg;base64, '.concat(data[i].Imagem)
-                this.cardsItem.push(data[i]);
-              }
-            })
-            .catch((error) => console.log(error));
-        }
+        })
+        .catch((error) => console.log(error));
     },
+  },
 
-    mounted() {
-        this.quantMoedasAluno();
-        this.selectTodosProdutos();
-    }
-}
-
+  mounted() {
+    this.quantMoedasAluno();
+    this.selectTodosProdutos();
+  },
+};
 </script>
 
 <style>
+
+#comprar {
+  background-color: #ffbf03;
+  margin-top: 20px;
+}
+
 .home-aluno {
   background-color: #034f6d;
   width: 100vw;
@@ -370,36 +400,35 @@ export default {
 }
 
 ul {
-  margin-left:0.1vw;
+  margin-left: 0.1vw;
   list-style-type: none;
 }
 
-.title{
-  padding:1%;
+.title {
+  padding: 1%;
   color: #ffbf03;
   align-items: center;
   font-family: bebas neue;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  width: 6px;
+  height: 6px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-    background: #ffbf03; 
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  background: #ffbf03;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-    background: #ffbf03; 
+  background: #ffbf03;
 }
-
 </style>
