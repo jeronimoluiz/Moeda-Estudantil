@@ -2,9 +2,20 @@
   <div class="container login">
     <div class="row">
       <!--Logo-->
-      <div class="col-12 logo-login">
-        <img src="../assets/logo.png" />
-      </div>
+      <router-link to="/">
+          <div class="col-12 logo-login">
+            <img src="../assets/logo.png" />
+          </div>
+        </router-link>
+        
+
+      <!--Logo que leva para a página de login das lojas parceiras-->
+      <!-- <router-link to="/login-fornecedor">
+          <div class="logo-loginForn">
+            <img src="../assets/moeda_fornecedor.png"/>
+          </div>
+      </router-link> -->
+
       <!--Texto-->
       <div class="col-lg-8 texto">
         <p>Receba moedas ao realizar tarefas</p>
@@ -12,7 +23,7 @@
         <p>Resgate recompensas</p>
       </div>
       <!--Caixa de login-->
-      <div class="col-lg-4 col-md-12 col-sm-12 area-caixa">
+      <div class="col-lg-4 col-md-12 col-sm-12">
         <div class="caixa">
           <h1>LOGIN</h1>
           <form v-on:submit.prevent="enviar">
@@ -29,6 +40,11 @@
           Ainda não tem cadastro?
           <router-link to="/register" id="link-cadastrar"
             >Cadastrar</router-link>
+        </div>
+        <div class="link">
+          É loja parceira?
+          <router-link to="/login-fornecedor" id="link-cadastrar"
+            >Login Parceiro</router-link>
         </div>
       </div>
     </div>
@@ -56,6 +72,7 @@ export default {
   methods: {
     enviar: function () {
       console.log("Verificando...");
+      
       if (this.selected_radio == "first") {
         axios
           .post("/users/login-aluno", {
@@ -69,6 +86,7 @@ export default {
             else if (response.data.CPFALUNO !== "") {
               localStorage.setItem("cpfAluno", response.data.CPFALUNO);
               localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
+              localStorage.setItem("nome_Aluno", response.data.NOME);
               router.push("/home-aluno");
             }
           })
@@ -87,7 +105,8 @@ export default {
               alert("Dados incorretos, por favor tente novamente!");
             else if (response.data.CPFPROFESSOR !== "") {
               localStorage.setItem("cpfProfessor", response.data.CPFPROFESSOR);
-              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE);
+              localStorage.setItem("cnpj", response.data.CNPJUNIVERSIDADE); 
+              localStorage.setItem("nome_Professor", response.data.NOME);
               router.push("/home-professor");
             }
           })
@@ -125,9 +144,6 @@ export default {
     font-size: 4rem;
     color: #ffbf03;
   }
-  .area-caixa{
-    padding-top: 50px;
-  }
   .caixa{
     background: #f2f2f2;
     border-radius: 2vw;
@@ -147,6 +163,7 @@ export default {
     font-size: 1.2rem;
     padding: 0.8rem;
     border: 0.1rem solid #dddddd;
+    outline: 0;
   }
   .titulo-botao {
     font-family: "Bebas Neue";
