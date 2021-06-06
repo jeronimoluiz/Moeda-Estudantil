@@ -7,7 +7,7 @@
         </div>
         <div class="infos">
           <div class="forn-infos">
-            <span class="NomeForn">{{ nome_Forn }} </span>
+            <span class="NomeForn">{{ nome_loja }} </span>
           </div>
           <b-dropdown
             size="lg"
@@ -28,18 +28,18 @@
       <div class="row">
         <div class="col-12 main-cadastra">
           <h1>Cadastrar Produto</h1>
-          <form class="cadastro-produto" method="post">
+          <form class="cadastro-produto" method="post" v-on:submit.prevent="enviar">
             <div class="field">
               <label for="nome">Nome do Produto:</label>
-              <input type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required/>
+              <input v-model="form.nome" type="text" id="nome" name="nome" placeholder="Digite o nome do produto" required/>
             </div>
             <div class="field">
               <label for="desc">Descrição do produto: </label>
-              <textarea name="desc" id="desc" placeholder="Digite a descrição do produto" required></textarea>
+              <textarea v-model="form.desc" name="desc" id="desc" placeholder="Digite a descrição do produto" required></textarea>
             </div>
             <div class="field">
               <label for="preco">Preço: </label>
-              <input type="number" name="preco" id="preco" placeholder="Valor minimo - 50 | Valor maximo - 10000" min="50" max="10000" required/>
+              <input v-model="form.preco" type="number" name="preco" id="preco" placeholder="Valor minimo - 50 | Valor maximo - 10000" min="50" max="10000" required/>
             </div>
             <div class="fieldFoto">
                 <label for="">Imagem:</label><br>
@@ -55,14 +55,47 @@
 </template>
 
 <script>
+import axios from "../service/config.js";
+import router from "../router";
 export default {
   data() {
     return {
-      file1: null,
-      file2: null,
+      form: {
+        nome: "",
+        desc: "",
+        preco: "",
+      },
+      nome_loja: localStorage.getItem("nome_loja"),
+      idloja: localStorage.getItem("idloja"),
     };
   },
-};
+  methods: {
+    // POST para realizar o cadastro de produto.
+    enviar: function () {
+      console.log("Enviando... to the heeeell");
+      
+      axios
+        .post("/users/store/product-register", {
+          nome: this.form.nome,
+          preco: this.form.preco,
+          descricao: this.form.desc,
+          idloja: this.idloja, 
+          image: this.idloja,
+        })
+        .then(function (response) {
+          if (response.data == "Ocorreu algum erro")
+            alert("Ocorreu um erro!");
+          else {
+            alert("Produto cadastrado com sucesso!");
+            router.push("/home-fornecedor");
+          }
+        })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    },
+  };
 </script>
 
 <style>

@@ -91,8 +91,9 @@ export default {
               alert("Dados incorretos, por favor tente novamente!");
             else if (response.data.Cnpj !== "") {
               localStorage.setItem("nome_loja", response.data.NomeDaLoja);
+              localStorage.setItem("idloja", response.data.idLojaParceira);
               localStorage.setItem("cnpj", response.data.Cnpj);
-              //localStorage.setItem("nome_Aluno", response.data.NOME);
+              
               router.push("/home-fornecedor");
             }
           })
